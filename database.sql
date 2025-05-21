@@ -1,0 +1,6 @@
+CREATE TABLE customer_accounts(
+	id SERIAL PRIMARY KEY,
+	username VARCHAR(20) NOT NULL UNIQUE,
+	email VARCHAR(100) NOT NULL UNIQUE,
+	password VARCHAR(100)
+);
