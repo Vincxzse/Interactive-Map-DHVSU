@@ -34,15 +34,12 @@ function HomePage() {
     var currentNavImg = notSelectedNavImg;
 
     function handleNavSelectionOne() {
-        console.log('Handler One Success');
         setNavSelection(1);
     }
     function handleNavSelectionTwo() {
-        console.log('Handler Two Success');
         setNavSelection(2);
     }
     function handleNavSelectionThree() {
-        console.log('Handler Three Success');
         setNavSelection(3);
     }
     

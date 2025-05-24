@@ -27,7 +27,17 @@ function LoginForm(props) {
             if (response.ok) {
                 alert("Login Successful!");
                 localStorage.setItem("userID", data.user.id);
-                navigate("/home");
+                localStorage.setItem("userName", data.user.username);
+                localStorage.setItem("userRole", data.user.role);
+                localStorage.setItem("totalUsers", data.totalUsers);
+                localStorage.setItem("totalAdmins", data.totalAdmins);
+                localStorage.setItem("totalSuperAdmins", data.totalSuperAdmins);
+                localStorage.setItem("totalOverall", data.totalOverall);
+                if (data.user.role === 'super admin' || data.user.role === 'admin') {
+                    navigate("/admin");
+                } else {
+                    navigate("/home");
+                }
             } else {
                 alert(data.message || "Login failed.");
             }

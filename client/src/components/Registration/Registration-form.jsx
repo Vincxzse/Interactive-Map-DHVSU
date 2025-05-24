@@ -29,8 +29,11 @@ function RegistrationForm(props) {
 
                     if (response.ok) {
                         const result = await response.json()
-                        console.log(result);
-                        navigate('/home');
+                        if (result.role === 'super admin') {
+                            navigate('/admin');
+                        } else {
+                            navigate('/home');
+                        }
                     } else {
                         const error = await response.json();
                         alert(error.message || "Registration failed.");
