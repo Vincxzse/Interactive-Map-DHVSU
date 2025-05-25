@@ -20,7 +20,7 @@ function TotalUsersCard(props) {
         user: getSecondDecimalDigit((props.totalUsers / props.totalOverall) * 100),
     }
 
-  const COLORS = ["#8B3A3A", "#FFBB28", "#00C49F"];
+  const COLORS = ["#8B3A3A", "#F4A261", "#2A9D8F"];
 
   return (
     <div className="flex flex-col w-full h-full shadow-[0_0_10px_5px_rgba(0,0,0,0.2)] col-start-1 col-end-4 rounded-xl items-center justify-center">
@@ -60,7 +60,7 @@ function TotalUsersCard(props) {
                         <p>• Admin:</p>
                         <p>{dataPercentage.admin} %</p>
                     </div>
-                    <div className="grid grid-cols-2 text-[#00C49F] w-[90%] gap-2">
+                    <div className="grid grid-cols-2 text-[#2A9D8F] w-[90%] gap-2">
                         <p>• Customers:</p>
                         <p>{dataPercentage.user} %</p>
                     </div>

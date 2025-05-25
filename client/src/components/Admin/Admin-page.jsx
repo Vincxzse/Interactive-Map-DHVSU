@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DashboardPage from "./Dashboard/Dashboard-page.jsx";
+import ManageUsersPage from "./Manage-Users/Manage-Users-Page.jsx";
 import dlcLogo from '../../assets/logo.png';
 import closeImg from '../../assets/close.png';
 import defaultAvatar from '../../assets/default_avatar.png';
@@ -105,7 +106,7 @@ function AdminPage() {
                 </div>
                 <div className="bg-[#f0f8ff] p-10 h-full w-full text-slate-800">
                     {/* Continue Here */}
-                    {navigationSelector === 1 ? <DashboardPage /> : null}
+                    {navigationSelector === 1 ? <DashboardPage /> : navigationSelector === 2 ? <ManageUsersPage /> : null}
                 </div>
             </div>
         </>

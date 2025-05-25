@@ -50,22 +50,31 @@ app.post("/login", async(req, res) => {
         );
 
         // Get numbers of users / admins / super admins / overall
+
+        // Get All Customers
         const totalUsersQuery = await pool.query(
             "SELECT * FROM customer_accounts WHERE role = 'user'"
         )
         const totalUsers = totalUsersQuery.rows.length;
+
+        // Get All Admins
         const totalAdminsQuery = await pool.query(
             "SELECT * FROM customer_accounts WHERE role = 'admin'"
         );
         const totalAdmins = totalAdminsQuery.rows.length;
+
+        // Get All Super Admins
         const totalSuperAdminsQuery = await pool.query(
             "SELECT * FROM customer_accounts WHERE role = 'super admin'"
         );
         const totalSuperAdmins = totalSuperAdminsQuery.rows.length;
+
+        // Get All Users
         const totalOverallQuery = await pool.query(
             "SELECT * FROM customer_accounts"
         );
         const totalOverall = totalOverallQuery.rows.length;
+        const overallUsers = totalOverallQuery.rows;
 
         if (userQuery.rows.length === 0) {
             return res.status(400).json({ message: "User not found." });
@@ -85,6 +94,7 @@ app.post("/login", async(req, res) => {
             totalAdmins: totalAdmins,
             totalSuperAdmins: totalSuperAdmins,
             totalOverall: totalOverall,
+            overallUsers: overallUsers,
         });
         
     } catch (err) {

@@ -33,6 +33,7 @@ function LoginForm(props) {
                 localStorage.setItem("totalAdmins", data.totalAdmins);
                 localStorage.setItem("totalSuperAdmins", data.totalSuperAdmins);
                 localStorage.setItem("totalOverall", data.totalOverall);
+                localStorage.setItem("overallUsers", JSON.stringify(data.overallUsers));
                 if (data.user.role === 'super admin' || data.user.role === 'admin') {
                     navigate("/admin");
                 } else {
