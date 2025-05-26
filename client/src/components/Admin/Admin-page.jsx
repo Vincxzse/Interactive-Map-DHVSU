@@ -14,7 +14,6 @@ function AdminPage() {
     const userName = localStorage.getItem("userName");
 
     const [navigationSelector, setNavigationSelector] = useState(1);
-    const notSelected = { background: 'transparent' };
     const selected = { background: '#FFD700', color: '#000' };
     const notSelectedImg = { filter: 'invert(100)' }
     const navigate = useNavigate();
@@ -37,7 +36,7 @@ function AdminPage() {
 
     return(
         <>
-            <div className="grid grid-cols-[1fr_5fr] h-full w-full font-sans text-white">
+            <div className="grid grid-cols-[1fr_5fr] h-full w-full font-sans text-white overflow-hidden">
                 <div className="grid grid-rows-[2fr_0fr_3fr_0fr_6fr_0fr_1fr] bg-[#8B3A3A]">
                     <div className="grid grid-cols-[1fr_1fr_1fr]">
                         <div className="flex items-start justify-center">
@@ -105,7 +104,6 @@ function AdminPage() {
                     </div>
                 </div>
                 <div className="bg-[#f0f8ff] p-10 h-full w-full text-slate-800">
-                    {/* Continue Here */}
                     {navigationSelector === 1 ? <DashboardPage /> : navigationSelector === 2 ? <ManageUsersPage /> : null}
                 </div>
             </div>
