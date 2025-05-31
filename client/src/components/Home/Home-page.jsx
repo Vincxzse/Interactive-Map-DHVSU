@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import SettingsPage from "./Settings-Page/Settings-page.jsx";
+import MapPage from "./Map/Map-Page.jsx";
 import dhvsuLogo from "../../assets/logo.png";
 import mapIcon from "../../assets/map.png";
 import signOutIcon from "../../assets/logout.png";
@@ -45,15 +46,6 @@ function HomePage() {
     
     let content;
 
-    switch (navSelection) {
-        case 2:
-            content = <SettingsPage />
-            break;
-        default:
-            content = null;
-            break;
-    }
-
     return (
         <Fragment>
             <div className="flex flex-col w-full h-full items-center bg-white font-sans">
@@ -75,37 +67,34 @@ function HomePage() {
                 <div className="grid xl:grid-cols-[1fr_4fr] w-full h-full">
                     <div className="hidden xl:flex flex-col bg-white w-full items-center justify-center">
                         <div className="flex flex-col w-[calc(100%-50px)] h-[calc(100%-50px)] items-center justify-start gap-5">
-                            <a
-                                href="#"
-                                className="flex flex-row items-center justify-start h-15 w-full px-5 rounded-2xl gap-2 text-xl tracking-wide"
+                            <button
+                                className="flex flex-row items-center justify-start h-15 w-full px-5 rounded-2xl gap-2 text-xl tracking-wide cursor-pointer"
                                 style={navSelection === 1 ? selectedNav : notSelectedNav}
                                 onClick={ handleNavSelectionOne }
                             >
                                 <img src={ mapIcon } style={navSelection === 1 ? selectedNavImg : notSelectedNavImg} className="h-8 w-auto" />
                                 Map
-                            </a>
-                            <a
-                                href="#"
-                                className="flex flex-row items-center justify-start h-15 w-full px-5 rounded-2xl gap-2 text-xl tracking-wide"
+                            </button>
+                            <button
+                                className="flex flex-row items-center justify-start h-15 w-full px-5 rounded-2xl gap-2 text-xl tracking-wide cursor-pointer"
                                 style={navSelection === 2 ? selectedNav : notSelectedNav}
                                 onClick={ handleNavSelectionTwo }
                             >
                                 <img src={ settingsIcon } style={navSelection === 2 ? selectedNavImg : notSelectedNavImg} className="h-8 w-auto" />
                                 Settings
-                            </a>
-                            <a
-                                href="#"
-                                className="flex flex-row items-center justify-start h-15 w-full px-5 rounded-2xl gap-2 text-xl tracking-wide"
+                            </button>
+                            <button
+                                className="flex flex-row items-center justify-start h-15 w-full px-5 rounded-2xl gap-2 text-xl tracking-wide cursor-pointer"
                                 style={navSelection === 3 ? selectedNav : notSelectedNav}
                                 onClick={handleSignout}
                             >
                                 <img src={ signOutIcon } style={ notSelectedNavImg } className="h-8 w-auto" />
                                 Sign Out
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center bg-gray-300">
-                        {content}
+                        {navSelection === 1 ? <MapPage /> : navSelection === 2 ? <SettingsPage /> : null}
                     </div>
                 </div>
             </div>
