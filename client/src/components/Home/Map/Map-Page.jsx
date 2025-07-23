@@ -71,6 +71,11 @@ function MapPage() {
             this.player.setCollideWorldBounds(true);
             this.physics.add.collider(this.player, this.room1);
             this.physics.add.collider(this.player, this.guard);
+
+            // Follow Camera On The User
+            this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
+            this.cameras.main.setBounds(0, 0, 2000, 2000);
+            this.physics.world.setBounds(0, 0, 2000, 2000);
         }
 
         update() {
