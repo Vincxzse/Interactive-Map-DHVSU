@@ -4,7 +4,7 @@ import LoginPage from './components/login/Login-page.jsx';
 import RegistrationPage from './components/Registration/Registration-page.jsx';
 import HomePage from './components/Home/Home-page.jsx';
 // import AdminPage from './components/Admin/Admin-page.jsx';
-import AdminPage from './components/Admin/Overview/Admin-Page(New).jsx';
+import AdminPage from './components/Admin/Admin-Main/Admin-Page(New).jsx';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
             <Route path='/' element={<LoginPage />} />
             <Route path='/register' element={<RegistrationPage />} />
             <Route path='/home' element={<HomePage />} />
-            <Route path='/admin' element={<AdminPage />} />
+            <Route path='/admin/*' element={<AdminPage />} />
           </Routes>
         </main>
       </Router>
