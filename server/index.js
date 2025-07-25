@@ -90,7 +90,7 @@ app.post("/login", async(req, res) => {
         res.status(200).json({ 
             message: "Login Successful", 
             user: user, 
-            totalUsers: totalUsers, 
+            totalUsers: totalUsers,
             totalAdmins: totalAdmins,
             totalSuperAdmins: totalSuperAdmins,
             totalOverall: totalOverall,

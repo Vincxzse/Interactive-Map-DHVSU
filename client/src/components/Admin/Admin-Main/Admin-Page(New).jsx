@@ -7,7 +7,7 @@ import UserManagement from "./User-Management/User-Management";
 function AdminPage() {
     return (
         <>
-            <div className="flex flex-col w-full h-full items-start justify-start bg-[#1E232C]">
+            <div className="flex flex-col w-screen h-screen items-start justify-start bg-[#1E232C]">
                 <div className="flex flex-col w-full h-[10%]">
                     <NavigationSection />
                 </div>

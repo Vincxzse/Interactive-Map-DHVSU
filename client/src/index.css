@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+.scroll-overlay {
+  overflow-y: scroll;
+
+  /* Prevent scrollbar from taking layout space */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.4) transparent; /* Firefox */
+}
+
+/* Chrome, Edge, Safari */
+.scroll-overlay::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+  position: absolute; /* Not standard but harmless */
+}
+
+.scroll-overlay::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-overlay::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+}
