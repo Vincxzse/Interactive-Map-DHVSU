@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import { useState } from "react";
 import keyIcon from "../../assets/key.png";
 import userIcon from "../../assets/user.png";
 import emailIcon from "../../assets/mail.png";
@@ -52,7 +52,7 @@ function RegistrationForm(props) {
     }
 
     return(
-        <Fragment>
+        <>
             <form onSubmit={onSubmitForm} className='flex flex-col w-[80%] xl:w-[60%] gap-3 my-5'>
                 <div className='flex flex-row border-1 justify-center h-13 w-full py-3 px-5 border-transparent bg-slate-200 items-center rounded-md'>
                     <img src={ emailIcon } className='h-full invert-[50%]'/>
@@ -74,7 +74,7 @@ function RegistrationForm(props) {
                     <input type="submit" value='SIGN UP' className="flex items-center justify-center h-15 border-2 border-[#D32F2F] bg-[#D32F2F] text-white text-xl rounded-full mt-5 w-[50%] hover:bg-transparent font-bold hover:text-black transition-[.1s] cursor-pointer" />
                 </div>
             </form>
-        </Fragment>
+        </>
     );
 }
 

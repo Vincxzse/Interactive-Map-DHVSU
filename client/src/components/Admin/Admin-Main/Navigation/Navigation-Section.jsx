@@ -7,7 +7,7 @@ function NavigationSection() {
 
     return (
         <>
-            <div className="grid grid-cols-5 w-full h-full px-5 py-1 gap-5 bg-[#2B313C] border-b-3 border-[#E14C4C]">
+            <div className="grid grid-cols-5 w-full h-full px-5 py-1 gap-5 bg-[#2B313C] ">
                 <div className="flex flex-row col-span-2">
                     <HeaderContainer
                         imgHeight = '50px'

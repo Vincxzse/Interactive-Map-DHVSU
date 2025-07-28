@@ -5,7 +5,7 @@
 
   /* Prevent scrollbar from taking layout space */
   scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(0, 0, 0, 0.4) transparent; /* Firefox */
+  scrollbar-color: #A0A7B4 transparent; /* Firefox */
 }
 
 /* Chrome, Edge, Safari */
@@ -20,6 +20,6 @@
 }
 
 .scroll-overlay::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #A0A7B4;
   border-radius: 6px;
 }

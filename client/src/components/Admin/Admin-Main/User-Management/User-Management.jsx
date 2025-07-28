@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import UserData from "./User-Data";
 import searchIcon from "../../../../assets/search.png";
 
-function UserManagement() {
+function UserManagement(props) {
     const [searchQuery, setSearchQuery] = useState('');
     const [category, setCategory] = useState('All Users');
     const handleChange = (e) => {
@@ -23,14 +23,19 @@ function UserManagement() {
     : null;
     const finalFilteredUsers = filteredUsers.filter(user => user.username?.toLowerCase().includes(searchQuery.toLowerCase()) || user.email?.toLowerCase().includes(searchQuery.toLowerCase()));
 
+    const sendData = () => {
+        const data = true;
+        props.onSendData(data);
+    }
+
     return (
         <>
             <div className="grid grid-cols-3 grid-rows-1 w-full h-full gap-2">
                 <div className="col-span-1 p-5 rounded-lg bg-[#2B313C]">
                     <select
                         id="category"
-                        value={category}
-                        onChange={handleChange}
+                        value={ category }
+                        onChange={ handleChange }
                         className="flex items-center justify-center w-full h-auto text-start text-white cursor-pointer bg-[#353B45] focus:outline-0"
                     >
                         <option value="All Users">All Users</option>
@@ -45,18 +50,23 @@ function UserManagement() {
                         <div className="col-span-2 flex flex-row items-center justify-center w-full h-full">
                             <div className="flex flex-row w-[calc(100%-10px)] h-[calc(100%-10px)] bg-[#353B45] border border-[#3F464F] rounded-full">
                                 <div className="flex items-center justify-center h-full w-[15%]">
-                                    <img src={ searchIcon } className="object-cover h-8 w-auto invert-50" />
+                                    <img src={ searchIcon } className="object-cover h-5 w-auto invert-50" />
                                 </div>
                                 <input 
                                     type="text" 
                                     placeholder="Search by Username or Email"
                                     value={ searchQuery }
                                     onChange={ handleSearchChange }
-                                    className="w-[85%] h-full text-lg placeholder-[#A0A7B4] text-white focus:outline-0"
+                                    className="w-[85%] h-full text-md placeholder-[#A0A7B4] text-white focus:outline-0"
                                 />
                             </div>
                         </div>
-                        <button className="col-span-1 flex flex-row items-center justify-center w-full h-[calc(100%-10px)] text-white rounded-full border-3 border-[#4CA7E1] bg-[#4CA7E1] text-lg">+ Create User</button>
+                        <button 
+                            className="col-span-1 flex flex-row items-center justify-center w-full h-[calc(100%-10px)] text-white rounded-full border-3 border-[#4CA7E1] bg-[#4CA7E1] text-lg cursor-pointer"
+                            onClick={ sendData }
+                        >
+                            + Create User
+                        </button>
                     </div>
                     {/* User tables */}
                     <div className="flex flex-col w-full h-[90%] overflow-hidden">
@@ -67,13 +77,13 @@ function UserManagement() {
                         </div>
                         <div className="flex flex-col w-full h-full overflow-y-scroll scroll-overlay">
                             {category === 'Super Admins' ? (
-                                    <UserData categoryArray = { finalFilteredUsers } title = 'Super Admins' />
+                                    <UserData categoryArray = { finalFilteredUsers } title = 'Super Admins' onSendData = { props.onSendData2 } userInfo={ props.userInfo } />
                                 ) : category === 'Admins' ? (
-                                    <UserData categoryArray = { finalFilteredUsers } title = 'Admins' />
+                                    <UserData categoryArray = { finalFilteredUsers } title = 'Admins' onSendData = { props.onSendData2 } userInfo={ props.userInfo } />
                                 ) : category === 'Customers' ? (
-                                    <UserData categoryArray = { finalFilteredUsers } title = 'Customers' />
+                                    <UserData categoryArray = { finalFilteredUsers } title = 'Customers' onSendData = { props.onSendData2 } userInfo={ props.userInfo } />
                                 ) : category === 'All Users' ? (
-                                    <UserData categoryArray = { finalFilteredUsers } title = 'Users' />
+                                    <UserData categoryArray = { finalFilteredUsers } title = 'Users' onSendData = { props.onSendData2 } userInfo={ props.userInfo } />
                                 ) : null
                             }
                         </div>
