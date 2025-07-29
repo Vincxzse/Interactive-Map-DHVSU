@@ -7,6 +7,8 @@ import CreateUserPopUp from "./User-Management/Create-User-Popup";
 import EditDelete from "./User-Management/Edit-Delete";
 
 function AdminPage() {
+    const currentUID = localStorage.getItem('userID');
+    console.log("Current User: ", currentUID);
     const [createUserPopUp, setCreateUserPopUp] = useState(false);
     const [editDeletePopUp, setEditDeletePopUp] = useState(false);
     const [userInfo, setUserInfo] = useState('');
