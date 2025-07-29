@@ -20,7 +20,7 @@ function LoginPage() {
                     </div>
                     <div>
                         <LoginForm
-                            usernamePlaceholder = 'Username'
+                            emailPlaceholder = 'Email'
                             passwordPlaceholder = 'Password'
                         />
                     </div>

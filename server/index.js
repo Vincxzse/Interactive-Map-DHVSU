@@ -42,11 +42,11 @@ app.post("/register-account", async(req, res) => {
 // Handle Login
 app.post("/login", async(req, res) => {
     try {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
 
         const userQuery = await pool.query(
-            "SELECT * FROM customer_accounts WHERE username = $1",
-            [username]
+            "SELECT * FROM customer_accounts WHERE email = $1",
+            [email]
         );
 
         // Get numbers of users / admins / super admins / overall
@@ -151,6 +151,24 @@ app.put("/change-username", async(req, res) => {
         res.status(200).json({message: "Username updated successfully!"});
     } catch (err) {
         console.error(err.message);
+    }
+});
+
+app.put("/update-user", async(req, res) => {
+    try {
+        const { userID, username, email, role } = req.body;
+        const userQuery = await pool.query(
+            'SELECT * FROM customer_accounts WHERE id = $1',
+            [userID]
+        );
+        if (userQuery.rows.length === 0) {
+            console.log('Failed to fetch data');
+        } else {
+            console.log('Found user: ', userQuery.rows[0].username);
+            console.log('Current Username: ', username);
+        }
+    } catch (err) {
+        
     }
 });
 

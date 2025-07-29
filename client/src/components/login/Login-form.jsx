@@ -6,17 +6,17 @@ import userIcon from "../../assets/user.png";
 function LoginForm(props) {
     const navigate = useNavigate();
 
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
+    if (!email || !password) {
         alert("Please fill in all fields.");
     } else {
         try {
-            const body = { username, password };
+            const body = { email, password };
             const response = await fetch("http://localhost:5000/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -27,7 +27,7 @@ function LoginForm(props) {
             if (response.ok) {
                 alert("Login Successful!");
                 localStorage.setItem("userID", data.user.id);
-                localStorage.setItem("userName", data.user.username);
+                localStorage.setItem("email", data.user.email);
                 localStorage.setItem("userRole", data.user.role);
                 localStorage.setItem("totalUsers", data.totalUsers);
                 localStorage.setItem("totalAdmins", data.totalAdmins);
@@ -59,7 +59,7 @@ function LoginForm(props) {
             <form onSubmit={handleLogin} className='flex flex-col gap-5 w-90 my-10'>
                 <div className='flex flex-row border-1 justify-center h-8 w-full py-1 px-2 border-transparent border-b-red-600 bg-[#C5C3C3]'>
                     <img src={ userIcon } className='h-full'/>
-                    <input type='text' className='focus:outline-none w-full px-2' placeholder={ props.usernamePlaceholder } onChange={ e => setUsername(e.target.value) } />
+                    <input type='email' className='focus:outline-none w-full px-2' placeholder={ props.emailPlaceholder } onChange={ e => setEmail(e.target.value) } />
                 </div>
                 <div className='flex flex-row border-1 justify-center h-8 w-full py-1 px-2 border-transparent border-b-red-600 bg-[#C5C3C3]'>
                     <img src={ keyIcon } className='h-full'/>
