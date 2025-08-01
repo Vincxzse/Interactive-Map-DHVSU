@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Confirmation from "./Password-Confirmation";
 import CloseBtn from "../../../Close-Button";
 import PopupField from "./Popup-Field";
@@ -7,6 +8,7 @@ function EditDelete(props) {
     const [role, setRole] = useState(props.user.role);
     const [username, setUsername] = useState(props.user.username);
     const [email, setEmail] = useState(props.user.email);
+    const navigate = useNavigate();
 
     // Confirmation Pop-up
     const [showConfirmation, setShowConfirmation] = useState(false);
@@ -49,22 +51,21 @@ function EditDelete(props) {
             }
         }
     }
+    
+    const handleConfirmationResult = (isConfirmed) => {
+        // isConfirmed ? console.log("Passwords Matched, BOBO!") : console.log("Passwords failed to match.");
+        isConfirmed ? handleConfirmed() : alert("Confirmation failed.");
+    }
 
     const handleChange = (e) => {
         setRole(e.target.value);
         console.log(role);
     }
-    const onSubmitForm = async(e) => {
-        e.preventDefault();
-        const userID = props.user.id;
-
-        
-    }
 
     const isUnchanged = username === props.user.username && email === props.user.email && role === props.user.role;
     return(
         <>
-            {showConfirmation ? <Confirmation onSendData = { handleCloseConfirmation } /> : null}
+            {showConfirmation ? <Confirmation onSendData = { handleCloseConfirmation } onConfirm = { handleConfirmationResult } /> : null}
             <div className="flex flex-col items-center justify-center h-screen w-screen fixed z-1 bg-[rgba(0,0,0,0.8)]">
                 <div className="relative flex flex-col items-center justify-center w-3/12 h-6/12 bg-[#2B313C] shadow-2xl rounded-2xl p-10">
                     <CloseBtn onSendData = { props.onSendData } />

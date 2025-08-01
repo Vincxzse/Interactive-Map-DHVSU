@@ -164,7 +164,11 @@ app.put("/update-user", async(req, res) => {
         if (userQuery.rows.length === 0) {
             return res.status(404).json({ message: 'User not found' });
         } else {
-            return res.status(200).json({ message: 'User found', user: userQuery.rows[0] });
+            const updateQuery = await pool.query(
+                'UPDATE customer_accounts SET username = $1, email = $2, role = $3 WHERE id = $4',
+                [username, email, role, userID]
+            );
+            return res.status(200).json({ message: 'User: ' + userID + ' was updated.', user: userQuery.rows[0] });
         }
     } catch (err) {
         console.error(err.message);
@@ -180,21 +184,20 @@ app.post("/password-confirmation", async (req, res) => {
             [adminID]
         );
         const adminPassword = adminQuery.rows[0].password;
-
         const isValid = await bcrypt.compare(password, adminPassword);
 
         if (isValid) {
-            console.log("Passwords matched!");
+            const matched = true;
+            return res.status(200).json({ message: "Password matched", response: matched });
         } else {
             console.log("Passwords failed to match.");
+            return res.status(401).json({ message: "Invalid Password." });
         }
 
-        console.log("Current User ID: ", adminID);
-        console.log("Entered Password: ", password);
     } catch (err) {
         
     }
-})
+});
 
 // Start Server
 app.listen(port, () => {
