@@ -7,8 +7,9 @@ import CreateUserPopUp from "./User-Management/Create-User-Popup";
 import EditDelete from "./User-Management/Edit-Delete";
 
 function AdminPage() {
-    const currentUID = localStorage.getItem('userID');
-    console.log("Current User: ", currentUID);
+    // const currentUID = localStorage.getItem('userID');
+    // console.log("Current User: ", currentUID);
+    
     const [createUserPopUp, setCreateUserPopUp] = useState(false);
     const [editDeletePopUp, setEditDeletePopUp] = useState(false);
     const [userInfo, setUserInfo] = useState('');
@@ -35,7 +36,7 @@ function AdminPage() {
 
     return (
         <>
-            { createUserPopUp ? <CreateUserPopUp onSendData = { handleCloseCreatePopUp } /> : editDeletePopUp ? <EditDelete onSendData = { handleCloseEditDeletePopUp } user = { userInfo } /> : null }
+            { createUserPopUp ? <CreateUserPopUp onSendData = { handleCloseCreatePopUp } /> : editDeletePopUp ? <EditDelete onSendData = { handleCloseEditDeletePopUp } onSendData2 = { handleCloseCreatePopUp } user = { userInfo } /> : null }
             <div className="flex flex-col w-screen h-screen items-start justify-start bg-[#1E232C]">
                 <div className="flex flex-col w-full h-[10%]">
                     <NavigationSection />

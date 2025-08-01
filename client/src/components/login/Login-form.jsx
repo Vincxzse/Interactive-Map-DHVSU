@@ -10,44 +10,45 @@ function LoginForm(props) {
     const [password, setPassword] = useState("");
 
     const handleLogin = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    if (!email || !password) {
-        alert("Please fill in all fields.");
-    } else {
-        try {
-            const body = { email, password };
-            const response = await fetch("http://localhost:5000/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body)
-            });
-            const data = await response.json();
+        if (!email || !password) {
+            alert("Please fill in all fields.");
+        } else {
+            try {
+                const body = { email, password };
+                const response = await fetch("http://localhost:5000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+                const data = await response.json();
 
-            if (response.ok) {
-                alert("Login Successful!");
-                localStorage.setItem("userID", data.user.id);
-                localStorage.setItem("email", data.user.email);
-                localStorage.setItem("userRole", data.user.role);
-                localStorage.setItem("totalUsers", data.totalUsers);
-                localStorage.setItem("totalAdmins", data.totalAdmins);
-                localStorage.setItem("totalSuperAdmins", data.totalSuperAdmins);
-                localStorage.setItem("totalOverall", data.totalOverall);
-                localStorage.setItem("overallUsers", JSON.stringify(data.overallUsers));
-                if (data.user.role === 'super admin' || data.user.role === 'admin') {
-                    navigate("/admin");
+                if (response.ok) {
+                    alert("Login Successful!");
+                    localStorage.setItem("userID", data.user.id);
+                    localStorage.setItem("userPassword", data.user.password);
+                    localStorage.setItem("email", data.user.email);
+                    localStorage.setItem("userRole", data.user.role);
+                    localStorage.setItem("totalUsers", data.totalUsers);
+                    localStorage.setItem("totalAdmins", data.totalAdmins);
+                    localStorage.setItem("totalSuperAdmins", data.totalSuperAdmins);
+                    localStorage.setItem("totalOverall", data.totalOverall);
+                    localStorage.setItem("overallUsers", JSON.stringify(data.overallUsers));
+                    if (data.user.role === 'super admin' || data.user.role === 'admin') {
+                        navigate("/admin");
+                    } else {
+                        navigate("/home");
+                    }
                 } else {
-                    navigate("/home");
+                    alert(data.message || "Login failed.");
                 }
-            } else {
-                alert(data.message || "Login failed.");
+            } catch (err) {
+                console.error(err.message);
+                alert("Something went wrong. Please try again.");
             }
-        } catch (err) {
-            console.error(err.message);
-            alert("Something went wrong. Please try again.");
         }
-    }
-};
+    };
 
 
     function jumpToRegistration() {

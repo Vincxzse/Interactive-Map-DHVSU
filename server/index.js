@@ -162,15 +162,39 @@ app.put("/update-user", async(req, res) => {
             [userID]
         );
         if (userQuery.rows.length === 0) {
-            console.log('Failed to fetch data');
+            return res.status(404).json({ message: 'User not found' });
         } else {
-            console.log('Found user: ', userQuery.rows[0].username);
-            console.log('Current Username: ', username);
+            return res.status(200).json({ message: 'User found', user: userQuery.rows[0] });
         }
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
+app.post("/password-confirmation", async (req, res) => {
+    try {
+        const { adminID, password } = req.body;
+        const adminQuery = await pool.query(
+            'SELECT * FROM customer_accounts WHERE id = $1',
+            [adminID]
+        );
+        const adminPassword = adminQuery.rows[0].password;
+
+        const isValid = await bcrypt.compare(password, adminPassword);
+
+        if (isValid) {
+            console.log("Passwords matched!");
+        } else {
+            console.log("Passwords failed to match.");
+        }
+
+        console.log("Current User ID: ", adminID);
+        console.log("Entered Password: ", password);
     } catch (err) {
         
     }
-});
+})
 
 // Start Server
 app.listen(port, () => {
