@@ -20,12 +20,12 @@ app.post("/register-account", async(req, res) => {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         const userExists = await pool.query(
-            "SELECT * FROM customer_accounts WHERE email = $1 OR username = $2",
-            [email, username]
+            "SELECT * FROM customer_accounts WHERE email = $1",
+            [email]
         );
         
         if (userExists.rows.length > 0) {
-            return res.status(400).json({ message: "Username or email already exists" });
+            return res.status(400).json({ message: "Email already exists" });
         }
         
         const newAccount = await pool.query(
@@ -196,6 +196,18 @@ app.post("/password-confirmation", async (req, res) => {
 
     } catch (err) {
         
+    }
+});
+
+app.get("/get-users", async (req, res) => {
+    try {
+        const allUsers = await pool.query(
+            'SELECT * FROM customer_accounts ORDER BY id ASC'
+        );
+        res.status(200).json(allUsers.rows);
+    } catch (error) {
+        console.error('Failed to fetch data: ', error);
+        res.status(500).json({ error: 'Failed to fetch data.' })
     }
 });
 

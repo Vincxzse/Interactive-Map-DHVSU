@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserData from "./User-Data";
 import searchIcon from "../../../../assets/search.png";
 
@@ -12,7 +12,15 @@ function UserManagement(props) {
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value)
     }
-    const users = JSON.parse(localStorage.getItem("overallUsers")) || [];
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:5000/get-users")
+            .then((res) => res.json())
+            .then((data) => setUsers(data))
+            .catch((err) => console.error("Error fetching data: ", err));
+    });
+
+    // const users = JSON.parse(localStorage.getItem("overallUsers")) || [];
     let filteredUsers = users;
     category === 'Super Admins'
     ? (filteredUsers = users.filter(user => user.role.toLowerCase() === 'super admin'))
@@ -26,6 +34,14 @@ function UserManagement(props) {
     const sendData = () => {
         const data = true;
         props.onSendData(data);
+        fetchUsers();
+    }
+
+    const fetchUsers = () => {
+        fetch("http://localhost:5000/get-users")
+            .then((res) => res.json())
+            .then((data) => setUsers(data))
+            .catch((err) => console.error("Error fetching data: ", err));
     }
 
     return (

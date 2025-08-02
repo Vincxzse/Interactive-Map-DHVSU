@@ -40,8 +40,6 @@ function EditDelete(props) {
 
                 if (response.ok) {
                     alert(result.message);
-                    navigate("/admin/user-management");
-                    window.location.reload();
                 } else {
                     alert(result.message || "Failed to edit details");
                 }
