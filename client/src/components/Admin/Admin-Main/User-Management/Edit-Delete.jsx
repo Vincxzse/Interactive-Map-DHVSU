@@ -47,11 +47,27 @@ function EditDelete(props) {
                 console.error(err.message);
                 alert("Something went wrong. Please try again.");
             }
+        } else if (actionType === "delete") {
+            try {
+                const response = await fetch(`http://localhost:5000/delete-user/${userID}`, {
+                    method: "DELETE"
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message);
+                    navigate(0);
+                } else {
+                    alert(result.message || "Failed to delete user.");
+                }
+            } catch (err) {
+                console.error(err.message);
+                alert("Something went wrong. Please try again.");
+            }
         }
     }
     
     const handleConfirmationResult = (isConfirmed) => {
-        // isConfirmed ? console.log("Passwords Matched, BOBO!") : console.log("Passwords failed to match.");
         isConfirmed ? handleConfirmed() : alert("Confirmation failed.");
     }
 
@@ -107,7 +123,9 @@ function EditDelete(props) {
                                 disabled={isUnchanged}
                             />
                             <button
+                                type="button"
                                 className="flex items-center justify-center h-10 w-full border-3 border-[#D32F2F] bg-[#D32F2F] text-white text-lg rounded-md hover:bg-transparent font-normal transition-[.1s] cursor-pointer"
+                                onClick={() => handleShowConfirmation("delete")}
                             >
                                 Delete
                             </button>

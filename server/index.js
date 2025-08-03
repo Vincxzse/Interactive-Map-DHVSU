@@ -211,6 +211,22 @@ app.get("/get-users", async (req, res) => {
     }
 });
 
+app.delete("/delete-user/:id", async (req, res) => {
+    const userID = req.params.id;
+
+    try {
+        const deleteUser = await pool.query("DELETE FROM customer_accounts WHERE id = $1", [userID]);
+        if (deleteUser.rowCount === 0) {
+            return res.status(400).json({ message: "User not found." });
+        }
+        
+        res.status(200).json({ message: "User deleted successfully!" });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: "Internal Server Error." });
+    }
+});
+
 // Start Server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
