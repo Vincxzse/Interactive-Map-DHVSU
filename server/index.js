@@ -15,7 +15,9 @@ app.use(express.json());
 // Handle Register
 app.post("/register-account", async(req, res) => {
     try {
-        const { email, username, password } = req.body;
+        let { email, username, password } = req.body;
+        email = email.toLowerCase();
+        username = username.trim();
         const defaultRole = 'user';
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -42,7 +44,8 @@ app.post("/register-account", async(req, res) => {
 // Handle Login
 app.post("/login", async(req, res) => {
     try {
-        const { email, password } = req.body;
+        let { email, password } = req.body;
+        email = email.toLowerCase();
 
         const userQuery = await pool.query(
             "SELECT * FROM customer_accounts WHERE email = $1",

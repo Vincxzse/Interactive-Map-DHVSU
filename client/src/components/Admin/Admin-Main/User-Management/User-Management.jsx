@@ -19,8 +19,6 @@ function UserManagement(props) {
             .then((data) => setUsers(data))
             .catch((err) => console.error("Error fetching data: ", err));
     });
-
-    // const users = JSON.parse(localStorage.getItem("overallUsers")) || [];
     let filteredUsers = users;
     category === 'Super Admins'
     ? (filteredUsers = users.filter(user => user.role.toLowerCase() === 'super admin'))
