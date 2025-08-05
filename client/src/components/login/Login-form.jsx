@@ -26,6 +26,7 @@ function LoginForm(props) {
 
                 if (response.ok) {
                     alert("Login Successful!");
+                    localStorage.setItem("user", JSON.stringify(data.user));
                     localStorage.setItem("userID", data.user.id);
                     localStorage.setItem("userPassword", data.user.password);
                     localStorage.setItem("email", data.user.email);

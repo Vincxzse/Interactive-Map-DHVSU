@@ -5,6 +5,7 @@ import Overview from "./Overview/Overview";
 import UserManagement from "./User-Management/User-Management";
 import CreateUserPopUp from "./User-Management/Create-User-Popup";
 import EditDelete from "./User-Management/Edit-Delete";
+import LogoutConfirm from "./Overview/Cards/4th-div/Logout-Confirm";
 
 function AdminPage() {
     // const currentUID = localStorage.getItem('userID');
@@ -34,9 +35,17 @@ function AdminPage() {
         console.log("User Data: ", userData.id);
     }
 
+    const [confirmLogout, setConfirmLogout] = useState(false);
+    
+    const handleConfirmLogout = (data) => {
+        setConfirmLogout(data);
+        console.log("Received from close button: ", data);
+    }
+
     return (
         <>
             { createUserPopUp ? <CreateUserPopUp onSendData = { handleCloseCreatePopUp } /> : editDeletePopUp ? <EditDelete onSendData = { handleCloseEditDeletePopUp } onSendData2 = { handleCloseCreatePopUp } user = { userInfo } /> : null }
+            { confirmLogout ? <LogoutConfirm onSendData = { handleConfirmLogout } /> : null }
             <div className="flex flex-col w-screen h-screen items-start justify-start bg-[#1E232C]">
                 <div className="flex flex-col w-full h-[10%]">
                     <NavigationSection />
@@ -44,7 +53,7 @@ function AdminPage() {
                 <div className="flex flex-col w-full h-[90%] p-2">
                     <Routes>
                         <Route index element={<Navigate to="overview" replace />} />
-                        <Route path="overview" element={<Overview />} />
+                        <Route path="overview" element={<Overview onSendData = { handleConfirmLogout } />} />
                         <Route path="user-management" element={<UserManagement onSendData={ handleCreateUserPopUp } onSendData2={ handleEditDeletePopUp } userInfo = { handleUserInfo } />} />
                     </Routes>
                 </div>

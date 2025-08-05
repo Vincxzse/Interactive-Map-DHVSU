@@ -230,6 +230,13 @@ app.delete("/delete-user/:id", async (req, res) => {
     }
 });
 
+app.get("/get-super-admin", async (req, res) => {
+    const superAdmin = await pool.query("SELECT * FROM customer_accounts WHERE role = 'super admin'");
+
+    const superAdminName = superAdmin.rows[0].username;
+    res.send(`Hi, ${superAdminName}.`);
+});
+
 // Start Server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

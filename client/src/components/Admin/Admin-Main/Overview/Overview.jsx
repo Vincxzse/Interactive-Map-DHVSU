@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import TotalUsersCard from "./Cards/Total-Users-Card";
+import FourthDiv from "./Cards/4th-div/Fourth-div";
 
-function Overview() {
+function Overview(props) {
     const [users, setUsers] = useState([]);
     useEffect(() => {
         fetch("http://localhost:5000/get-users")
@@ -33,7 +34,7 @@ function Overview() {
                     
                 </div>
                 <div className="col-span-1 row-span-4 bg-[#2B313C] rounded-lg p-5">
-                    <h1 className="text-white text-xl font-bold tracking-wide font-sans">Quick Account Controls</h1>
+                    <FourthDiv onSendData = { props.onSendData } />
                 </div>
             </div>
         </>

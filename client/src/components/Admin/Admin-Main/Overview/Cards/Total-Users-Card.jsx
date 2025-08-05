@@ -18,7 +18,7 @@ function TotalUsersCard(props) {
         user: formatPercentage((props.totalUsers / props.totalOverall) * 100),
     }
 
-  const COLORS = ["#8B3A3A", "#F4A261", "#2A9D8F"];
+  const COLORS = ["#B388FF", "#4C9AFF", "#5EEAD4"];
 
   return (
     <div className="grid grid-cols-2 row-span-4 col-span-6 w-full h-full">
@@ -44,15 +44,15 @@ function TotalUsersCard(props) {
             </ResponsiveContainer>
         </div>
         <div className="flex flex-col w-full h-full items-center justify-center gap-2">
-            <div className="grid grid-cols-2 text-[#FFBB28] w-[90%] gap-2">
+            <div className="grid grid-cols-2 text-[#4C9AFF] w-[90%] gap-2">
                 <p>• Super Admin:</p>
                 <p>{dataPercentage.superAdmin} %</p>
             </div>
-            <div className="grid grid-cols-2 text-[#8B3A3A] w-[90%] gap-2">
+            <div className="grid grid-cols-2 text-[#B388FF] w-[90%] gap-2">
                 <p>• Admin:</p>
                 <p>{dataPercentage.admin} %</p>
             </div>
-            <div className="grid grid-cols-2 text-[#2A9D8F] w-[90%] gap-2">
+            <div className="grid grid-cols-2 text-[#5EEAD4] w-[90%] gap-2">
                 <p>• Customers:</p>
                 <p>{dataPercentage.user} %</p>
             </div>
