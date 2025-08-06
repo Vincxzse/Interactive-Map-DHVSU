@@ -237,6 +237,33 @@ app.get("/get-super-admin", async (req, res) => {
     res.send(`Hi, ${superAdminName}.`);
 });
 
+app.patch("/admin-change-password", async (req, res) => {
+    const { uid, oldPassword, newPassword } = req.body;
+    try {
+        const getUser = await pool.query(
+            "SELECT * FROM customer_accounts WHERE id = $1",
+            [uid]
+        );
+        const isValid = await bcrypt.compare(oldPassword, getUser.rows[0].password);
+        if (!isValid) {
+            return res.status(400).json({ message: "Incorrect Password. Please try again." });
+        }
+        if (oldPassword === newPassword) {
+            return res.status(400).json({ message: "New password cannot be the same as the old password." });
+        }
+        const saltRounds = 10;
+        const hashedNewPassword = await bcrypt.hash(newPassword, saltRounds);
+        await pool.query(
+            "UPDATE customer_accounts SET password = $1 WHERE id = $2",
+            [hashedNewPassword, uid]
+        );
+        return res.status(200).json({ message: "Password updated successfully!" });
+    } catch (err) {
+        console.error("Error updating password:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 // Start Server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

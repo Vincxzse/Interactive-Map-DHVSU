@@ -6,11 +6,9 @@ import UserManagement from "./User-Management/User-Management";
 import CreateUserPopUp from "./User-Management/Create-User-Popup";
 import EditDelete from "./User-Management/Edit-Delete";
 import LogoutConfirm from "./Overview/Cards/4th-div/Logout-Confirm";
+import ChangePasswordPopup from "./User-Management/Change-Password/Change-Password-Popup";
 
-function AdminPage() {
-    // const currentUID = localStorage.getItem('userID');
-    // console.log("Current User: ", currentUID);
-    
+function AdminPage() {    
     const [createUserPopUp, setCreateUserPopUp] = useState(false);
     const [editDeletePopUp, setEditDeletePopUp] = useState(false);
     const [userInfo, setUserInfo] = useState('');
@@ -36,16 +34,22 @@ function AdminPage() {
     }
 
     const [confirmLogout, setConfirmLogout] = useState(false);
-    
     const handleConfirmLogout = (data) => {
         setConfirmLogout(data);
         console.log("Received from close button: ", data);
     }
 
+    const [changePassword, setChangePassword] = useState(false);
+    const handleChangePassword = (data) => {
+        setChangePassword(data);
+        console.log("Received from Change Password Button: ", data);
+    } 
+
     return (
         <>
             { createUserPopUp ? <CreateUserPopUp onSendData = { handleCloseCreatePopUp } /> : editDeletePopUp ? <EditDelete onSendData = { handleCloseEditDeletePopUp } onSendData2 = { handleCloseCreatePopUp } user = { userInfo } /> : null }
             { confirmLogout ? <LogoutConfirm onSendData = { handleConfirmLogout } /> : null }
+            { changePassword ? <ChangePasswordPopup onSendData = { handleChangePassword } /> : null }
             <div className="flex flex-col w-screen h-screen items-start justify-start bg-[#1E232C]">
                 <div className="flex flex-col w-full h-[10%]">
                     <NavigationSection />
@@ -54,7 +58,7 @@ function AdminPage() {
                     <Routes>
                         <Route index element={<Navigate to="overview" replace />} />
                         <Route path="overview" element={<Overview onSendData = { handleConfirmLogout } />} />
-                        <Route path="user-management" element={<UserManagement onSendData={ handleCreateUserPopUp } onSendData2={ handleEditDeletePopUp } userInfo = { handleUserInfo } />} />
+                        <Route path="user-management" element={<UserManagement onSendData={ handleCreateUserPopUp } onSendData2={ handleEditDeletePopUp } changePassword = { handleChangePassword } userInfo = { handleUserInfo } logOut = { handleConfirmLogout } />} />
                     </Routes>
                 </div>
             </div>

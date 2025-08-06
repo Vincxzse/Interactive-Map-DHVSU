@@ -24,7 +24,6 @@ function Confirmation(props) {
                 const data = result.response;
                 props.onConfirm(data);
                 navigate("/admin/user-management");
-                // window.location.reload();
             } else {
                 alert(result.message || "Failed to edit details");
             }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import UserData from "./User-Data";
+import AccountManagement from "./Account-Management";
 import searchIcon from "../../../../assets/search.png";
 
 function UserManagement(props) {
@@ -45,18 +46,23 @@ function UserManagement(props) {
     return (
         <>
             <div className="grid grid-cols-3 grid-rows-1 w-full h-full gap-2">
-                <div className="col-span-1 p-5 rounded-lg bg-[#2B313C]">
-                    <select
-                        id="category"
-                        value={ category }
-                        onChange={ handleChange }
-                        className="flex items-center justify-center w-full h-auto text-start text-white cursor-pointer bg-[#353B45] focus:outline-0"
-                    >
-                        <option value="All Users">All Users</option>
-                        <option value="Customers">Customers</option>
-                        <option value="Admins">Admins</option>
-                        <option value="Super Admins">Super Admins</option>
-                    </select>
+                <div className="grid grid-cols-1 grid-rows-4 col-span-1 gap-2">
+                    <div className="row-span-1 rounded-lg bg-[#2B313C] p-5">
+                        <select
+                            id="category"
+                            value={ category }
+                            onChange={ handleChange }
+                            className="flex items-center justify-center w-full h-auto text-start text-white cursor-pointer bg-[#353B45] focus:outline-0"
+                        >
+                            <option value="All Users">All Users</option>
+                            <option value="Customers">Customers</option>
+                            <option value="Admins">Admins</option>
+                            <option value="Super Admins">Super Admins</option>
+                        </select>
+                    </div>
+                    <div className="row-span-3 rounded-lg bg-[#2B313C] p-5">
+                        <AccountManagement onSendData = { props.logOut } onSendData2 = { props.changePassword } />
+                    </div>
                 </div>
                 <div className="flex flex-col w-full h-full col-span-2 py-2 px-5 rounded-lg bg-[#2B313C] gap-5">
                     <div className="grid grid-cols-4 w-full h-[10%] gap-2 items-center">

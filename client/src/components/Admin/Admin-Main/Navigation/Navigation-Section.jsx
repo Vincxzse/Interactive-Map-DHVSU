@@ -15,6 +15,9 @@ function NavigationSection() {
                     />
                 </div>
                 <div className="flex flex-row h-full w-full items-center justify-center">
+                    <h1 className="w-full text-start text-3xl font-sans font-bold text-[#E14C4C]">Admin</h1>
+                </div>
+                <div className="flex flex-row h-full w-full items-center justify-center">
                     <NavLink
                         isActive={active === 'overview'}
                         setActive={setActive}
@@ -26,11 +29,6 @@ function NavigationSection() {
                         isActive={active === 'manage users'}
                         setActive={setActive}
                         navTitle = 'Manage Users'
-                    />
-                </div>
-                <div className="flex flex-row h-full w-full items-center justify-center">
-                    <NavLink
-                        navTitle = 'Manage Account'
                     />
                 </div>
             </div>
