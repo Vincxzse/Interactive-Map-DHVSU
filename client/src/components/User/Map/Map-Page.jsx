@@ -31,6 +31,7 @@ function MapPage() {
             this.load.image('shedSH', '/map-assets/shedSH.png');
             this.load.image('canteen', '/map-assets/canteen.png');
             this.load.image('court', '/map-assets/court.png');
+            this.load.image('erm', '/map-assets/erm.png');
         }
 
         create() {
