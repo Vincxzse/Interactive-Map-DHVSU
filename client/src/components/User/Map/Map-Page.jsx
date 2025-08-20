@@ -3,7 +3,7 @@ import Phaser, { GameObjects } from 'phaser';
 import { createOutside } from './Map-Components/Outside-Map';
 
 function MapPage() {
-    const speedDown = 300;
+    const speedDown = 10;
     const sizes = {
         width: 1520,
         height: 610,
@@ -32,6 +32,9 @@ function MapPage() {
             this.load.image('canteen', '/map-assets/canteen.png');
             this.load.image('court', '/map-assets/court.png');
             this.load.image('erm', '/map-assets/erm.png');
+            this.load.image('road', '/map-assets/road.png');
+            this.load.image('tree', '/map-assets/tree.png');
+            this.load.image('flag', '/map-assets/flag.png');
         }
 
         create() {
@@ -76,6 +79,10 @@ function MapPage() {
                 debug: true,
             },
         },
+        scale: {
+            mode: Phaser.Scale.RESIZE,          // resize to fit parent
+            autoCenter: Phaser.Scale.CENTER_BOTH, // center inside parent
+        },
     };
 
     useEffect(() => {
@@ -85,7 +92,9 @@ function MapPage() {
 
     return(
         <>
-            <div className="flex flex-col w-full h-full items-start justify-center gap-2 bg-[#2B313C] rounded-lg overflow-hidden" id="map-container"></div>
+            <div className="relative flex flex-col w-full h-full items-start justify-start gap-2 bg-[#2B313C] rounded-lg overflow-hidden" id="map-container">
+                <p className="absolute text-red-500 font-bolder bg-white">TEST</p>
+            </div>
         </>
     );
 }

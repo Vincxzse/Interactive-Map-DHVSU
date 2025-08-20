@@ -4,7 +4,7 @@ export function createOutside(scene, worldWidth, worldHeight) {
     const centerY = worldHeight;
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'bg1').setOrigin(0, 0);
-    scene.bg2 = scene.add.tileSprite(0, 0, 510, worldHeight, 'sand').setOrigin(0, 0);
+    scene.bg2 = scene.add.tileSprite(0, 550, 510, worldHeight, 'sand').setOrigin(0, 0);
 
     // Admin Building
     scene.admin = scene.physics.add.staticImage(820, 2400, 'admin').setOrigin(0, 0).setDepth(5);
@@ -114,11 +114,33 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.curbUBV1.setAngle(90);
 
     // ERM Building
-    scene.erm = scene.physics.add.image(300, 200, 'erm').setDepth(3);
-    scene.ermHitbox = scene.hitboxes.create(300, 400, null).setSize(scene.erm.width, scene.erm.height / 3).setVisible(false);
+    scene.erm = scene.physics.add.image(300, 230, 'erm').setDepth(3);
+    scene.ermHitbox = scene.hitboxes.create(300, 430, null).setSize(scene.erm.width, scene.erm.height / 3).setVisible(false);
+
+    // Frontsquare
+    scene.frontsquare = scene.physics.add.image(1280, 3150, 'sand').setDisplaySize(1000, 400);
+    scene.curbFSH = scene.physics.add.image(1101, 2943, 'curb');
+    scene.curbFSH = scene.physics.add.image(1453, 2943, 'curb');
+    scene.curbFSH = scene.physics.add.image(1101, 3360, 'curb');
+    scene.curbFSH = scene.physics.add.image(1453, 3360, 'curb');
+    scene.curbFSV = scene.physics.add.image(770, 3274, 'curb');
+    scene.curbFSV.setAngle(90)
+    scene.curbFSV.setCrop(0, 0, 420, 100)
+    scene.curbFSV = scene.physics.add.image(1785, 3274, 'curb');
+    scene.curbFSV.setAngle(90)
+    scene.curbFSV.setCrop(0, 0, 420, 100);
+    scene.nationalFlag = scene.physics.add.image(1340, 3070, 'flag').setDepth(2);
+    scene.hitboxNF = scene.hitboxes.create(1295, 3175, null).setSize(scene.nationalFlag.width / 3 + 15, scene.nationalFlag.height / 8 - 5).setVisible(false);
 
     // Randoms
-    scene.grass = scene.physics.add.image(440, 700, 'grass').setDisplaySize(300, 400);
+    scene.grass = scene.physics.add.image(440, 715, 'grass').setDisplaySize(300, 370);
+    scene.curbLV = scene.physics.add.image(340, 540, 'curb');
+    scene.curbLV.setCrop(0, 0, 292, 100);
+    scene.curbLV = scene.physics.add.image(280, 890, 'curb');
+    scene.curbLV.setCrop(0, 0, 352, 100);
+    scene.curbLV.setAngle(90);
+    scene.curbLV = scene.physics.add.image(612.5, 910, 'curb').setDepth(1);
+    scene.curbLV.setCrop(0, 0, 292, 100);
     scene.curbLV = scene.physics.add.image(600, 340, 'curb');
     scene.curbLV.setAngle(90);
     scene.curbLV = scene.physics.add.image(600, 1020, 'curb');
@@ -129,10 +151,13 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.curbLV.setAngle(90);
     scene.curbLV = scene.physics.add.image(600, 3060, 'curb');
     scene.curbLV.setAngle(90);
-    scene.curbLV.setCrop(0, 0, 600, 100);
+    scene.curbLV.setCrop(0, 0, 635, 100);
+    scene.curbLV = scene.physics.add.image(850, 3360, 'curb');
+    scene.curbLV.setCrop(0, 0, 102, 100);
 
     // Shed
-    scene.shed = scene.physics.add.staticImage(500, 850, 'shed1').setOrigin(0, 0).setDepth(2);
+    scene.road = scene.add.tileSprite(510, 900, 80, 2450, 'road').setOrigin(0, 0);
+    scene.shed = scene.physics.add.staticImage(500, 850, 'shed1').setOrigin(0, 0).setDepth(3);
     scene.shed.body.allowGravity = false;
     scene.shed.body.setSize(1, scene.shed.height - 100);
     scene.shed.body.setOffset(scene.shed.width, scene.shed.height - 1190);
@@ -150,6 +175,7 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.physics.add.collider(scene.player, scene.hitbox5);
     scene.physics.add.collider(scene.player, scene.hitbox6);
     scene.physics.add.collider(scene.player, scene.ermHitbox);
+    scene.physics.add.collider(scene.player, scene.hitboxNF);
     scene.physics.add.collider(scene.player, scene.canteen);
     scene.physics.add.collider(scene.player, scene.court);
 
