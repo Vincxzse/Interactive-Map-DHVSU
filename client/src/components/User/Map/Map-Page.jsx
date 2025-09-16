@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Phaser, { GameObjects } from 'phaser';
 import { createOutside } from './Map-Components/Outside-Map';
+import { createARM } from "./Map-Components/ARM-Map";
 
 function MapPage() {
     const speedDown = 10;
@@ -18,6 +19,7 @@ function MapPage() {
 
         preload() {
             this.load.image('bg1', '/map-assets/pathway.png');
+            this.load.image('mrm-floor', '/map-assets/floor.png')
             this.load.image('shed1', '/map-assets/shed.png');
             this.load.image('admin', '/map-assets/bldg1.png');
             this.load.image('avatar', '/map-assets/avatar-front.png');
@@ -35,13 +37,34 @@ function MapPage() {
             this.load.image('road', '/map-assets/road.png');
             this.load.image('tree', '/map-assets/tree.png');
             this.load.image('flag', '/map-assets/flag.png');
+            this.load.image('room', '/map-assets/room.png');
+            this.load.image('door-side', '/map-assets/door-side.png');
+            this.load.image('wall', '/map-assets/wall.png');
+            this.load.image('gutterY', '/map-assets/gutterY.png');
+            this.load.image('gutterX', '/map-assets/gutterX.png');
+            this.load.image('stairs', '/map-assets/stairs.png');
+            this.load.image('bodega', '/map-assets/bodega.png');
+            this.load.image('room-wall', '/map-assets/room-wall.png');
+            this.load.image('room-wall-Y', '/map-assets/room-wall-Y.png');
+            this.load.image('window1', '/map-assets/window1.png');
+            this.load.image('door-front', '/map-assets/door-front.png');
         }
 
         create() {
             const worldWidth = 2000;
             const worldHeight = 3500;
 
-            createOutside(this, worldWidth, worldHeight);
+            // createOutside(this, worldWidth, worldHeight);
+            // this.currentMap = "outside";
+
+            // this.physics.add.overlap(this.player, this.entrance1, () => {
+            //     Object.values(this.children.list).forEach(obj => obj.destroy());
+            //     this.physics.world.colliders.destroy();
+
+            //     createMRM(this, worldWidth, worldHeight);
+            //     this.currentMap = "mrm";
+            // });
+            createARM(this, worldWidth, worldHeight);
         }
 
         update() {
@@ -56,12 +79,14 @@ function MapPage() {
             else if (down.isDown || s.isDown) velocityY = this.playerSpeed;
             this.player.setVelocity(velocityX, velocityY);
 
-            if (this.player.y > this.shed.y + this.shed.height - 40) {
-                this.shed.setDepth(0); // Behind player
-                this.player.setDepth(1);
-            } else {
-                this.shed.setDepth(2); // In front of player
-                this.player.setDepth(1);
+            if (this.currentMap === "outside" && this.shed && this.player) {
+                if (this.player.y > this.shed.y + this.shed.height - 40) {
+                    this.shed.setDepth(0);
+                    this.player.setDepth(1);
+                } else {
+                    this.shed.setDepth(2);
+                    this.player.setDepth(1);
+                }
             }
         }
     }
@@ -80,8 +105,8 @@ function MapPage() {
             },
         },
         scale: {
-            mode: Phaser.Scale.RESIZE,          // resize to fit parent
-            autoCenter: Phaser.Scale.CENTER_BOTH, // center inside parent
+            mode: Phaser.Scale.RESIZE,
+            autoCenter: Phaser.Scale.CENTER_BOTH,
         },
     };
 
@@ -93,7 +118,7 @@ function MapPage() {
     return(
         <>
             <div className="relative flex flex-col w-full h-full items-start justify-start gap-2 bg-[#2B313C] rounded-lg overflow-hidden" id="map-container">
-                <p className="absolute text-red-500 font-bolder bg-white">TEST</p>
+                <p className="absolute text-red-500 font-bolder bg-white right-0">TEST</p>
             </div>
         </>
     );

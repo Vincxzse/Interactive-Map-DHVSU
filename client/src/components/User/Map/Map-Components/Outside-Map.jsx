@@ -73,6 +73,7 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.hitbox1 = scene.hitboxes.create(scene.mrm.width, scene.mrm.height + 1470, null).setSize(280, scene.mrm.height - 70).setVisible(false);
     scene.hitbox2 = scene.hitboxes.create(scene.mrm.width + 630, scene.mrm.height + 1470, null).setSize(280, scene.mrm.height - 70).setVisible(false);
     scene.hitbox3 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 1590, null).setSize(scene.mrm.width - 70, 220).setVisible(false);
+    scene.entrance1 = scene.hitboxes.create(scene.mrm.width + 320, scene.mrm.height + 1710, null).setSize(100, 10).setVisible(false);
     // ARM Hitboxes
     scene.hitbox4 = scene.hitboxes.create(scene.arm.width, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
     scene.hitbox5 = scene.hitboxes.create(scene.arm.width + 630, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
@@ -129,7 +130,7 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.curbFSV = scene.physics.add.image(1785, 3274, 'curb');
     scene.curbFSV.setAngle(90)
     scene.curbFSV.setCrop(0, 0, 420, 100);
-    scene.nationalFlag = scene.physics.add.image(1340, 3070, 'flag').setDepth(2);
+    scene.nationalFlag = scene.physics.add.image(1340, 3070, 'flag');
     scene.hitboxNF = scene.hitboxes.create(1295, 3175, null).setSize(scene.nationalFlag.width / 3 + 15, scene.nationalFlag.height / 8 - 5).setVisible(false);
 
     // Randoms
@@ -163,7 +164,7 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.shed.body.setOffset(scene.shed.width, scene.shed.height - 1190);
 
     // Player and colliders
-    scene.player = scene.physics.add.image(centerX / 1.5, centerY, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
+    scene.player = scene.physics.add.image(centerX / 1.5, centerY / 1.5, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
     scene.player.body.setSize(250, 400);
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.shed);
