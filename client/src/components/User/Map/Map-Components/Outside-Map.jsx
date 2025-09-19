@@ -1,5 +1,5 @@
 
-export function createOutside(scene, worldWidth, worldHeight) {
+export function createOutside(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
     const centerX = worldWidth;
     const centerY = worldHeight;
 
@@ -73,11 +73,11 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.hitbox1 = scene.hitboxes.create(scene.mrm.width, scene.mrm.height + 1470, null).setSize(280, scene.mrm.height - 70).setVisible(false);
     scene.hitbox2 = scene.hitboxes.create(scene.mrm.width + 630, scene.mrm.height + 1470, null).setSize(280, scene.mrm.height - 70).setVisible(false);
     scene.hitbox3 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 1590, null).setSize(scene.mrm.width - 70, 220).setVisible(false);
-    scene.entrance1 = scene.hitboxes.create(scene.mrm.width + 320, scene.mrm.height + 1710, null).setSize(100, 10).setVisible(false);
     // ARM Hitboxes
     scene.hitbox4 = scene.hitboxes.create(scene.arm.width, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
     scene.hitbox5 = scene.hitboxes.create(scene.arm.width + 630, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
     scene.hitbox6 = scene.hitboxes.create(scene.arm.width + 315, scene.arm.height + 760, null).setSize(scene.arm.width - 70, 220).setVisible(false);
+    scene.entrance1 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 890, null).setSize(100, 10).setVisible(false);
 
     // Canteen
     scene.canteen = scene.physics.add.staticImage(1290, 850, 'canteen').setDepth(3);
@@ -156,6 +156,76 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.curbLV = scene.physics.add.image(850, 3360, 'curb');
     scene.curbLV.setCrop(0, 0, 102, 100);
 
+    scene.guard1 = scene.physics.add.staticImage(580, worldHeight - 150, 'guard').setDisplaySize(60, 60).setDepth(1);
+    scene.guard1.body.setOffset(0, 0);
+    scene.guard1.refreshBody();
+    scene.guard1Question = scene.add.text(scene.guard1.x, scene.guard1.y - 80, "What can I help you with?", {
+        font: "20px Arial",
+        fill: "#ffffff",
+        backgroundColor: "#000000",
+        padding: { x: 10, y: 5 },
+        align: "center",
+    })
+    .setOrigin(0.5)
+    .setDepth(5)
+    .setVisible(false);
+
+    scene.guard1DialogueActive = false;
+
+// --- Dialogue UI for guard1 ---
+    scene.guard1DialogueBox = scene.add.rectangle(
+        worldWidth / 2, worldHeight - 150, 500, 150, 0x000000, 0.8
+    ).setDepth(10).setVisible(false);
+
+    scene.guard1DialogueText = scene.add.text(
+        worldWidth / 2 - 220, worldHeight - 200,
+        "", { font: "18px Arial", fill: "#ffffff", wordWrap: { width: 460 } }
+    ).setDepth(11).setVisible(false);
+
+    scene.guard1ChoiceTexts = [];
+    const guardChoices = ["Where can I see the IT Instructor?", "Where can I pass my documents?"];
+    guardChoices.forEach((choice, i) => {
+        const txt = scene.add.text(
+            worldWidth / 2 - 220, worldHeight - 160 + i * 30,
+            choice, { font: "16px Arial", fill: "#00ff00" }
+        ).setDepth(11).setVisible(false);
+        scene.guard1ChoiceTexts.push(txt);
+    });
+
+    scene.guard1ChoiceIndex = 0;
+
+    // --- Functions for guard1 ---
+    scene.showGuard1Dialogue = () => {
+        scene.guard1DialogueActive = true;
+        scene.guard1DialogueBox.setVisible(true);
+        scene.guard1DialogueText.setVisible(true).setText("Hello! Do you need something?");
+        scene.guard1ChoiceTexts.forEach(txt => txt.setVisible(true));
+        scene.updateGuard1ChoiceHighlight();
+    };
+
+    scene.hideGuard1Dialogue = () => {
+        scene.guard1DialogueActive = false;
+        scene.guard1DialogueBox.setVisible(false);
+        scene.guard1DialogueText.setVisible(false);
+        scene.guard1ChoiceTexts.forEach(txt => txt.setVisible(false));
+    };
+
+    scene.updateGuard1ChoiceHighlight = () => {
+        scene.guard1ChoiceTexts.forEach((txt, i) => {
+            txt.setStyle({ fill: i === scene.guard1ChoiceIndex ? "#ffff00" : "#00ff00" });
+        });
+    };
+
+    scene.handleGuard1Choice = () => {
+        const selected = scene.guard1ChoiceIndex;
+        if (selected === 0) {
+            scene.guard1DialogueText.setText("Go to ARM Building and up to the second floor, go to the computer lab 2.");
+        } else {
+            scene.guard1DialogueText.setText("You can pass your documents at the Admin Office.");
+        }
+        scene.guard1ChoiceTexts.forEach(txt => txt.setVisible(false));
+    };
+
     // Shed
     scene.road = scene.add.tileSprite(510, 900, 80, 2450, 'road').setOrigin(0, 0);
     scene.shed = scene.physics.add.staticImage(500, 850, 'shed1').setOrigin(0, 0).setDepth(3);
@@ -164,7 +234,7 @@ export function createOutside(scene, worldWidth, worldHeight) {
     scene.shed.body.setOffset(scene.shed.width, scene.shed.height - 1190);
 
     // Player and colliders
-    scene.player = scene.physics.add.image(centerX / 1.5, centerY / 1.5, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
+    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
     scene.player.body.setSize(250, 400);
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.shed);
