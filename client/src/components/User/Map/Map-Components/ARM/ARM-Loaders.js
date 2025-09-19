@@ -1,4 +1,4 @@
-import { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap } from './ARM-Attach.js'
+import { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap } from './ARM-Attach.js'
 import { createARM } from "./ARM-1st/ARM-Map";
 import { createARM101 } from "./ARM-1st/ARM-101";
 import { createARM102 } from "./ARM-1st/ARM-102";
@@ -25,6 +25,8 @@ function loadARM1(scene, playerPositionX, playerPositionY) {
     attachARM101Door1Overlap(scene);
     attachARM101Door2Overlap(scene);
     attachARM102Door1Overlap(scene);
+    attachARM103Door1Overlap(scene);
+    attachARM103Door2Overlap(scene);
 }
 
 function loadARM1ARM101Exit1(scene) {
@@ -64,12 +66,13 @@ function loadARM102(scene) {
     attachARM102Doormat1Overlap(scene);
 }
 
-function loadARM103(scene) {
+function loadARM103(scene, playerPositionX, playerPositionY) {
     scene.clearMap();
-    createARM103(scene, scene.worldWidth / 1.5, scene.worldHeight / 3.5, 150, (scene.worldHeight / 3.5) / 1.11);
+    createARM103(scene, scene.worldWidth / 2, scene.worldHeight / 5, playerPositionX, playerPositionY);
     scene.refreshDebug();
     scene.currentMap = "arm";
-    attachARM102Doormat1Overlap(scene);
+    attachARM103Doormat1Overlap(scene);
+    attachARM103Doormat2Overlap(scene);
 }
 
 function loadARM2(scene) {
