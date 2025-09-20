@@ -103,6 +103,14 @@ export function createARM103(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.physics.add.collider(scene.player, scene.armchair6);
     scene.physics.add.collider(scene.player, scene.armchair7);
     scene.physics.add.collider(scene.player, scene.armchair8);
+    scene.physics.add.collider(scene.player, scene.armchair9);
+    scene.physics.add.collider(scene.player, scene.armchair10);
+    scene.physics.add.collider(scene.player, scene.armchair11);
+    scene.physics.add.collider(scene.player, scene.armchair12);
+    scene.physics.add.collider(scene.player, scene.armchair13);
+    scene.physics.add.collider(scene.player, scene.armchair14);
+    scene.physics.add.collider(scene.player, scene.armchair15);
+    scene.physics.add.collider(scene.player, scene.armchair16);
 
     scene.cameras.main.startFollow(scene.player, true, 1, 1);
     

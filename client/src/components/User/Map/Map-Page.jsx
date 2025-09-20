@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Phaser from 'phaser';
 import { createOutside } from './Map-Components/Outside-Map';
 
-import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103 } from './Map-Components/ARM/ARM-Loaders';
+import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103, loadGuidance } from './Map-Components/ARM/ARM-Loaders';
 
 function MapPage() {
     const speedDown = 10;
@@ -59,6 +59,9 @@ function MapPage() {
                 ['armchair-back','/map-assets/armchair-back.png'],
                 ['guard','/map-assets/guard.png'],
                 ['armchair-side','/map-assets/armchair-side.png'],
+                ['guidance-table','/map-assets/guidance-table.png'],
+                ['chair','/map-assets/chair.png'],
+                ['clinic-table','/map-assets/clinic-table.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
@@ -134,6 +137,7 @@ function MapPage() {
         loadARM101Door2() { loadARM101Door2(this) }
         loadARM102() { loadARM102(this) }
         loadARM103(x, y) { loadARM103(this, x, y) }
+        loadGuidance(x, y) { loadGuidance(this, x, y) }
         loadARM2() { loadARM2(this) }
         loadCL2() { loadCL2(this) }
 
