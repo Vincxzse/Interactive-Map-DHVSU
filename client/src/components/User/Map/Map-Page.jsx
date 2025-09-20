@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Phaser from 'phaser';
 import { createOutside } from './Map-Components/Outside-Map';
 
-import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103, loadGuidance } from './Map-Components/ARM/ARM-Loaders';
+import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103, loadGuidance, loadClinic } from './Map-Components/ARM/ARM-Loaders';
 
 function MapPage() {
     const speedDown = 10;
@@ -62,6 +62,7 @@ function MapPage() {
                 ['guidance-table','/map-assets/guidance-table.png'],
                 ['chair','/map-assets/chair.png'],
                 ['clinic-table','/map-assets/clinic-table.png'],
+                ['bed','/map-assets/bed.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
@@ -130,7 +131,6 @@ function MapPage() {
             this.dialogueActive = false;
         }
 
-        // loadOutside(x = this.worldWidth / 3, y = this.worldHeight - 100) { loadOutside(this, x, y) }
         loadOutside(x = 1250, y = 1500) { loadOutside(this, x, y) }
         loadARM1(x = 150, y = 100) { loadARM1(this, x, y) }
         loadARM101Door1() { loadARM101Door1(this) }
@@ -138,6 +138,7 @@ function MapPage() {
         loadARM102() { loadARM102(this) }
         loadARM103(x, y) { loadARM103(this, x, y) }
         loadGuidance(x, y) { loadGuidance(this, x, y) }
+        loadClinic(x, y) { loadClinic(this, x, y) }
         loadARM2() { loadARM2(this) }
         loadCL2() { loadCL2(this) }
 
