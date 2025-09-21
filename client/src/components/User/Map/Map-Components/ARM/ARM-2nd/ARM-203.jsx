@@ -1,5 +1,5 @@
 
-export function createARM202(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
+export function createARM203(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
     const centerX = worldWidth;
     const centerY = worldHeight;
 
@@ -18,15 +18,15 @@ export function createARM202(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.wall3.body.setOffset(0, 0);
     scene.wall3.refreshBody();
 
-    scene.ARM202Doormat1 = scene.physics.add.staticImage(200, worldHeight - 20, 'doormat1').setDisplaySize(50, 60).setDepth(1);
-    scene.ARM202Doormat1.body.setOffset(0, 0);
-    scene.ARM202Doormat1.refreshBody();
-    scene.ARM202Doormat1.setAngle(90);
+    scene.ARM203Doormat1 = scene.physics.add.staticImage(200, worldHeight - 20, 'doormat1').setDisplaySize(50, 60).setDepth(1);
+    scene.ARM203Doormat1.body.setOffset(0, 0);
+    scene.ARM203Doormat1.refreshBody();
+    scene.ARM203Doormat1.setAngle(90);
 
-    scene.ARM202Doormat2 = scene.physics.add.staticImage(worldWidth - 200, worldHeight - 20, 'doormat1').setDisplaySize(50, 60).setDepth(1);
-    scene.ARM202Doormat2.body.setOffset(0, 0);
-    scene.ARM202Doormat2.refreshBody();
-    scene.ARM202Doormat2.setAngle(90);
+    scene.ARM203Doormat2 = scene.physics.add.staticImage(worldWidth - 200, worldHeight - 20, 'doormat1').setDisplaySize(50, 60).setDepth(1);
+    scene.ARM203Doormat2.body.setOffset(0, 0);
+    scene.ARM203Doormat2.refreshBody();
+    scene.ARM203Doormat2.setAngle(90);
 
     scene.armchair1 = scene.physics.add.staticImage(350, worldHeight - 100, 'armchair-side').setDisplaySize(50, 100).setDepth(1);
     scene.armchair1.body.setOffset(0, 0);

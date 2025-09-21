@@ -10,7 +10,7 @@ function attachOutsideOverlap(scene) {
 function attachARM1Overlap(scene) {
     scene.destroyCurrentOverlap();
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.armStair2, () => {
-        scene.loadARM2(10, 10);
+        scene.loadARM2(1730, 150);
     });
 
     // Overlap for exit back to outside
@@ -22,7 +22,7 @@ function attachARM1Overlap(scene) {
 
 function attachARM1Overlap2(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.armStair3, () => {
-        scene.loadARM2(10, 10);
+        scene.loadARM2(295, 150);
     });
 }
 
@@ -182,4 +182,39 @@ function attachFacultyDoormat2Overlap(scene) {
     })
 }
 
-export { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap }
+function attachARM202Door1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.room5Door1, () => {
+        scene.loadARM202(200, 600);
+        scene.refreshDebug();
+    })
+}
+
+function attachARM202Door2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.room5Door2, () => {
+        scene.loadARM202(800, 600);
+        scene.refreshDebug();
+    })
+}
+
+function attachARM202Doormat1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.ARM202Doormat1, () => {
+        scene.loadARM2(530, 120);
+        scene.refreshDebug();
+    })
+}
+
+function attachARM202Doormat2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.ARM202Doormat2, () => {
+        scene.loadARM2(755, 120);
+        scene.refreshDebug();
+    })
+}
+
+function attachARM203Door1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.room4Door1, () => {
+        scene.loadARM203(200, 600);
+        scene.refreshDebug();
+    })
+}
+
+export { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap }

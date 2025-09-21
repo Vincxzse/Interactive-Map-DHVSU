@@ -1,5 +1,5 @@
 
-export function createARM2nd(scene, worldWidth, worldHeight) {
+export function createARM2nd(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
     const centerX = worldWidth;
     const centerY = worldHeight;
 
@@ -148,7 +148,7 @@ export function createARM2nd(scene, worldWidth, worldHeight) {
     // End of gutter ------------------------------------
 
     // Player and colliders
-    scene.player = scene.physics.add.image(centerX / 1.95, centerY / 3, 'avatar')
+    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar')
         .setOrigin(0.5, 0.5)
         .setDisplaySize(60, 60)
         .setDepth(3);
