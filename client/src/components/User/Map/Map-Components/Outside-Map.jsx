@@ -81,6 +81,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.entrance1 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 890, null).setSize(100, 10).setVisible(false);
     scene.entrance2 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 650, null).setSize(100, 10).setVisible(false);
     scene.entrance3 = scene.hitboxes.create(scene.mrm.width + 40, scene.mrm.height + 1115, null).setSize(100, 10).setVisible(false);
+    scene.entrance4 = scene.hitboxes.create(scene.mrm.width * 1.62, scene.mrm.height + 1115, null).setSize(100, 10).setVisible(false);
 
     // Canteen
     scene.canteen = scene.physics.add.staticImage(1290, 850, 'canteen').setDepth(3);

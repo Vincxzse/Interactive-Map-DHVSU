@@ -174,7 +174,14 @@ function MapPage() {
 
         attachOutsideOverlap3() {
             this.currentOverlap = this.physics.add.overlap(this.player, this.entrance3, () => {
-                this.loadARM1(200, this.worldHeight - 10);
+                this.loadARM1(200, 600);
+                this.refreshDebug();
+            });
+        }
+
+        attachOutsideOverlap4() {
+            this.currentOverlap = this.physics.add.overlap(this.player, this.entrance4, () => {
+                this.loadARM1(this.worldWidth - 150, 600);
                 this.refreshDebug();
             });
         }

@@ -1,11 +1,11 @@
 
 export function createARM(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
-    const centerX = worldWidth;
-    const centerY = worldHeight;
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'mrm-floor').setOrigin(0, 0).setDepth(-1);
 
     scene.armExit2 = scene.hitboxes.create((worldWidth / 2) + 30, 0, null).setSize(500, 10).setVisible(false);
+    scene.armExit3 = scene.hitboxes.create(170, worldHeight, null).setSize(300, 10).setVisible(false);
+    scene.armExit4 = scene.hitboxes.create(worldWidth - 170, worldHeight, null).setSize(300, 10).setVisible(false);
 
     // Rooms Right -------------------------------------------
     scene.room1 = scene.physics.add.staticImage(worldWidth + 150, 170, 'room').setDisplaySize(350, 350).setDepth(1);
