@@ -10,7 +10,7 @@ function attachOutsideOverlap(scene) {
 function attachARM1Overlap(scene) {
     scene.destroyCurrentOverlap();
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.armStair2, () => {
-        scene.loadARM2();
+        scene.loadARM2(10, 10);
     });
 
     // Overlap for exit back to outside
@@ -22,7 +22,7 @@ function attachARM1Overlap(scene) {
 
 function attachARM1Overlap2(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.armStair3, () => {
-        scene.loadARM2();
+        scene.loadARM2(10, 10);
     });
 }
 
@@ -154,4 +154,32 @@ function attachClinicDoormatOverlap(scene) {
     })
 }
 
-export { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap }
+function attachFacultyEntrance1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyEntrance1, () => {
+        scene.loadFaculty(550, 250);
+        scene.refreshDebug();
+    })
+}
+
+function attachFacultyEntrance2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyEntrance2, () => {
+        scene.loadFaculty(550, 830);
+        scene.refreshDebug();
+    })
+}
+
+function attachFacultyDoormat1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyDoormat1, () => {
+        scene.loadARM1(60, 360);
+        scene.refreshDebug();
+    })
+}
+
+function attachFacultyDoormat2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyDoormat2, () => {
+        scene.loadARM1(60, 590);
+        scene.refreshDebug();
+    })
+}
+
+export { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap }

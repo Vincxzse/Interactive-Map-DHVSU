@@ -68,7 +68,7 @@ export function createARM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.guidanceClinicDoor2 = scene.physics.add.staticImage(670, 45, 'door-front').setDisplaySize(70, 70).setDepth(2);
     scene.guidanceClinicDoor2.body.setOffset(0, 0);
     scene.guidanceClinicDoor2.refreshBody();
-    
+
     scene.guidanceClinicWindow1 = scene.physics.add.staticImage(500, 20, 'window2').setDisplaySize(50, 25).setDepth(2);
     scene.guidanceClinicWindow1.body.setOffset(0, 0);
     scene.guidanceClinicWindow1.refreshBody();
@@ -96,6 +96,9 @@ export function createARM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.facultyWall3 = scene.physics.add.staticImage(20, 650, 'wall').setDisplaySize(40, 70).setDepth(2);
     scene.facultyWall3.body.setOffset(0, 0);
     scene.facultyWall3.refreshBody();
+
+    scene.facultyEntrance1 = scene.hitboxes.create(40, 360, null).setSize(10, 50).setVisible(false);
+    scene.facultyEntrance2 = scene.hitboxes.create(40, 590, null).setSize(10, 50).setVisible(false);
     
     scene.stair3 = scene.physics.add.staticImage(295, 10, 'stairs').setDisplaySize(100, 100);
     scene.stair3.body.setOffset(0, 0);
