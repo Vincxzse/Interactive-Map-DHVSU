@@ -12,6 +12,8 @@ function RegistrationForm(props) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
     const onSubmitForm = async(e) => {
         e.preventDefault();
 
@@ -21,7 +23,7 @@ function RegistrationForm(props) {
             if (password === confirmPassword) {
                 try {
                     const body = { username, email, password };
-                    const response = await fetch("https://psu-citizen-charter.onrender.com/register-account", {
+                    const response = await fetch(`${BACKEND_URL}/register-account`, {
                         method: "POST",
                         headers: {"Content-Type": "application/json"},
                         body: JSON.stringify(body)

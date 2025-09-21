@@ -10,11 +10,11 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const pool = new Pool({
     connectionString: isProduction
-        ? process.env.DATABASE_URL         // Render (production)
-        : process.env.LOCAL_DATABASE_URL,  // Local dev
+        ? process.env.DATABASE_URL
+        : process.env.LOCAL_DATABASE_URL,
     ssl: isProduction
-        ? { rejectUnauthorized: false }    // Required for Render
-        : false,                           // Local doesn’t need SSL
+        ? { rejectUnauthorized: false }
+        : false,
 });
 
 export default pool;

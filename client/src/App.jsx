@@ -2,7 +2,6 @@ import React, { useState, Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/login/Login-page.jsx';
 import RegistrationPage from './components/Registration/Registration-page.jsx';
-import HomePage from './components/Home/Home-page.jsx';
 import UserPage from './components/User/User-Page.jsx';
 import AdminPage from './components/Admin/Admin-Main/Admin-Page(New).jsx';
 
