@@ -1,11 +1,11 @@
 
-export function createCL2(scene, worldWidth, worldHeight) {
+export function createCL2(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
     const centerX = worldWidth;
     const centerY = worldHeight;
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'room-tile').setOrigin(0, 0).setDepth(-1);
 
-    scene.wall1 = scene.physics.add.staticImage(705, 50, 'room-wall').setDisplaySize(2200, 100).setDepth(1);
+    scene.wall1 = scene.physics.add.staticImage(480, 50, 'room-wall').setDisplaySize(1800, 100).setDepth(1);
     scene.wall1.body.setOffset(0, 0);
     scene.wall1.refreshBody();
     scene.wall1.setCrop(500, 0, 2000, scene.wall1.height);
@@ -25,34 +25,30 @@ export function createCL2(scene, worldWidth, worldHeight) {
     scene.cl2Doormat2 = scene.physics.add.staticImage(worldWidth - 70, worldHeight - 100, 'doormat1').setDisplaySize(50, 60).setDepth(1);
     scene.cl2Doormat2.body.setOffset(0, 0);
     scene.cl2Doormat2.refreshBody();
-    
-    scene.whiteboard = scene.physics.add.staticImage(705, 50, 'whiteboard').setDisplaySize(300, 70).setDepth(1);
-    scene.whiteboard.body.setOffset(0, 0);
-    scene.whiteboard.refreshBody();
 
-    scene.armchair1 = scene.physics.add.staticImage(350, 400, 'armchair-back').setDisplaySize(300, 70).setDepth(1);
+    scene.armchair1 = scene.physics.add.staticImage(180, 350, 'pc-set').setDisplaySize(300, 70).setDepth(1).setFlipY(true);
     scene.armchair1.body.setOffset(0, 0);
     scene.armchair1.refreshBody();
-    scene.armchair2 = scene.physics.add.staticImage(350, 500, 'armchair-back').setDisplaySize(300, 70).setDepth(1);
+    scene.armchair2 = scene.physics.add.staticImage(180, 450, 'pc-set').setDisplaySize(300, 70).setDepth(1).setFlipY(true);
     scene.armchair2.body.setOffset(0, 0);
     scene.armchair2.refreshBody();
-    scene.armchair3 = scene.physics.add.staticImage(350, 600, 'armchair-back').setDisplaySize(300, 70).setDepth(1);
+    scene.armchair3 = scene.physics.add.staticImage(180, 550, 'pc-set').setDisplaySize(300, 70).setDepth(1).setFlipY(true);
     scene.armchair3.body.setOffset(0, 0);
     scene.armchair3.refreshBody();
-    scene.armchair4 = scene.physics.add.staticImage(350, 700, 'armchair-back').setDisplaySize(300, 70).setDepth(1);
+    scene.armchair4 = scene.physics.add.staticImage(180, 650, 'pc-set').setDisplaySize(300, 70).setDepth(1).setFlipY(true);
     scene.armchair4.body.setOffset(0, 0);
     scene.armchair4.refreshBody();
     
-    scene.armchair5 = scene.physics.add.staticImage(worldWidth - 350, 400, 'armchair-back').setDisplaySize(300, 70).setDepth(1);
+    scene.armchair5 = scene.physics.add.staticImage(worldWidth - 180, 350, 'pc-set').setDisplaySize(300, 70).setDepth(1).setFlipY(true);
     scene.armchair5.body.setOffset(0, 0);
     scene.armchair5.refreshBody();
-    scene.armchair6 = scene.physics.add.staticImage(worldWidth - 350, 500, 'armchair-back').setDisplaySize(300, 70).setDepth(1);
+    scene.armchair6 = scene.physics.add.staticImage(worldWidth - 180, 450, 'pc-set').setDisplaySize(300, 70).setDepth(1).setFlipY(true);
     scene.armchair6.body.setOffset(0, 0);
     scene.armchair6.refreshBody();
-    scene.armchair7 = scene.physics.add.staticImage(worldWidth - 350, 600, 'armchair-back').setDisplaySize(300, 70).setDepth(1);
+    scene.armchair7 = scene.physics.add.staticImage(worldWidth - 180, 550, 'pc-set').setDisplaySize(300, 70).setDepth(1).setFlipY(true);
     scene.armchair7.body.setOffset(0, 0);
     scene.armchair7.refreshBody();
-    scene.armchair8 = scene.physics.add.staticImage(worldWidth - 350, 700, 'armchair-back').setDisplaySize(300, 70).setDepth(1);
+    scene.armchair8 = scene.physics.add.staticImage(worldWidth - 180, 650, 'pc-set').setDisplaySize(300, 70).setDepth(1).setFlipY(true);
     scene.armchair8.body.setOffset(0, 0);
     scene.armchair8.refreshBody();
     
@@ -71,7 +67,7 @@ export function createCL2(scene, worldWidth, worldHeight) {
     .setVisible(false);
 
     // Player and colliders
-    scene.player = scene.physics.add.image(centerX / 1.95, centerY / 3, 'avatar')
+    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar')
         .setOrigin(0.5, 0.5)
         .setDisplaySize(60, 60)
         .setDepth(3);

@@ -105,7 +105,8 @@ export function createARM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.facultyWall3.body.setOffset(0, 0);
     scene.facultyWall3.refreshBody();
 
-    scene.CL2Entrance1 = scene.hitboxes.create(40, 370, null).setSize(10, 30).setVisible(false);
+    scene.CL2Entrance1 = scene.hitboxes.create(40, 360, null).setSize(10, 50).setVisible(false);
+    scene.CL2Entrance2 = scene.hitboxes.create(40, 590, null).setSize(10, 50).setVisible(false);
 
     scene.facultyUpperWall4 = scene.physics.add.staticImage(20, 75, 'upperWallX').setDisplaySize(40, 150).setDepth(2);
     scene.facultyUpperWall4.body.setOffset(0, 0);

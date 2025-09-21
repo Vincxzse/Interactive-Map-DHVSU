@@ -43,15 +43,28 @@ function attachARM2Overlap2(scene) {
 
 function attachCL2Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.CL2Entrance1, () => {
-        scene.loadCL2();
+        scene.loadCL2(850, 200);
+        scene.refreshDebug();
+    });
+}
+
+function attachCL2Overlap2(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.CL2Entrance2, () => {
+        scene.loadCL2(850, 775);
         scene.refreshDebug();
     });
 }
 
 function attachCL2Doormat1Overlap(scene) {
-    scene.destroyCurrentOverlap();
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.cl2Doormat1, () => {
-        scene.loadARM2();
+        scene.loadARM2(100, 360);
+        scene.refreshDebug();
+    });
+}
+
+function attachCL2Doormat2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.cl2Doormat2, () => {
+        scene.loadARM2(100, 590);
         scene.refreshDebug();
     });
 }
@@ -267,4 +280,4 @@ function attachARM204Doormat2Overlap(scene) {
     })
 }
 
-export { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap, attachARM203Door2Overlap, attachARM203Doormat1Overlap, attachARM203Doormat2Overlap, attachARM204Door1Overlap, attachARM204Door2Overlap, attachARM204Doormat1Overlap, attachARM204Doormat2Overlap }
+export { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Overlap2, attachCL2Doormat1Overlap, attachCL2Doormat2Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap, attachARM203Door2Overlap, attachARM203Doormat1Overlap, attachARM203Doormat2Overlap, attachARM204Door1Overlap, attachARM204Door2Overlap, attachARM204Doormat1Overlap, attachARM204Doormat2Overlap }

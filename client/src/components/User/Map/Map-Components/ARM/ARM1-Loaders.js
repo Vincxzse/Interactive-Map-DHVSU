@@ -1,4 +1,4 @@
-import { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap, attachARM203Door2Overlap, attachARM203Doormat1Overlap, attachARM203Doormat2Overlap, attachARM204Door1Overlap, attachARM204Door2Overlap, attachARM204Doormat1Overlap, attachARM204Doormat2Overlap } from './ARM1-Attach.js'
+import { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Overlap2, attachCL2Doormat1Overlap, attachCL2Doormat2Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap, attachARM203Door2Overlap, attachARM203Doormat1Overlap, attachARM203Doormat2Overlap, attachARM204Door1Overlap, attachARM204Door2Overlap, attachARM204Doormat1Overlap, attachARM204Doormat2Overlap } from './ARM1-Attach.js'
 import { createARM } from "./ARM-1st/ARM-Map.jsx";
 import { createARM101 } from "./ARM-1st/ARM-101.jsx";
 import { createARM102 } from "./ARM-1st/ARM-102.jsx";
@@ -118,6 +118,7 @@ function loadARM2(scene, playerPositionX, playerPositionY) {
     attachARM2Overlap(scene);
     attachARM2Overlap2(scene);
     attachCL2Overlap(scene);
+    attachCL2Overlap2(scene);
     attachARM202Door1Overlap(scene);
     attachARM202Door2Overlap(scene);
     attachARM203Door1Overlap(scene);
@@ -126,12 +127,13 @@ function loadARM2(scene, playerPositionX, playerPositionY) {
     attachARM204Door2Overlap(scene);
 }
 
-function loadCL2(scene) {
+function loadCL2(scene, playerPositionX, playerPositionY) {
     scene.clearMap();
-    createCL2(scene, scene.worldWidth / 1.5, scene.worldHeight / 4);
+    createCL2(scene, scene.worldWidth / 2, scene.worldHeight / 4, playerPositionX, playerPositionY);
     scene.refreshDebug();
     scene.currentMap = "cl2";
     attachCL2Doormat1Overlap(scene);
+    attachCL2Doormat2Overlap(scene);
 }
 
 function loadARM202(scene, playerPositionX, playerPositionY) {

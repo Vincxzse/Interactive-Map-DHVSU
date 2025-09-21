@@ -144,7 +144,7 @@ function MapPage() {
         loadClinic(x, y) { loadClinic(this, x, y) }
         loadFaculty(x, y) { loadFaculty(this, x, y) }
         loadARM2(x, y) { loadARM2(this, x, y) }
-        loadCL2() { loadCL2(this) }
+        loadCL2(x, y) { loadCL2(this, x, y) }
         loadARM202(x, y) { loadARM202(this, x, y) }
         loadARM203(x, y) { loadARM203(this, x, y) }
         loadARM204(x, y) { loadARM204(this, x, y) }
