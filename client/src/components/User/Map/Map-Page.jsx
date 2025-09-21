@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Phaser from 'phaser';
 import { createOutside } from './Map-Components/Outside-Map';
 
-import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103, loadGuidance, loadClinic, loadFaculty, loadARM202, loadARM203 } from './Map-Components/ARM/ARM1-Loaders';
+import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103, loadGuidance, loadClinic, loadFaculty, loadARM202, loadARM203, loadARM204 } from './Map-Components/ARM/ARM1-Loaders';
 
 function MapPage() {
     const speedDown = 10;
@@ -65,6 +65,7 @@ function MapPage() {
                 ['bed','/map-assets/bed.png'],
                 ['water-dispenser','/map-assets/water-dispenser.png'],
                 ['clock','/map-assets/clock.png'],
+                ['pc-set','/map-assets/pc-set.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
@@ -146,6 +147,7 @@ function MapPage() {
         loadCL2() { loadCL2(this) }
         loadARM202(x, y) { loadARM202(this, x, y) }
         loadARM203(x, y) { loadARM203(this, x, y) }
+        loadARM204(x, y) { loadARM204(this, x, y) }
 
         // ---------------- OVERLAPS ----------------
         destroyCurrentOverlap() {

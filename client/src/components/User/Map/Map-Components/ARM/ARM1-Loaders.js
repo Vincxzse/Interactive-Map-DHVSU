@@ -1,4 +1,4 @@
-import { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap, attachARM203Door2Overlap, attachARM203Doormat1Overlap, attachARM203Doormat2Overlap } from './ARM1-Attach.js'
+import { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Doormat1Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap, attachARM203Door2Overlap, attachARM203Doormat1Overlap, attachARM203Doormat2Overlap, attachARM204Door1Overlap, attachARM204Door2Overlap, attachARM204Doormat1Overlap, attachARM204Doormat2Overlap } from './ARM1-Attach.js'
 import { createARM } from "./ARM-1st/ARM-Map.jsx";
 import { createARM101 } from "./ARM-1st/ARM-101.jsx";
 import { createARM102 } from "./ARM-1st/ARM-102.jsx";
@@ -11,6 +11,7 @@ import { createClinic } from './ARM-1st/Clinic-Room.jsx';
 import { createFaculty } from './ARM-1st/Faculty-Room.jsx';
 import { createARM202 } from './ARM-2nd/ARM-202.jsx';
 import { createARM203 } from './ARM-2nd/ARM-203.jsx';
+import { createARM204 } from './ARM-2nd/ARM-204.jsx';
 
 function loadOutside(scene, playerPositionX, playerPositionY) {
     scene.clearMap();
@@ -121,6 +122,8 @@ function loadARM2(scene, playerPositionX, playerPositionY) {
     attachARM202Door2Overlap(scene);
     attachARM203Door1Overlap(scene);
     attachARM203Door2Overlap(scene);
+    attachARM204Door1Overlap(scene);
+    attachARM204Door2Overlap(scene);
 }
 
 function loadCL2(scene) {
@@ -149,4 +152,13 @@ function loadARM203(scene, playerPositionX, playerPositionY) {
     attachARM203Doormat2Overlap(scene);
 }
 
-export { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM1ARM101Exit1, loadARM102, loadOutside, loadARM103, loadGuidance, loadClinic, loadFaculty, loadARM202, loadARM203 }
+function loadARM204(scene, playerPositionX, playerPositionY) {
+    scene.clearMap();
+    createARM204(scene, scene.worldWidth / 2, scene.worldHeight / 5, playerPositionX, playerPositionY);
+    scene.refreshDebug();
+    scene.currentMap = "arm-204";
+    attachARM204Doormat1Overlap(scene);
+    attachARM204Doormat2Overlap(scene);
+}
+
+export { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM1ARM101Exit1, loadARM102, loadOutside, loadARM103, loadGuidance, loadClinic, loadFaculty, loadARM202, loadARM203, loadARM204 }
