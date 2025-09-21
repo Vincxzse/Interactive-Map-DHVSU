@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Phaser from 'phaser';
 import { createOutside } from './Map-Components/Outside-Map';
 
-import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103, loadGuidance, loadClinic, loadFaculty, loadARM202, loadARM203, loadARM204 } from './Map-Components/ARM/ARM1-Loaders';
+import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103, loadGuidance, loadClinic, loadFaculty, loadARM202, loadARM203, loadARM204, loadARM206 } from './Map-Components/ARM/ARM1-Loaders';
 
 function MapPage() {
     const speedDown = 10;
@@ -148,6 +148,7 @@ function MapPage() {
         loadARM202(x, y) { loadARM202(this, x, y) }
         loadARM203(x, y) { loadARM203(this, x, y) }
         loadARM204(x, y) { loadARM204(this, x, y) }
+        loadARM206(x, y) { loadARM206(this, x, y) }
 
         // ---------------- OVERLAPS ----------------
         destroyCurrentOverlap() {
@@ -158,9 +159,22 @@ function MapPage() {
         }
 
         attachOutsideOverlap() {
-            this.destroyCurrentOverlap();
             this.currentOverlap = this.physics.add.overlap(this.player, this.entrance1, () => {
                 this.loadARM1(this.worldWidth / 2, 250);
+                this.refreshDebug();
+            });
+        }
+
+        attachOutsideOverlap2() {
+            this.currentOverlap = this.physics.add.overlap(this.player, this.entrance2, () => {
+                this.loadARM1(this.worldWidth / 2, 50);
+                this.refreshDebug();
+            });
+        }
+
+        attachOutsideOverlap3() {
+            this.currentOverlap = this.physics.add.overlap(this.player, this.entrance3, () => {
+                this.loadARM1(200, this.worldHeight - 10);
                 this.refreshDebug();
             });
         }

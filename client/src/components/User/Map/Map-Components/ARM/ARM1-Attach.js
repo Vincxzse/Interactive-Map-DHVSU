@@ -20,6 +20,12 @@ function attachARM1Overlap(scene) {
     });
 }
 
+function attachARMExit2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.armExit2, () => {
+        scene.loadOutside(scene.mrm.width + 290, scene.mrm.height + 590);
+    });
+}
+
 function attachARM1Overlap2(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.armStair3, () => {
         scene.loadARM2(295, 150);
@@ -265,7 +271,6 @@ function attachARM204Door2Overlap(scene) {
     })
 }
 
-
 function attachARM204Doormat1Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.ARM204Doormat1, () => {
         scene.loadARM2(1270, 120);
@@ -280,4 +285,32 @@ function attachARM204Doormat2Overlap(scene) {
     })
 }
 
-export { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Overlap2, attachCL2Doormat1Overlap, attachCL2Doormat2Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap, attachARM203Door2Overlap, attachARM203Doormat1Overlap, attachARM203Doormat2Overlap, attachARM204Door1Overlap, attachARM204Door2Overlap, attachARM204Doormat1Overlap, attachARM204Doormat2Overlap }
+function attachARM206Door1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.ARM206Entrance1, () => {
+        scene.loadARM206(150, 200);
+        scene.refreshDebug();
+    })
+}
+
+function attachARM206Door2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.ARM206Entrance2, () => {
+        scene.loadARM206(150, 900);
+        scene.refreshDebug();
+    })
+}
+
+function attachARM206Doormat1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.ARM206Doormat1, () => {
+        scene.loadARM2(scene.worldWidth - 100, 440);
+        scene.refreshDebug();
+    })
+}
+
+function attachARM206Doormat2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.ARM206Doormat2, () => {
+        scene.loadARM2(scene.worldWidth - 100, 598);
+        scene.refreshDebug();
+    })
+}
+
+export { attachARM1Overlap, attachARM1Overlap2, attachARM2Overlap, attachARM2Overlap2, attachCL2Overlap, attachCL2Overlap2, attachCL2Doormat1Overlap, attachCL2Doormat2Overlap, attachARM101Door1Overlap, attachARM101Door2Overlap, attachARM101Doormat1Overlap, attachARM101Doormat2Overlap, attachARM102Door1Overlap, attachARM102Doormat1Overlap, attachOutsideOverlap, attachARM103Door1Overlap, attachARM103Doormat1Overlap, attachARM103Doormat2Overlap, attachARM103Door2Overlap, attachGuidanceDoorOverlap, attachGuidanceDoormatOverlap, attachClinicDoorOverlap, attachClinicDoormatOverlap, attachFacultyEntrance1Overlap, attachFacultyDoormat1Overlap, attachFacultyDoormat2Overlap, attachFacultyEntrance2Overlap, attachARM202Door1Overlap, attachARM202Door2Overlap, attachARM202Doormat1Overlap, attachARM202Doormat2Overlap, attachARM203Door1Overlap, attachARM203Door2Overlap, attachARM203Doormat1Overlap, attachARM203Doormat2Overlap, attachARM204Door1Overlap, attachARM204Door2Overlap, attachARM204Doormat1Overlap, attachARM204Doormat2Overlap, attachARM206Door1Overlap, attachARM206Door2Overlap, attachARM206Doormat1Overlap, attachARM206Doormat2Overlap, attachARMExit2Overlap }

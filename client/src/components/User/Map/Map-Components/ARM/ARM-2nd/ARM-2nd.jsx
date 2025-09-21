@@ -11,13 +11,15 @@ export function createARM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.room1.body.setOffset(967, 977);
     scene.wall1 = scene.add.image(worldWidth - 10, 70, 'wall').setDisplaySize(30, 100).setDepth(2);
     scene.door1 = scene.add.image(worldWidth - 20, 228, 'door-side').setDisplaySize(10, 70).setDepth(2);
-
+    
     scene.room2 = scene.physics.add.staticImage(worldWidth + 150, 520, 'room').setDisplaySize(350, 350).setDepth(2);
     scene.room2.body.setSize(347, 347);
     scene.room2.body.setOffset(967, 977);
     scene.door2 = scene.add.image(worldWidth - 20, 420, 'door-side').setDisplaySize(10, 70).setDepth(2);
     scene.door3 = scene.add.image(worldWidth - 20, 578, 'door-side').setDisplaySize(10, 70).setDepth(2);
-    
+
+    scene.ARM206Entrance1 = scene.hitboxes.create(worldWidth - 20, 430, null).setSize(10, 50).setVisible(false);
+    scene.ARM206Entrance2 = scene.hitboxes.create(worldWidth - 20, 588, null).setSize(10, 50).setVisible(false);
     
     scene.room3 = scene.physics.add.staticImage(worldWidth - 620, 35, 'room-wall').setDisplaySize(350, 70).setDepth(2);
     scene.room3.body.setOffset(0, 0);

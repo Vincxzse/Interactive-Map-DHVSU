@@ -5,6 +5,8 @@ export function createARM(scene, worldWidth, worldHeight, playerPositionX, playe
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'mrm-floor').setOrigin(0, 0).setDepth(-1);
 
+    scene.armExit2 = scene.hitboxes.create((worldWidth / 2) + 30, 0, null).setSize(500, 10).setVisible(false);
+
     // Rooms Right -------------------------------------------
     scene.room1 = scene.physics.add.staticImage(worldWidth + 150, 170, 'room').setDisplaySize(350, 350).setDepth(1);
     scene.room1.body.setSize(347, 347);
