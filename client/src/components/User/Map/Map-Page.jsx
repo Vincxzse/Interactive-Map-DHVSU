@@ -9,7 +9,8 @@ import {
     loadMRM2nd, 
     loadMRM101, 
     loadMRM102,
-    loadMRM103
+    loadMRM103,
+    loadGC1
 } from "./Map-Components/MRM/MRM1-Loaders"
 
 
@@ -164,6 +165,7 @@ function MapPage() {
         loadMRM101(x, y) { loadMRM101(this, x, y) }
         loadMRM102(x, y) { loadMRM102(this, x, y) }
         loadMRM103(x, y) { loadMRM103(this, x, y) }
+        loadGC1(x, y) { loadGC1(this, x, y) }
 
         loadMRM2nd(x, y) { loadMRM2nd(this, x, y) }
 

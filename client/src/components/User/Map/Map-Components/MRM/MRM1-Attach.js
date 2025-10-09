@@ -133,6 +133,20 @@ function attachMRM103Exit2Overlap(scene) {
     })
 }
 
+function attachGCEntrance1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.GCEntrance1, () => {
+        scene.loadGC1(200, 150)
+        scene.refreshDebug()
+    })
+}
+
+function attachGuidanceExitOverlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.guidanceExit, () => {
+        scene.loadMRM(scene.worldWidth - 595, (scene.worldHeight / 5) - 100)
+        scene.refreshDebug()
+    })
+}
+
 export { 
     attachMRMEntrance1Overlap,
     attachMRMEntrance2Overlap,
@@ -152,5 +166,7 @@ export {
     attachMRM103Entrance1Overlap,
     attachMRM103Entrance2Overlap,
     attachMRM103Exit1Overlap,
-    attachMRM103Exit2Overlap
+    attachMRM103Exit2Overlap,
+    attachGCEntrance1Overlap,
+    attachGuidanceExitOverlap
 }
