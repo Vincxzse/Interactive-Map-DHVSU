@@ -19,6 +19,7 @@ import {
     loadMRM204,
     loadMRM205,
     loadComlab1,
+    loadOldLibrary,
 } from "./Map-Components/MRM/MRM1-Loaders"
 
 
@@ -190,6 +191,7 @@ function MapPage() {
         loadMRM204(x, y) { loadMRM204(this, x, y) }
         loadMRM205(x, y) { loadMRM205(this, x, y) }
         loadComlab1(x, y) { loadComlab1(this, x, y) }
+        loadOldLibrary(x, y) { loadOldLibrary(this, x, y) }
 
         // ---------------- OVERLAPS ----------------
         destroyCurrentOverlap() {

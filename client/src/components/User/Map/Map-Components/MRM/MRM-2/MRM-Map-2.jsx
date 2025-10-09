@@ -36,10 +36,10 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.room10 = scene.physics.add.staticImage(-150, 670, 'room').setDisplaySize(350, 550).setDepth(2).setFlipX(true);
     scene.room10.body.setSize(347, 347);
     scene.room10.body.setOffset(967, 977);
-    scene.room102door2 = scene.add.image(20, 535, 'door-side').setDisplaySize(10, 70).setDepth(2);
     scene.wall10 = scene.physics.add.staticImage(11, 425, 'wall').setDisplaySize(30, 100).setDepth(2);
     scene.wall10.body.setOffset(0,0)
     scene.wall10.refreshBody()
+    scene.room102door2 = scene.add.image(20, 535, 'door-side').setDisplaySize(10, 70).setDepth(2);
     
     // 203
     scene.room3 = scene.physics.add.staticImage(worldWidth - 495, worldHeight, 'room-wall').setDisplaySize(405, 70).setDepth(5);
@@ -139,6 +139,7 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
 
     scene.comLab1Entrance1 = scene.hitboxes.create(25, 132, null).setSize(10, 50).setVisible(false);
     scene.comLab1Entrance2 = scene.hitboxes.create(25, 292, null).setSize(10, 50).setVisible(false);
+    scene.oldLibraryEntrance1 = scene.hitboxes.create(25, 547, null).setSize(10, 50).setVisible(false);
     // End of rooms left
     
     

@@ -343,6 +343,20 @@ function attachComLabExit2Overlap(scene) {
     })
 }
 
+function attachOldLibraryEntrance1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.oldLibraryEntrance1, () => {
+        scene.loadOldLibrary((scene.worldWidth / 1.5) - 125, 200)
+        scene.refreshDebug()
+    })
+}
+
+function attachOldLibraryExit1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.oldLibraryDoormat1, () => {
+        scene.loadMRM2nd(75, 547)
+        scene.refreshDebug()
+    })
+}
+
 export { 
     attachMRMEntrance1Overlap,
     attachMRMEntrance2Overlap,
@@ -392,5 +406,7 @@ export {
     attachComlab1Entrance1Overlap,
     attachComlab1Entrance2Overlap,
     attachComLabExit1Overlap,
-    attachComLabExit2Overlap
+    attachComLabExit2Overlap,
+    attachOldLibraryEntrance1Overlap,
+    attachOldLibraryExit1Overlap
 }
