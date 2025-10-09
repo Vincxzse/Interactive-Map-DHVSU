@@ -6,11 +6,12 @@ import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM1
 
 import {
     loadMRM, 
-    loadMRM2nd, 
-    loadMRM101, 
+    loadMRM2nd,
+    loadMRM101,
     loadMRM102,
     loadMRM103,
-    loadGC1
+    loadGC1,
+    loadGC2
 } from "./Map-Components/MRM/MRM1-Loaders"
 
 
@@ -166,6 +167,7 @@ function MapPage() {
         loadMRM102(x, y) { loadMRM102(this, x, y) }
         loadMRM103(x, y) { loadMRM103(this, x, y) }
         loadGC1(x, y) { loadGC1(this, x, y) }
+        loadGC2(x, y) { loadGC2(this, x, y) }
 
         loadMRM2nd(x, y) { loadMRM2nd(this, x, y) }
 

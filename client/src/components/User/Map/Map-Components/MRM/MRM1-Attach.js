@@ -140,9 +140,23 @@ function attachGCEntrance1Overlap(scene) {
     })
 }
 
+function attachGCEntrance2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.GCEntrance2, () => {
+        scene.loadGC2((scene.worldWidth / 3) - 200, 150)
+        scene.refreshDebug()
+    })
+}
+
 function attachGuidanceExitOverlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.guidanceExit, () => {
         scene.loadMRM(scene.worldWidth - 595, (scene.worldHeight / 5) - 100)
+        scene.refreshDebug()
+    })
+}
+
+function attachClinicExitOverlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.clinicExit, () => {
+        scene.loadMRM(scene.worldWidth - 395, (scene.worldHeight / 5) - 100)
         scene.refreshDebug()
     })
 }
@@ -168,5 +182,7 @@ export {
     attachMRM103Exit1Overlap,
     attachMRM103Exit2Overlap,
     attachGCEntrance1Overlap,
-    attachGuidanceExitOverlap
+    attachGuidanceExitOverlap,
+    attachGCEntrance2Overlap,
+    attachClinicExitOverlap
 }
