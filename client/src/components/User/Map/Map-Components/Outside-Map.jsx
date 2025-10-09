@@ -82,6 +82,12 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.entrance2 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 650, null).setSize(100, 10).setVisible(false);
     scene.entrance3 = scene.hitboxes.create(scene.mrm.width + 40, scene.mrm.height + 1115, null).setSize(100, 10).setVisible(false);
     scene.entrance4 = scene.hitboxes.create(scene.mrm.width * 1.62, scene.mrm.height + 1115, null).setSize(100, 10).setVisible(false);
+    
+    scene.MRMEntrance1 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 1460, null).setSize(100, 10).setVisible(false);
+    scene.MRMEntrance2 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 1700, null).setSize(100, 10).setVisible(false);
+    scene.MRMEntrance3 = scene.hitboxes.create(scene.mrm.width + 40, scene.mrm.height + 1240, null).setSize(100, 10).setVisible(false);
+    scene.MRMEntrance4 = scene.hitboxes.create(scene.mrm.width * 1.62, scene.mrm.height + 1240, null).setSize(100, 10).setVisible(false);
+
 
     // Canteen
     scene.canteen = scene.physics.add.staticImage(1290, 850, 'canteen').setDepth(3);
@@ -273,7 +279,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.input.on('wheel', (pointer, GameObjects, deltaX, deltaY) => {
         let cam = scene.cameras.main;
         let zoomChange = deltaY > 0 ? - 0.05 : 0.05;
-        let newZoom = Phaser.Math.Clamp(cam.zoom + zoomChange, 0.76, 2);
+        let newZoom = Phaser.Math.Clamp(cam.zoom + zoomChange, 1, 2);
         cam.zoomTo(newZoom, 10);
     });
 }
