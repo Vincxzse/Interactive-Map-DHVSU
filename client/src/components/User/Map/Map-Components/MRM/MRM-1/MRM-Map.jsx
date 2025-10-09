@@ -18,7 +18,6 @@ export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.wall11.body.setOffset(0,0)
     scene.wall11.refreshBody()
     
-    scene.mrm1Room1Entrance1 = scene.hitboxes.create(worldWidth - 25, 95, null).setSize(10, 50).setVisible(false);
     scene.room2 = scene.physics.add.staticImage(worldWidth + 150, 220, 'room').setDisplaySize(350, 550).setDepth(2);
     scene.room2.body.setSize(347, 347);
     scene.room2.body.setOffset(967, 1050);
@@ -29,7 +28,8 @@ export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.wall6 = scene.physics.add.staticImage(worldWidth - 11, - 10, 'wall').setDisplaySize(30, 100).setDepth(2);
     scene.wall6.body.setOffset(0,0)
     scene.wall6.refreshBody()
-    scene.mrm1Room1Entrance2 = scene.hitboxes.create(worldWidth - 25, 345, null).setSize(10, 50).setVisible(false);
+    scene.facultyEntrance1 = scene.hitboxes.create(worldWidth - 25, 95, null).setSize(10, 50).setVisible(false);
+    scene.facultyEntrance2 = scene.hitboxes.create(worldWidth - 25, 345, null).setSize(10, 50).setVisible(false);
 
     scene.room10 = scene.physics.add.staticImage(-150, 670, 'room').setDisplaySize(350, 550).setDepth(2).setFlipX(true);
     scene.room10.body.setSize(347, 347);
@@ -38,7 +38,7 @@ export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.wall10 = scene.physics.add.staticImage(11, 425, 'wall').setDisplaySize(30, 100).setDepth(2);
     scene.wall10.body.setOffset(0,0)
     scene.wall10.refreshBody()
-    scene.mrm10Room1Entrance2 = scene.hitboxes.create(worldWidth - 25, 345, null).setSize(10, 50).setVisible(false);
+    // scene.mrm10Room1Entrance2 = scene.hitboxes.create(worldWidth - 25, 345, null).setSize(10, 50).setVisible(false);
     
     scene.room3 = scene.physics.add.staticImage(worldWidth - 495, worldHeight, 'room-wall').setDisplaySize(405, 70).setDepth(5);
     scene.room3.body.setOffset(0, 0);

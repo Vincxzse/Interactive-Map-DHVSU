@@ -161,6 +161,34 @@ function attachClinicExitOverlap(scene) {
     })
 }
 
+function attachFacultyEntrance1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyEntrance1, () => {
+        scene.loadFacultyRoom(120, 250)
+        scene.refreshDebug()
+    })
+}
+
+function attachFacultyEntrance2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyEntrance2, () => {
+        scene.loadFacultyRoom(120, (scene.worldHeight / 4) - 50)
+        scene.refreshDebug()
+    })
+}
+
+function attachFacultyDoormat1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyRoomDoormat1, () => {
+        scene.loadMRM(scene.worldWidth - 75, 95)
+        scene.refreshDebug()
+    })
+}
+
+function attachFacultyDoormat2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyRoomDoormat2, () => {
+        scene.loadMRM(scene.worldWidth - 75, 345)
+        scene.refreshDebug()
+    })
+}
+
 export { 
     attachMRMEntrance1Overlap,
     attachMRMEntrance2Overlap,
@@ -184,5 +212,9 @@ export {
     attachGCEntrance1Overlap,
     attachGuidanceExitOverlap,
     attachGCEntrance2Overlap,
-    attachClinicExitOverlap
+    attachClinicExitOverlap,
+    attachFacultyEntrance1Overlap,
+    attachFacultyEntrance2Overlap,
+    attachFacultyDoormat1Overlap,
+    attachFacultyDoormat2Overlap
 }
