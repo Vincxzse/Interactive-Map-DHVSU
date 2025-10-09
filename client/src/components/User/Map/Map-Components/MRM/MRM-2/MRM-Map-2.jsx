@@ -104,6 +104,16 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.mrm202door2.body.setOffset(0, 0);
     scene.mrm202door2.refreshBody();
     scene.mrm202Entrance2 = scene.hitboxes.create(1130, worldHeight, null).setSize(50, 10).setVisible(false);
+
+    scene.MRM203Door1 = scene.physics.add.staticImage(worldWidth - 395, worldHeight, 'door-front').setDisplaySize(70, 70).setDepth(6)
+    scene.MRM203Door1.body.setOffset(0, 0);
+    scene.MRM203Door1.refreshBody();
+    scene.MRM203Entrance1 = scene.hitboxes.create(worldWidth - 395, worldHeight, null).setSize(50, 10).setVisible(false);
+
+    scene.MRM203Door2 = scene.physics.add.staticImage(worldWidth - 595, worldHeight, 'door-front').setDisplaySize(70, 70).setDepth(6)
+    scene.MRM203Door2.body.setOffset(0, 0);
+    scene.MRM203Door2.refreshBody();
+    scene.MRM203Entrance2 = scene.hitboxes.create(worldWidth - 595, worldHeight, null).setSize(50, 10).setVisible(false);
     
     scene.stair2 = scene.physics.add.staticImage(1775, worldHeight, 'stairs').setDisplaySize(100, 100);
     scene.stair2.body.setOffset(0, 0);
