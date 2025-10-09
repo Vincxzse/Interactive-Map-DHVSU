@@ -273,6 +273,20 @@ function attachMRM203Exit2Overlap(scene) {
     })
 }
 
+function attachMRM204Entrance1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRM204Entrance1, () => {
+        scene.loadMRM204(125, 200)
+        scene.refreshDebug()
+    })
+}
+
+function attachMRM204Exit1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRM204Doormat1, () => {
+        scene.loadMRM2nd(scene.worldWidth - 75, 507)
+        scene.refreshDebug()
+    })
+}
+
 function attachMRM205Entrance1Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRM205Entrance1, () => {
         scene.loadMRM205(125, 200)
@@ -344,5 +358,7 @@ export {
     attachMRM205Entrance1Overlap,
     attachMRM205Entrance2Overlap,
     attachMRM205Exit1Overlap,
-    attachMRM205Exit2Overlap
+    attachMRM205Exit2Overlap,
+    attachMRM204Entrance1Overlap,
+    attachMRM204Exit1Overlap
 }

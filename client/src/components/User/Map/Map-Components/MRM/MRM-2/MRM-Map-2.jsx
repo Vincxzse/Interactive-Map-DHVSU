@@ -113,6 +113,13 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.MRM203Door2.refreshBody();
     scene.MRM203Entrance2 = scene.hitboxes.create(worldWidth - 595, worldHeight, null).setSize(50, 10).setVisible(false);
     
+    scene.room204 = scene.physics.add.staticImage(worldWidth - 8, 650, 'long-wall').setDisplaySize(30, 240).setDepth(2);
+    scene.room204.body.setOffset(0, 0);
+    scene.room204.refreshBody();
+    scene.mrm204door1 = scene.physics.add.staticImage(worldWidth - 20, 495, 'door-side').setDisplaySize(10, 70).setDepth(2);
+    scene.mrm204door1.body.setOffset(0, 0);
+    scene.mrm204door1.refreshBody();
+    
     scene.stair2 = scene.physics.add.staticImage(1775, worldHeight, 'stairs').setDisplaySize(100, 100);
     scene.stair2.body.setOffset(0, 0);
     scene.stair2.refreshBody();
@@ -128,6 +135,7 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
 
     scene.MRM205Entrance1 = scene.hitboxes.create(worldWidth - 25, 95, null).setSize(10, 50).setVisible(false);
     scene.MRM205Entrance2 = scene.hitboxes.create(worldWidth - 25, 345, null).setSize(10, 50).setVisible(false);
+    scene.MRM204Entrance1 = scene.hitboxes.create(worldWidth - 25, 507, null).setSize(10, 50).setVisible(false);
     // End of rooms left
     
     
@@ -177,6 +185,8 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.physics.add.collider(scene.player, scene.room2);
     scene.physics.add.collider(scene.player, scene.wall6);
     scene.physics.add.collider(scene.player, scene.door2);
+    scene.physics.add.collider(scene.player, scene.room204);
+    scene.physics.add.collider(scene.player, scene.mrm204door1);
 
     scene.cameras.main.startFollow(scene.player, true, 1, 1);
     

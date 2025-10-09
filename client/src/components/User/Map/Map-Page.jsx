@@ -16,6 +16,7 @@ import {
     loadMRM201,
     loadMRM202,
     loadMRM203,
+    loadMRM204,
     loadMRM205,
 } from "./Map-Components/MRM/MRM1-Loaders"
 
@@ -83,6 +84,7 @@ function MapPage() {
                 ['water-dispenser','/map-assets/water-dispenser.png'],
                 ['clock','/map-assets/clock.png'],
                 ['pc-set','/map-assets/pc-set.png'],
+                ['long-wall','/map-assets/long-wall.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
@@ -179,6 +181,7 @@ function MapPage() {
         loadMRM201(x, y) { loadMRM201(this, x, y) }
         loadMRM202(x, y) { loadMRM202(this, x, y) }
         loadMRM203(x, y) { loadMRM203(this, x, y) }
+        loadMRM204(x, y) { loadMRM204(this, x, y) }
         loadMRM205(x, y) { loadMRM205(this, x, y) }
 
         // ---------------- OVERLAPS ----------------
