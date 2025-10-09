@@ -33,7 +33,11 @@ import {
     attachMRM203Entrance1Overlap,
     attachMRM203Entrance2Overlap,
     attachMRM203Exit1Overlap,
-    attachMRM203Exit2Overlap
+    attachMRM203Exit2Overlap,
+    attachMRM205Entrance1Overlap,
+    attachMRM205Entrance2Overlap,
+    attachMRM205Exit1Overlap,
+    attachMRM205Exit2Overlap,
 } from "./MRM1-Attach.js"
 
 import { createMRM } from './MRM-1/MRM-Map.jsx'
@@ -47,6 +51,7 @@ import { createFaculty } from "./MRM-1/Faculty.jsx"
 import { createMRM201 } from "./MRM-2/MRM201.jsx"
 import { createMRM202 } from "./MRM-2/MRM202.jsx"
 import { createMRM203 } from "./MRM-2/MRM203.jsx"
+import { createMRM205 } from "./MRM-2/MRM205.jsx"
 
 // Load the main MRM building (1st floor)
 function loadMRM(scene, playerPositionX, playerPositionY) {
@@ -81,6 +86,8 @@ function loadMRM2nd(scene, playerPositionX, playerPositionY) {
     attachMRM202Entrance2Overlap(scene)
     attachMRM203Entrance1Overlap(scene)
     attachMRM203Entrance2Overlap(scene)
+    attachMRM205Entrance1Overlap(scene)
+    attachMRM205Entrance2Overlap(scene)
 }
 
 function loadMRM101(scene, playerPositionX, playerPositionY) {
@@ -152,6 +159,14 @@ function loadMRM203(scene, playerPositionX, playerPositionY) {
     attachMRM203Exit2Overlap(scene)
 }
 
+function loadMRM205(scene, playerPositionX, playerPositionY) {
+    scene.clearMap()
+    createMRM205(scene, scene.worldWidth / 1.5, scene.worldHeight / 3.5, playerPositionX, playerPositionY)
+    scene.refreshDebug()
+    attachMRM205Exit1Overlap(scene)
+    attachMRM205Exit2Overlap(scene)
+}
+
 export { 
     loadMRM,
     loadMRM2nd,
@@ -163,5 +178,6 @@ export {
     loadFacultyRoom,
     loadMRM201,
     loadMRM202,
-    loadMRM203
+    loadMRM203,
+    loadMRM205
 }
