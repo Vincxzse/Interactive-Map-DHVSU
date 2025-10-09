@@ -62,6 +62,18 @@ export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.room4Wall2.body.setOffset(0, 0);
     scene.room4Wall2.refreshBody();
 
+    scene.mrm103door1 = scene.physics.add.staticImage(450, worldHeight, 'door-front').setDisplaySize(70, 70).setDepth(6)
+    scene.mrm103door1.body.setSize(70, 90);
+    scene.mrm103door1.body.setOffset(0, 0);
+    scene.mrm103door1.refreshBody();
+    scene.mrm103Entrance1 = scene.hitboxes.create(450, worldHeight, null).setSize(50, 10).setVisible(false);
+
+    scene.mrm103door2 = scene.physics.add.staticImage(650, worldHeight, 'door-front').setDisplaySize(70, 70).setDepth(6)
+    scene.mrm103door2.body.setSize(70, 90);
+    scene.mrm103door2.body.setOffset(0, 0);
+    scene.mrm103door2.refreshBody();
+    scene.mrm103Entrance2 = scene.hitboxes.create(650, worldHeight, null).setSize(50, 10).setVisible(false);
+
     scene.room5 = scene.physics.add.staticImage(130, worldHeight, 'room-wall').setDisplaySize(180, 70).setDepth(5);
     scene.room5.body.setOffset(0, 0);
     scene.room5.refreshBody();
