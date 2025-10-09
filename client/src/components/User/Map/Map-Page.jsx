@@ -13,7 +13,8 @@ import {
     loadGC1,
     loadGC2,
     loadFacultyRoom,
-    loadMRM201
+    loadMRM201,
+    loadMRM202
 } from "./Map-Components/MRM/MRM1-Loaders"
 
 
@@ -172,6 +173,7 @@ function MapPage() {
         loadGC2(x, y) { loadGC2(this, x, y) }
         loadFacultyRoom(x, y) { loadFacultyRoom(this, x, y) }
         loadMRM201(x, y) { loadMRM201(this, x, y) }
+        loadMRM202(x, y) { loadMRM202(this, x, y) }
 
         loadMRM2nd(x, y) { loadMRM2nd(this, x, y) }
 

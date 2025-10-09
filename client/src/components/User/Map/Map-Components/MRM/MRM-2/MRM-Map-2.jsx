@@ -76,6 +76,34 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.mrm201door2.body.setOffset(0, 0);
     scene.mrm201door2.refreshBody();
     scene.mrm201Entrance2 = scene.hitboxes.create(650, worldHeight, null).setSize(50, 10).setVisible(false);
+
+    // 202
+    scene.room4 = scene.physics.add.staticImage(1030, worldHeight, 'room-wall').setDisplaySize(405, 70).setDepth(5);
+    scene.room4.body.setOffset(0, 0);
+    scene.room4.refreshBody();
+    scene.room4.setCrop(0,0,4000,220);
+    scene.room4Wall1 = scene.physics.add.staticImage(835, worldHeight, 'room-wall').setDisplaySize(50, 70).setDepth(5);
+    scene.room4Wall1.body.setOffset(0, 0);
+    scene.room4Wall1.refreshBody();
+    scene.room4Wall1 = scene.physics.add.staticImage(795, worldHeight, 'room-wall').setDisplaySize(50, 70).setDepth(5);
+    scene.room4Wall1.body.setOffset(0, 0);
+    scene.room4Wall1.refreshBody();
+    scene.room4Wall2 = scene.physics.add.staticImage(1225, worldHeight, 'room-wall').setDisplaySize(50, 70).setDepth(5);
+    scene.room4Wall2.body.setOffset(0, 0);
+    scene.room4Wall2.refreshBody();
+    scene.room4Wall2 = scene.physics.add.staticImage(1265, worldHeight, 'room-wall').setDisplaySize(50, 70).setDepth(5);
+    scene.room4Wall2.body.setOffset(0, 0);
+    scene.room4Wall2.refreshBody();
+
+    scene.mrm202door1 = scene.physics.add.staticImage(930, worldHeight, 'door-front').setDisplaySize(70, 70).setDepth(6)
+    scene.mrm202door1.body.setOffset(0, 0);
+    scene.mrm202door1.refreshBody();
+    scene.mrm202Entrance1 = scene.hitboxes.create(930, worldHeight, null).setSize(50, 10).setVisible(false);
+
+    scene.mrm202door2 = scene.physics.add.staticImage(1130, worldHeight, 'door-front').setDisplaySize(70, 70).setDepth(6)
+    scene.mrm202door2.body.setOffset(0, 0);
+    scene.mrm202door2.refreshBody();
+    scene.mrm202Entrance2 = scene.hitboxes.create(1130, worldHeight, null).setSize(50, 10).setVisible(false);
     
     scene.stair2 = scene.physics.add.staticImage(1775, worldHeight, 'stairs').setDisplaySize(100, 100);
     scene.stair2.body.setOffset(0, 0);
