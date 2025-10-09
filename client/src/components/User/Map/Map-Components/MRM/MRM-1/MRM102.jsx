@@ -17,38 +17,41 @@ export function createMRM102(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.wall3 = scene.physics.add.staticImage(worldWidth - 20, 400, 'wall').setDisplaySize(50, worldHeight + 200).setDepth(1);
     scene.wall3.body.setOffset(0, 0);
     scene.wall3.refreshBody();
+
+    scene.whiteboard = scene.physics.add.staticImage(worldWidth - 340, 50, 'whiteboard').setDisplaySize(300, 70).setDepth(1);
+    scene.whiteboard.body.setOffset(0, 0);
+    scene.whiteboard.refreshBody();
+    scene.whiteboard = scene.physics.add.staticImage(340, 50, 'whiteboard').setDisplaySize(300, 70).setDepth(1);
+    scene.whiteboard.body.setOffset(0, 0);
+    scene.whiteboard.refreshBody();
     
-    scene.MRM101Doormat1 = scene.physics.add.staticImage(worldWidth - 70, 200, 'doormat1').setDisplaySize(50, 60).setDepth(1).setFlipX(true).setFlipY(true);
-    scene.MRM101Doormat1.body.setOffset(0, 0);
-    scene.MRM101Doormat1.refreshBody();
+    scene.MRM102Doormat1 = scene.physics.add.staticImage(worldWidth - 70, 200, 'doormat1').setDisplaySize(50, 60).setDepth(1).setFlipX(true).setFlipY(true);
+    scene.MRM102Doormat1.body.setOffset(0, 0);
+    scene.MRM102Doormat1.refreshBody();
 
-    scene.MRM101Doormat2 = scene.physics.add.staticImage(worldWidth - 70, worldHeight - 100, 'doormat1').setDisplaySize(50, 60).setDepth(1).setFlipX(true).setFlipY(true);
-    scene.MRM101Doormat2.body.setOffset(0, 0);
-    scene.MRM101Doormat2.refreshBody();
-
-    scene.armchair1 = scene.physics.add.staticImage(350, 250, 'armchair').setDisplaySize(250, 70).setDepth(1);
+    scene.armchair1 = scene.physics.add.staticImage(350, 250, 'armchair-back').setDisplaySize(250, 70).setDepth(1);
     scene.armchair1.body.setOffset(0, 0);
     scene.armchair1.refreshBody();
-    scene.armchair2 = scene.physics.add.staticImage(350, 350, 'armchair').setDisplaySize(250, 70).setDepth(1);
+    scene.armchair2 = scene.physics.add.staticImage(350, 350, 'armchair-back').setDisplaySize(250, 70).setDepth(1);
     scene.armchair2.body.setOffset(0, 0);
     scene.armchair2.refreshBody();
-    scene.armchair3 = scene.physics.add.staticImage(350, 450, 'armchair').setDisplaySize(250, 70).setDepth(1);
+    scene.armchair3 = scene.physics.add.staticImage(350, 450, 'armchair-back').setDisplaySize(250, 70).setDepth(1);
     scene.armchair3.body.setOffset(0, 0);
     scene.armchair3.refreshBody();
-    scene.armchair4 = scene.physics.add.staticImage(350, 550, 'armchair').setDisplaySize(250, 70).setDepth(1);
+    scene.armchair4 = scene.physics.add.staticImage(350, 550, 'armchair-back').setDisplaySize(250, 70).setDepth(1);
     scene.armchair4.body.setOffset(0, 0);
     scene.armchair4.refreshBody();
     
-    scene.armchair5 = scene.physics.add.staticImage(worldWidth - 350, 250, 'armchair').setDisplaySize(250, 70).setDepth(1);
+    scene.armchair5 = scene.physics.add.staticImage(worldWidth - 350, 250, 'armchair-back').setDisplaySize(250, 70).setDepth(1);
     scene.armchair5.body.setOffset(0, 0);
     scene.armchair5.refreshBody();
-    scene.armchair6 = scene.physics.add.staticImage(worldWidth - 350, 350, 'armchair').setDisplaySize(250, 70).setDepth(1);
+    scene.armchair6 = scene.physics.add.staticImage(worldWidth - 350, 350, 'armchair-back').setDisplaySize(250, 70).setDepth(1);
     scene.armchair6.body.setOffset(0, 0);
     scene.armchair6.refreshBody();
-    scene.armchair7 = scene.physics.add.staticImage(worldWidth - 350, 450, 'armchair').setDisplaySize(250, 70).setDepth(1);
+    scene.armchair7 = scene.physics.add.staticImage(worldWidth - 350, 450, 'armchair-back').setDisplaySize(250, 70).setDepth(1);
     scene.armchair7.body.setOffset(0, 0);
     scene.armchair7.refreshBody();
-    scene.armchair8 = scene.physics.add.staticImage(worldWidth - 350, 550, 'armchair').setDisplaySize(250, 70).setDepth(1);
+    scene.armchair8 = scene.physics.add.staticImage(worldWidth - 350, 550, 'armchair-back').setDisplaySize(250, 70).setDepth(1);
     scene.armchair8.body.setOffset(0, 0);
     scene.armchair8.refreshBody();
 

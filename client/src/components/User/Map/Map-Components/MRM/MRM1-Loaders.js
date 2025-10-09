@@ -7,12 +7,15 @@ import {
     attachMRM101Entrance1Overlap,
     attachMRM101Entrance2Overlap,
     attachMRM101Doormat1Overlap,
-    attachMRM101Doormat2Overlap
+    attachMRM101Doormat2Overlap,
+    attachMRM102Entrance1Overlap,
+    attachMRM102Doormat1Overlap
 } from "./MRM1-Attach.js"
 
 import { createMRM } from './MRM-1/MRM-Map.jsx';
 import { createMRM2nd } from './MRM-2/MRM-Map-2.jsx';
 import { createMRM101 } from "./MRM-1/MRM101.jsx";
+import { createMRM102 } from "./MRM-1/MRM102.jsx";
 
 // Load the main MRM building (1st floor)
 function loadMRM(scene, playerPositionX, playerPositionY) {
@@ -25,6 +28,7 @@ function loadMRM(scene, playerPositionX, playerPositionY) {
     attachMRMExit1(scene)
     attachMRM101Entrance1Overlap(scene)
     attachMRM101Entrance2Overlap(scene)
+    attachMRM102Entrance1Overlap(scene)
 }
 
 // Load MRM 2nd floor (if you have one)
@@ -32,7 +36,6 @@ function loadMRM2nd(scene, playerPositionX, playerPositionY) {
     scene.clearMap();
     createMRM2nd(scene, scene.worldWidth, scene.worldHeight / 5, playerPositionX, playerPositionY);
     scene.refreshDebug();
-    scene.currentMap = "mrm2nd";
     attachMRM2ndStair1Overlap(scene);
     attachMRM2ndStair2Overlap(scene);
     
@@ -44,13 +47,20 @@ function loadMRM101(scene, playerPositionX, playerPositionY) {
     scene.clearMap();
     createMRM101(scene, scene.worldWidth / 2, scene.worldHeight / 5, playerPositionX, playerPositionY);
     scene.refreshDebug();
-    scene.currentMap = "mrm2nd";
     attachMRM101Doormat1Overlap(scene)
     attachMRM101Doormat2Overlap(scene)
+}
+
+function loadMRM102(scene, playerPositionX, playerPositionY) {
+    scene.clearMap();
+    createMRM102(scene, scene.worldWidth / 2, scene.worldHeight / 5, playerPositionX, playerPositionY);
+    scene.refreshDebug();
+    attachMRM102Doormat1Overlap(scene)
 }
 
 export { 
     loadMRM,
     loadMRM2nd,
-    loadMRM101
+    loadMRM101,
+    loadMRM102
 };

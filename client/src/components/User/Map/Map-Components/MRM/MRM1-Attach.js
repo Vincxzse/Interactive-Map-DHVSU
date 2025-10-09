@@ -1,101 +1,108 @@
 
 function attachMRMExit1(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMExit1, () => {
-        scene.loadOutside(1250, 1800);
-        scene.refreshDebug();
-    });
+        scene.loadOutside(1250, 1800)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRMEntrance1Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMEntrance1, () => {
-        scene.loadMRM(scene.worldWidth / 2, 250);
-        scene.refreshDebug();
-    });
+        scene.loadMRM(scene.worldWidth / 2, 250)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRMEntrance2Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMEntrance2, () => {
-        scene.loadMRM(scene.worldWidth / 2, 50);
-        scene.refreshDebug();
-    });
+        scene.loadMRM(scene.worldWidth / 2, 50)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRMEntrance3Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMEntrance3, () => {
-        scene.loadMRM(200, 600);
-        scene.refreshDebug();
-    });
+        scene.loadMRM(200, 600)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRMEntrance4Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMEntrance4, () => {
-        console.log("MRM Entrance 4 triggered!");
-        scene.loadMRM(scene.worldWidth - 150, 600);
-        scene.refreshDebug();
-    });
+        console.log("MRM Entrance 4 triggered!")
+        scene.loadMRM(scene.worldWidth - 150, 600)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRMStair1Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.mrmStair3, () => {
-        scene.loadMRM2nd(280, 550);
-        scene.refreshDebug();
+        scene.loadMRM2nd(280, 550)
+        scene.refreshDebug()
     })
 }
 
 function attachMRMStair2Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.mrmStair2, () => {
-        scene.loadMRM2nd(1775, 550);
-        scene.refreshDebug();
+        scene.loadMRM2nd(1775, 550)
+        scene.refreshDebug()
     })
 }
 
 function attachMRM2ndStair1Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.mrm2stair2, () => {
-        scene.loadMRM(280, 550);
-        scene.refreshDebug();
-    });
+        scene.loadMRM(280, 550)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRM2ndStair2Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.mrm2stair1, () => {
-        scene.loadMRM(1775, 550);
-        scene.refreshDebug();
-    });
+        scene.loadMRM(1775, 550)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRM101Entrance1Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.mrm101Entrance1, () => {
-        scene.loadMRM101((scene.worldWidth / 2) - 130, 200);
-        scene.refreshDebug();
-    });
+        scene.loadMRM101((scene.worldWidth / 2) - 130, 200)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRM101Entrance2Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.mrm101Entrance2, () => {
-        scene.loadMRM101((scene.worldWidth / 2) - 130, (scene.worldHeight / 5) - 100);
-        scene.refreshDebug();
-    });
+        scene.loadMRM101((scene.worldWidth / 2) - 130, (scene.worldHeight / 5) - 100)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRM101Doormat1Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRM101Doormat1, () => {
-        scene.loadMRM(40, 132);
-        scene.refreshDebug();
-    });
+        scene.loadMRM(40, 132)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRM101Doormat2Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRM101Doormat2, () => {
-        scene.loadMRM(40, 292);
-        scene.refreshDebug();
-    });
+        scene.loadMRM(40, 292)
+        scene.refreshDebug()
+    })
 }
 
 function attachMRM102Entrance1Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.mrm102Entrance1, () => {
-        scene.loadMRM(40, 292);
-        scene.refreshDebug();
-    });
+        scene.loadMRM102((scene.worldWidth / 2) - 130, 200)
+        scene.refreshDebug()
+    })
+}
+
+function attachMRM102Doormat1Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRM102Doormat1, () => {
+        scene.loadMRM(40, 547)
+        scene.refreshDebug()
+    })
 }
 
 export { 
@@ -112,5 +119,6 @@ export {
     attachMRM101Entrance2Overlap,
     attachMRM101Doormat1Overlap,
     attachMRM101Doormat2Overlap,
-    attachMRM102Entrance1Overlap
-};
+    attachMRM102Entrance1Overlap,
+    attachMRM102Doormat1Overlap
+}
