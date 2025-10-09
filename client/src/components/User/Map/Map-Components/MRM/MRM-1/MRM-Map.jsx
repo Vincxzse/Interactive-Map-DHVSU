@@ -86,7 +86,11 @@ export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.mrmStair2 = scene.hitboxes.create(1775, worldHeight, null).setSize(100, 10).setVisible(false);
     scene.mrmStair3 = scene.hitboxes.create(280, worldHeight, null).setSize(100, 10).setVisible(false);
     // End of rooms left
-    
+
+    // Entrances
+    scene.mrm101Entrance1 = scene.hitboxes.create(25, 132, null).setSize(10, 50).setVisible(false);
+    scene.mrm101Entrance2 = scene.hitboxes.create(25, 292, null).setSize(10, 50).setVisible(false);
+    scene.mrm102Entrance1 = scene.hitboxes.create(25, 547, null).setSize(10, 50).setVisible(false);
     
     // Gutter -------------------------------------------
     scene.gutterY1 = scene.physics.add.staticImage(worldWidth - 300, 100, 'gutterY').setDisplaySize(50, 400)
@@ -109,6 +113,7 @@ export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.stair1.body.setOffset(0, 0);
     scene.stair1.refreshBody();
     scene.hitboxes = scene.physics.add.staticGroup();
+
     scene.MRMExit1 = scene.hitboxes.create(1025, 100, null).setSize(500, 10).setVisible(false);
 
     scene.physics.add.overlap(scene.player, scene.exit1, () => {

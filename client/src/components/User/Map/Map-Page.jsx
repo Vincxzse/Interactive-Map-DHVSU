@@ -4,8 +4,7 @@ import { createOutside } from './Map-Components/Outside-Map';
 
 import { loadARM1, loadARM101Door1, loadARM101Door2, loadARM2, loadCL2, loadARM102, loadOutside, loadARM103, loadGuidance, loadClinic, loadFaculty, loadARM202, loadARM203, loadARM204, loadARM206 } from './Map-Components/ARM/ARM1-Loaders';
 
-import { loadMRM,
-    loadMRM2nd } from "./Map-Components/MRM/MRM1-Loaders"
+import { loadMRM, loadMRM2nd, loadMRM101 } from "./Map-Components/MRM/MRM1-Loaders"
 
 
 
@@ -156,6 +155,8 @@ function MapPage() {
         loadARM206(x, y) { loadARM206(this, x, y) }
 
         loadMRM(x, y) { loadMRM(this, x, y) }
+        loadMRM101(x, y) { loadMRM101(this, x, y) }
+
         loadMRM2nd(x, y) { loadMRM2nd(this, x, y) }
 
         // ---------------- OVERLAPS ----------------
