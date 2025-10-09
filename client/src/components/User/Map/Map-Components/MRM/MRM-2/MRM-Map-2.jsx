@@ -136,6 +136,9 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.MRM205Entrance1 = scene.hitboxes.create(worldWidth - 25, 95, null).setSize(10, 50).setVisible(false);
     scene.MRM205Entrance2 = scene.hitboxes.create(worldWidth - 25, 345, null).setSize(10, 50).setVisible(false);
     scene.MRM204Entrance1 = scene.hitboxes.create(worldWidth - 25, 507, null).setSize(10, 50).setVisible(false);
+
+    scene.comLab1Entrance1 = scene.hitboxes.create(25, 132, null).setSize(10, 50).setVisible(false);
+    scene.comLab1Entrance2 = scene.hitboxes.create(25, 292, null).setSize(10, 50).setVisible(false);
     // End of rooms left
     
     

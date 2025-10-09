@@ -40,6 +40,10 @@ import {
     attachMRM205Entrance2Overlap,
     attachMRM205Exit1Overlap,
     attachMRM205Exit2Overlap,
+    attachComlab1Entrance1Overlap,
+    attachComlab1Entrance2Overlap,
+    attachComLabExit1Overlap,
+    attachComLabExit2Overlap
 } from "./MRM1-Attach.js"
 
 import { createMRM } from './MRM-1/MRM-Map.jsx'
@@ -55,6 +59,7 @@ import { createMRM202 } from "./MRM-2/MRM202.jsx"
 import { createMRM203 } from "./MRM-2/MRM203.jsx"
 import { createMRM205 } from "./MRM-2/MRM205.jsx"
 import { createMRM204 } from "./MRM-2/MRM204.jsx"
+import { createComlab1 } from "./MRM-2/Computer-Lab-1.jsx"
 
 // Load the main MRM building (1st floor)
 function loadMRM(scene, playerPositionX, playerPositionY) {
@@ -92,6 +97,8 @@ function loadMRM2nd(scene, playerPositionX, playerPositionY) {
     attachMRM205Entrance1Overlap(scene)
     attachMRM205Entrance2Overlap(scene)
     attachMRM204Entrance1Overlap(scene)
+    attachComlab1Entrance1Overlap(scene)
+    attachComlab1Entrance2Overlap(scene)
 }
 
 function loadMRM101(scene, playerPositionX, playerPositionY) {
@@ -178,6 +185,14 @@ function loadMRM205(scene, playerPositionX, playerPositionY) {
     attachMRM205Exit2Overlap(scene)
 }
 
+function loadComlab1(scene, playerPositionX, playerPositionY) {
+    scene.clearMap()
+    createComlab1(scene, scene.worldWidth / 2, scene.worldHeight / 3.5, playerPositionX, playerPositionY)
+    scene.refreshDebug()
+    attachComLabExit1Overlap(scene)
+    attachComLabExit2Overlap(scene)
+}
+
 export { 
     loadMRM,
     loadMRM2nd,
@@ -191,5 +206,6 @@ export {
     loadMRM202,
     loadMRM203,
     loadMRM205,
-    loadMRM204
+    loadMRM204,
+    loadComlab1
 }

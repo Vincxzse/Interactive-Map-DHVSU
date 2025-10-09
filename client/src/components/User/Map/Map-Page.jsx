@@ -18,6 +18,7 @@ import {
     loadMRM203,
     loadMRM204,
     loadMRM205,
+    loadComlab1,
 } from "./Map-Components/MRM/MRM1-Loaders"
 
 
@@ -85,6 +86,11 @@ function MapPage() {
                 ['clock','/map-assets/clock.png'],
                 ['pc-set','/map-assets/pc-set.png'],
                 ['long-wall','/map-assets/long-wall.png'],
+                ['computer-3','/map-assets/computer-3.png'],
+                ['computer-2','/map-assets/computer-2.png'],
+                ['computer-1','/map-assets/computer-1.png'],
+                ['computer-wall','/map-assets/computer-wall.png'],
+                ['whiteboard-2','/map-assets/whiteboard-2.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
@@ -183,6 +189,7 @@ function MapPage() {
         loadMRM203(x, y) { loadMRM203(this, x, y) }
         loadMRM204(x, y) { loadMRM204(this, x, y) }
         loadMRM205(x, y) { loadMRM205(this, x, y) }
+        loadComlab1(x, y) { loadComlab1(this, x, y) }
 
         // ---------------- OVERLAPS ----------------
         destroyCurrentOverlap() {
