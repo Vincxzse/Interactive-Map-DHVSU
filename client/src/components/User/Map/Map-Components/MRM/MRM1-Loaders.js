@@ -21,7 +21,11 @@ import {
     attachFacultyEntrance1Overlap,
     attachFacultyEntrance2Overlap,
     attachFacultyDoormat1Overlap,
-    attachFacultyDoormat2Overlap
+    attachFacultyDoormat2Overlap,
+    attachMRM201Entrance1Overlap,
+    attachMRM201Entrance2Overlap,
+    attachMRM201Exit1Overlap,
+    attachMRM201Exit2Overlap
 } from "./MRM1-Attach.js"
 
 import { createMRM } from './MRM-1/MRM-Map.jsx'
@@ -32,6 +36,7 @@ import { createMRM103 } from "./MRM-1/MRM103.jsx"
 import { createGuidance } from "./MRM-1/Guidance.jsx"
 import { createClinic } from "./MRM-1/Clinic.jsx"
 import { createFaculty } from "./MRM-1/Faculty.jsx"
+import { createMRM201 } from "./MRM-2/MRM201.jsx"
 
 // Load the main MRM building (1st floor)
 function loadMRM(scene, playerPositionX, playerPositionY) {
@@ -60,9 +65,8 @@ function loadMRM2nd(scene, playerPositionX, playerPositionY) {
     scene.refreshDebug()
     attachMRM2ndStair1Overlap(scene)
     attachMRM2ndStair2Overlap(scene)
-    
-    // Attach overlaps for 2nd floor
-    // Add your 2nd floor overlaps here
+    attachMRM201Entrance1Overlap(scene)
+    attachMRM201Entrance2Overlap(scene)
 }
 
 function loadMRM101(scene, playerPositionX, playerPositionY) {
@@ -110,6 +114,14 @@ function loadFacultyRoom(scene, playerPositionX, playerPositionY) {
     attachFacultyDoormat2Overlap(scene)
 }
 
+function loadMRM201(scene, playerPositionX, playerPositionY) {
+    scene.clearMap()
+    createMRM201(scene, scene.worldWidth / 2, scene.worldHeight / 5, playerPositionX, playerPositionY)
+    scene.refreshDebug()
+    attachMRM201Exit1Overlap(scene)
+    attachMRM201Exit2Overlap(scene)
+}
+
 export { 
     loadMRM,
     loadMRM2nd,
@@ -118,5 +130,6 @@ export {
     loadMRM103,
     loadGC1,
     loadGC2,
-    loadFacultyRoom
+    loadFacultyRoom,
+    loadMRM201
 }
