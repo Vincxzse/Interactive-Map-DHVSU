@@ -135,6 +135,9 @@ export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.hitboxes = scene.physics.add.staticGroup();
 
     scene.MRMExit1 = scene.hitboxes.create(1025, 100, null).setSize(500, 10).setVisible(false);
+    scene.MRMExit2 = scene.hitboxes.create(1025, worldHeight, null).setSize(500, 10).setVisible(false);
+    scene.MRMExit3 = scene.hitboxes.create(175, 0, null).setSize(300, 10).setVisible(false);
+    scene.MRMExit4 = scene.hitboxes.create(worldWidth - 170, 0, null).setSize(300, 10).setVisible(false);
 
     scene.physics.add.overlap(scene.player, scene.exit1, () => {
         Object.values(scene.children.list).forEach(obj => obj.destroy());

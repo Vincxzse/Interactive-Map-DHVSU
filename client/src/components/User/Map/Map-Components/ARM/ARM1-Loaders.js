@@ -7,6 +7,9 @@ import {
     attachMRMEntrance4Overlap
 } from '../MRM/MRM1-Attach.js';
 
+import {
+    attachAdminEntrance1Overlap,
+} from '../Admin-Bldg/Admin-Attach.js';
 
 import { createARM } from "./ARM-1st/ARM-Map.jsx";
 import { createARM101 } from "./ARM-1st/ARM-101.jsx";
@@ -37,6 +40,8 @@ function loadOutside(scene, playerPositionX, playerPositionY) {
     attachMRMEntrance2Overlap(scene);
     attachMRMEntrance3Overlap(scene);
     attachMRMEntrance4Overlap(scene);
+
+    attachAdminEntrance1Overlap(scene);
 }
 
 function loadARM1(scene, playerPositionX, playerPositionY) {

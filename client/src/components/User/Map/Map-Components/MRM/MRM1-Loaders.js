@@ -45,7 +45,10 @@ import {
     attachComLabExit1Overlap,
     attachComLabExit2Overlap,
     attachOldLibraryEntrance1Overlap,
-    attachOldLibraryExit1Overlap
+    attachOldLibraryExit1Overlap,
+    attachMRMExit2Overlap,
+    attachMRMExit3Overlap,
+    attachMRMExit4Overlap
 } from "./MRM1-Attach.js"
 
 import { createMRM } from './MRM-1/MRM-Map.jsx'
@@ -73,6 +76,7 @@ function loadMRM(scene, playerPositionX, playerPositionY) {
     attachMRMStair1Overlap(scene)
     attachMRMStair2Overlap(scene)
     attachMRMExit1(scene)
+    attachMRMExit2Overlap(scene)
     attachMRM101Entrance1Overlap(scene)
     attachMRM101Entrance2Overlap(scene)
     attachMRM102Entrance1Overlap(scene)
@@ -82,6 +86,8 @@ function loadMRM(scene, playerPositionX, playerPositionY) {
     attachGCEntrance2Overlap(scene)
     attachFacultyEntrance1Overlap(scene)
     attachFacultyEntrance2Overlap(scene)
+    attachMRMExit3Overlap(scene)
+    attachMRMExit4Overlap(scene)
 }
 
 // Load MRM 2nd floor (if you have one)

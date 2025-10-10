@@ -15,22 +15,21 @@ function attachMRMEntrance1Overlap(scene) {
 
 function attachMRMEntrance2Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMEntrance2, () => {
-        scene.loadMRM(scene.worldWidth / 2, 50)
+        scene.loadMRM(scene.worldWidth / 2, (scene.worldHeight / 5) - 100)
         scene.refreshDebug()
     })
 }
 
 function attachMRMEntrance3Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMEntrance3, () => {
-        scene.loadMRM(200, 600)
+        scene.loadMRM(200, 50)
         scene.refreshDebug()
     })
 }
 
 function attachMRMEntrance4Overlap(scene) {
     scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMEntrance4, () => {
-        console.log("MRM Entrance 4 triggered!")
-        scene.loadMRM(scene.worldWidth - 150, 600)
+        scene.loadMRM(scene.worldWidth - 150, 50)
         scene.refreshDebug()
     })
 }
@@ -357,6 +356,27 @@ function attachOldLibraryExit1Overlap(scene) {
     })
 }
 
+function attachMRMExit2Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMExit2, () => {
+        scene.loadOutside(1250, 2300)
+        scene.refreshDebug()
+    })
+}
+
+function attachMRMExit3Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMExit3, () => {
+        scene.loadOutside(scene.mrm.width + 20, scene.mrm.height + 1140)
+        scene.refreshDebug()
+    })
+}
+
+function attachMRMExit4Overlap(scene) {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMExit4, () => {
+        scene.loadOutside(scene.mrm.width * 1.58, scene.mrm.height + 1140);
+        scene.refreshDebug()
+    })
+}
+
 export { 
     attachMRMEntrance1Overlap,
     attachMRMEntrance2Overlap,
@@ -408,5 +428,8 @@ export {
     attachComLabExit1Overlap,
     attachComLabExit2Overlap,
     attachOldLibraryEntrance1Overlap,
-    attachOldLibraryExit1Overlap
+    attachOldLibraryExit1Overlap,
+    attachMRMExit2Overlap,
+    attachMRMExit3Overlap,
+    attachMRMExit4Overlap
 }

@@ -22,7 +22,9 @@ import {
     loadOldLibrary,
 } from "./Map-Components/MRM/MRM1-Loaders"
 
-
+import {
+    loadAdmin
+} from "./Map-Components/Admin-Bldg/Admin-Loaders.js"
 
 function MapPage() {
     const speedDown = 10;
@@ -92,6 +94,11 @@ function MapPage() {
                 ['computer-1','/map-assets/computer-1.png'],
                 ['computer-wall','/map-assets/computer-wall.png'],
                 ['whiteboard-2','/map-assets/whiteboard-2.png'],
+                ['admin1','/map-assets/admin1.png'],
+                ['admin2','/map-assets/admin2.png'],
+                ['admin3','/map-assets/admin3.png'],
+                ['admin4','/map-assets/admin4.png'],
+                ['adminCR','/map-assets/adminCR.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
@@ -160,7 +167,7 @@ function MapPage() {
             this.dialogueActive = false;
         }
 
-        loadOutside(x = 1250, y = 1950) { loadOutside(this, x, y) }
+        loadOutside(x = 1250, y = this.worldHeight) { loadOutside(this, x, y) }
         loadARM1(x = 150, y = 100) { loadARM1(this, x, y) }
         loadARM101Door1() { loadARM101Door1(this) }
         loadARM101Door2() { loadARM101Door2(this) }
@@ -192,6 +199,8 @@ function MapPage() {
         loadMRM205(x, y) { loadMRM205(this, x, y) }
         loadComlab1(x, y) { loadComlab1(this, x, y) }
         loadOldLibrary(x, y) { loadOldLibrary(this, x, y) }
+
+        loadAdmin(x, y) { loadAdmin(this, x, y) }
 
         // ---------------- OVERLAPS ----------------
         destroyCurrentOverlap() {

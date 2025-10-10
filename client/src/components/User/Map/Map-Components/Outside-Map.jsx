@@ -26,6 +26,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.adminShed1 = scene.physics.add.image(scene.admin.width - 130, scene.admin.height + 2285, 'shedSV').setDepth(2);
     scene.adminShed2 = scene.physics.add.image(scene.admin.width + 830, scene.admin.height + 2285, 'shedSV').setDepth(2);
 
+    
     // MRM Building
     scene.mrm = scene.add.image(770, 1700, 'mrm').setOrigin(0, 0).setDepth(0);
     scene.mrm.setScale(1, 1);
@@ -66,7 +67,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.curbSide1.setAngle(90);
     scene.curb = scene.add.image(scene.mrm.width + 150, scene.mrm.height + 600, 'curb');
     scene.curb = scene.add.image(scene.mrm.width + 480, scene.mrm.height + 600, 'curb');
-
+    
     // Invisible Hitboxes
     scene.hitboxes = scene.physics.add.staticGroup();
     // MRM Hitboxes
@@ -77,7 +78,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.hitbox4 = scene.hitboxes.create(scene.arm.width, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
     scene.hitbox5 = scene.hitboxes.create(scene.arm.width + 630, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
     scene.hitbox6 = scene.hitboxes.create(scene.arm.width + 315, scene.arm.height + 760, null).setSize(scene.arm.width - 70, 220).setVisible(false);
-
+    
     scene.entrance1 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 890, null).setSize(100, 10).setVisible(false);
     scene.entrance2 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 650, null).setSize(100, 10).setVisible(false);
     scene.entrance3 = scene.hitboxes.create(scene.mrm.width + 40, scene.mrm.height + 1115, null).setSize(100, 10).setVisible(false);
@@ -87,7 +88,8 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.MRMEntrance2 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 1700, null).setSize(100, 10).setVisible(false);
     scene.MRMEntrance3 = scene.hitboxes.create(scene.mrm.width + 40, scene.mrm.height + 1240, null).setSize(100, 10).setVisible(false);
     scene.MRMEntrance4 = scene.hitboxes.create(scene.mrm.width * 1.62, scene.mrm.height + 1240, null).setSize(100, 10).setVisible(false);
-
+    
+    scene.adminEntrance1 = scene.hitboxes.create(worldWidth / 1.56, worldHeight - 690, null).setSize(100, 10).setVisible(false);
 
     // Canteen
     scene.canteen = scene.physics.add.staticImage(1290, 850, 'canteen').setDepth(3);
@@ -95,7 +97,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.canteen.body.setOffset(100, 100);
     scene.canteenCurb = scene.add.image(1100, 960, 'curb');
     scene.canteenCurb = scene.add.image(1475, 960, 'curb');
-
+    
     // Court
     scene.court = scene.physics.add.staticImage(1570, 400, 'court').setDepth(3);
     scene.court.body.setSize(scene.court.width - 100, scene.court.height - 280);
