@@ -99,6 +99,8 @@ function MapPage() {
                 ['admin3','/map-assets/admin3.png'],
                 ['admin4','/map-assets/admin4.png'],
                 ['adminCR','/map-assets/adminCR.png'],
+                ['entrep','/map-assets/entrep.png'],
+                ['eng','/map-assets/eng.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
@@ -253,9 +255,9 @@ function MapPage() {
         }
 
         refreshDebug() {
-            this.physics.world.drawDebug = true;
-            this.physics.world.debugGraphic = this.add.graphics();
-            this.physics.world.createDebugGraphic();
+            // this.physics.world.drawDebug = true;
+            // this.physics.world.debugGraphic = this.add.graphics();
+            // this.physics.world.createDebugGraphic();
         }
 
         // ---------------- UPDATE ----------------

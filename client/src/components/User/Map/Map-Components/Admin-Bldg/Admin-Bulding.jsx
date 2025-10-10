@@ -23,6 +23,9 @@ export function createAdmin(scene, worldWidth, worldHeight, playerPositionX, pla
     scene.admin4.body.setOffset(0, 0)
     scene.admin4.refreshBody()
 
+    // Exits
+    scene.AdminExit1 = scene.hitboxes.create(worldWidth / 2, worldHeight, null).setSize(500, 10).setVisible(false);
+
     scene.physics.add.overlap(scene.player, scene.exit1, () => {
         Object.values(scene.children.list).forEach(obj => obj.destroy());
         scene.physics.world.colliders.destroy();
