@@ -92,6 +92,7 @@ router.post("/login", async(req, res) => {
         
     } catch (err) {
         console.error(err.message);
+        console.log("Pakyu")
         res.status(500).json({ message: "Internal server error" });
     }
 });
