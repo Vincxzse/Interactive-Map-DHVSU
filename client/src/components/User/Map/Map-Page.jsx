@@ -258,9 +258,9 @@ function MapPage() {
         }
 
         refreshDebug() {
-            this.physics.world.drawDebug = true;
-            this.physics.world.debugGraphic = this.add.graphics();
-            this.physics.world.createDebugGraphic();
+            // this.physics.world.drawDebug = true;
+            // this.physics.world.debugGraphic = this.add.graphics();
+            // this.physics.world.createDebugGraphic();
         }
 
         // ---------------- UPDATE ----------------

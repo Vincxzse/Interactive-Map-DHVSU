@@ -267,7 +267,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.shed.body.setOffset(scene.shed.width, scene.shed.height - 1190);
 
     // Player and colliders
-    scene.player = scene.physics.add.image(playerPositionX, scene.MRMEntrance1.y, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
+    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
     scene.player.body.setSize(250, 400);
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.shed);
