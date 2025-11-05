@@ -79,17 +79,38 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.hitbox5 = scene.hitboxes.create(scene.arm.width + 630, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
     scene.hitbox6 = scene.hitboxes.create(scene.arm.width + 315, scene.arm.height + 760, null).setSize(scene.arm.width - 70, 220).setVisible(false);
     
+    // ARM Entrance
     scene.entrance1 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 890, null).setSize(100, 10).setVisible(false);
     scene.entrance2 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 650, null).setSize(100, 10).setVisible(false);
     scene.entrance3 = scene.hitboxes.create(scene.mrm.width + 40, scene.mrm.height + 1115, null).setSize(100, 10).setVisible(false);
     scene.entrance4 = scene.hitboxes.create(scene.mrm.width * 1.62, scene.mrm.height + 1115, null).setSize(100, 10).setVisible(false);
     
+    // MRM Entrance
     scene.MRMEntrance1 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 1460, null).setSize(100, 10).setVisible(false);
     scene.MRMEntrance2 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 1700, null).setSize(100, 10).setVisible(false);
     scene.MRMEntrance3 = scene.hitboxes.create(scene.mrm.width + 40, scene.mrm.height + 1240, null).setSize(100, 10).setVisible(false);
     scene.MRMEntrance4 = scene.hitboxes.create(scene.mrm.width * 1.62, scene.mrm.height + 1240, null).setSize(100, 10).setVisible(false);
     
+    // Admin Entrance
     scene.adminEntrance1 = scene.hitboxes.create(worldWidth / 1.56, worldHeight - 690, null).setSize(100, 10).setVisible(false);
+
+    // Admin Entrance Target
+    const adminTarget = scene.adminEntrance1
+
+    scene.adminArrow = scene.add.text(
+        adminTarget.x + 5,
+        adminTarget.y - 100,
+        "⬇",
+        { font: "40px Arial", fill: "#ff0000" }
+    ).setOrigin(0.5).setDepth(10)
+
+    scene.tweens.add({
+        targets: scene.adminArrow,
+        y: scene.adminArrow.y - 10,
+        duration: 400,
+        yoyo: true,
+        repeat: -1
+    })
 
     // Canteen
     scene.canteen = scene.physics.add.staticImage(1290, 850, 'canteen').setDepth(3);
@@ -246,7 +267,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.shed.body.setOffset(scene.shed.width, scene.shed.height - 1190);
 
     // Player and colliders
-    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
+    scene.player = scene.physics.add.image(playerPositionX, scene.MRMEntrance1.y, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
     scene.player.body.setSize(250, 400);
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.shed);
@@ -261,6 +282,27 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.physics.add.collider(scene.player, scene.hitboxNF);
     scene.physics.add.collider(scene.player, scene.canteen);
     scene.physics.add.collider(scene.player, scene.court);
+
+    scene.adminGuidingArrow = scene.add.triangle(
+        scene.player.x, scene.player.y - 50,
+        0, 40, 20, -20, -20, -20,
+        0xffff00
+    ).setOrigin(0.5).setDepth(10).setVisible(false)
+    scene.adminGuidingArrowActive = false
+    scene.adminGuidingTarget = scene.adminEntrance1
+
+    if (scene.adminGuidingArrowActive && scene.adminGuidingArrow && scene.adminGuidingTarget) {
+        const dx = scene.adminGuidingTarget.x - scene.player.x
+        const dy = scene.adminGuidingTarget.y -scene.player.y
+        const angle = Phaser.Math.Angle.Between(scene.player.x, scene.player.y, scene.adminGuidingTarget.x, scene.adminGuidingTarget.y)
+        scene.adminGuidingArrow.setPosition(scene.player.x, scene.player.y - 50)
+        scene.adminGuidingArrow.setRotation(angle + Math.PI / 2)
+    }
+
+    scene.input.keyboard.on('keydown-G', () => {
+        scene.adminGuidingArrowActive = !scene.adminGuidingArrowActive
+        scene.adminGuidingArrow.setVisible(scene.adminGuidingArrowActive)
+    })
 
     scene.cameras.main.startFollow(scene.player, true, 1, 1);
     

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Phaser from 'phaser';
 import { createOutside } from './Map-Components/Outside-Map';
 
@@ -27,6 +27,7 @@ import {
 } from "./Map-Components/Admin-Bldg/Admin-Loaders.js"
 
 function MapPage() {
+    const [showTable, setShowTable] = useState(false);
     const speedDown = 10;
     const sizes = { width: 1520, height: 610 };
 
@@ -100,6 +101,8 @@ function MapPage() {
                 ['admin4','/map-assets/admin4.png'],
                 ['adminCR','/map-assets/adminCR.png'],
                 ['entrep','/map-assets/entrep.png'],
+                ['educ','/map-assets/educ-head.png'],
+                ['psych','/map-assets/psych-head.png'],
                 ['eng','/map-assets/eng.png'],
             ];
 
@@ -255,9 +258,9 @@ function MapPage() {
         }
 
         refreshDebug() {
-            // this.physics.world.drawDebug = true;
-            // this.physics.world.debugGraphic = this.add.graphics();
-            // this.physics.world.createDebugGraphic();
+            this.physics.world.drawDebug = true;
+            this.physics.world.debugGraphic = this.add.graphics();
+            this.physics.world.createDebugGraphic();
         }
 
         // ---------------- UPDATE ----------------
@@ -401,8 +404,253 @@ function MapPage() {
     }, []);
 
     return (
-        <div className="relative flex flex-col w-full h-full items-start justify-start gap-2 bg-[#2B313C] rounded-lg overflow-hidden" id="map-container">
-            {/* <p className="absolute text-red-500 font-bolder bg-white right-0">TEST</p> */}
+        <div className="relative w-full h-full">
+            {/* Toggle Button */}
+            <button
+                onClick={() => setShowTable(!showTable)}
+                className="absolute top-4 right-4 z-50 bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-full shadow-lg transition-colors flex items-center justify-center"
+                title={showTable ? 'Hide Services' : 'Show Services'}
+            >
+                {showTable ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                )}
+            </button>
+
+            {/* Services Table Modal */}
+            {showTable && (
+                <div className="fixed inset-0 bg-[rgba(0,0,0,0.3)] bg-opacity-50 z-40 overflow-auto flex items-center justify-center p-4">
+                    <div className="bg-white rounded-lg w-full max-w-5xl max-h-[90vh] overflow-auto">
+                        <div className="sticky top-0 bg-white p-6 border-b flex justify-between items-center">
+                            <h2 className="text-2xl font-bold">DHVSU Lubao Campus Services</h2>
+                            <button
+                                onClick={() => setShowTable(false)}
+                                className="text-gray-600 hover:text-gray-800 text-3xl font-bold leading-none cursor-pointer"
+                            >
+                                ×
+                            </button>
+                        </div>
+                        
+                        <div className="p-6 space-y-6">
+                            <section>
+                                <h3 className="text-xl font-bold mb-3 text-blue-600">ACADEMIC SERVICES</h3>
+                                <table className="w-full border-collapse border border-gray-300 text-sm">
+                                    <thead className="bg-gray-100">
+                                        <tr>
+                                            <th className="border border-gray-300 p-2 text-left">Service</th>
+                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
+                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Enrollment Procedure</td>
+                                            <td className="border border-gray-300 p-2">1 Day, 12 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Clearance, Academic Evaluation, Pre-registration Form</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Adding/Dropping/Changing Forms</td>
+                                            <td className="border border-gray-300 p-2">40 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Certificate of Registration, Academic Evaluation</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Transferring Procedure</td>
+                                            <td className="border border-gray-300 p-2">55 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Transfer of Credentials, Copy of Grades, Good Moral, Birth Certificate</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section>
+                                <h3 className="text-xl font-bold mb-3 text-blue-600">STUDENT AFFAIRS</h3>
+                                <table className="w-full border-collapse border border-gray-300 text-sm">
+                                    <thead className="bg-gray-100">
+                                        <tr>
+                                            <th className="border border-gray-300 p-2 text-left">Service</th>
+                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
+                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">ID Validation</td>
+                                            <td className="border border-gray-300 p-2">2 Minutes, 30 Seconds</td>
+                                            <td className="border border-gray-300 p-2">Certificate of Registration, Official ID</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Lost and Found Services</td>
+                                            <td className="border border-gray-300 p-2">6 Minutes, 50 Seconds</td>
+                                            <td className="border border-gray-300 p-2">Incident Report, Claim Form</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section>
+                                <h3 className="text-xl font-bold mb-3 text-blue-600">UNIVERSITY CLINIC</h3>
+                                <table className="w-full border-collapse border border-gray-300 text-sm">
+                                    <thead className="bg-gray-100">
+                                        <tr>
+                                            <th className="border border-gray-300 p-2 text-left">Service</th>
+                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
+                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Issuance of Medicines</td>
+                                            <td className="border border-gray-300 p-2">32 Minutes</td>
+                                            <td className="border border-gray-300 p-2">University Issued Student ID</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Issuance of Medical Clearance</td>
+                                            <td className="border border-gray-300 p-2">39 Minutes</td>
+                                            <td className="border border-gray-300 p-2">University Issued Student ID</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section>
+                                <h3 className="text-xl font-bold mb-3 text-blue-600">GUIDANCE AND COUNSELING</h3>
+                                <table className="w-full border-collapse border border-gray-300 text-sm">
+                                    <thead className="bg-gray-100">
+                                        <tr>
+                                            <th className="border border-gray-300 p-2 text-left">Service</th>
+                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
+                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Walk-in Counseling</td>
+                                            <td className="border border-gray-300 p-2">1 Hour, 28 Minutes</td>
+                                            <td className="border border-gray-300 p-2">COR Photocopy, Student ID</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Referral Counseling</td>
+                                            <td className="border border-gray-300 p-2">1 Hour, 31 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Student ID, COR, Call Slip, Referral Form</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section>
+                                <h3 className="text-xl font-bold mb-3 text-blue-600">LIBRARY SERVICES</h3>
+                                <table className="w-full border-collapse border border-gray-300 text-sm">
+                                    <thead className="bg-gray-100">
+                                        <tr>
+                                            <th className="border border-gray-300 p-2 text-left">Service</th>
+                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
+                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">New Library Card</td>
+                                            <td className="border border-gray-300 p-2">11 Minutes</td>
+                                            <td className="border border-gray-300 p-2">COR Photocopy, Valid ID, Passport Photo</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Borrowing Books</td>
+                                            <td className="border border-gray-300 p-2">7 Minutes, 30 Seconds</td>
+                                            <td className="border border-gray-300 p-2">Library Card</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Returning Books</td>
+                                            <td className="border border-gray-300 p-2">4 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Library Card</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Clearance Signing</td>
+                                            <td className="border border-gray-300 p-2">6 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Library Card, Student Clearance</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Lost Library Card</td>
+                                            <td className="border border-gray-300 p-2">9 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Valid ID, Passport Photo, Affidavit of Loss</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Interlibrary Request</td>
+                                            <td className="border border-gray-300 p-2">7 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Valid ID/Library Card, 2 Long Bond Papers</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section>
+                                <h3 className="text-xl font-bold mb-3 text-blue-600">HUMAN RESOURCE SERVICES</h3>
+                                <table className="w-full border-collapse border border-gray-300 text-sm">
+                                    <thead className="bg-gray-100">
+                                        <tr>
+                                            <th className="border border-gray-300 p-2 text-left">Service</th>
+                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
+                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Permit to Go Out</td>
+                                            <td className="border border-gray-300 p-2">2 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Permit Form</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Daily Time Record</td>
+                                            <td className="border border-gray-300 p-2">1 Day, 3 Hours</td>
+                                            <td className="border border-gray-300 p-2">None</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Leave Form</td>
+                                            <td className="border border-gray-300 p-2">1 Day, 9 Minutes</td>
+                                            <td className="border border-gray-300 p-2">2 Copies of Leave Form, Supporting Documents</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Incident Report</td>
+                                            <td className="border border-gray-300 p-2">37 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Incident Report Form</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section>
+                                <h3 className="text-xl font-bold mb-3 text-blue-600">PROPERTY AND SUPPLY</h3>
+                                <table className="w-full border-collapse border border-gray-300 text-sm">
+                                    <thead className="bg-gray-100">
+                                        <tr>
+                                            <th className="border border-gray-300 p-2 text-left">Service</th>
+                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
+                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="border border-gray-300 p-2">Request and Issuance of Supplies</td>
+                                            <td className="border border-gray-300 p-2">14 Minutes</td>
+                                            <td className="border border-gray-300 p-2">Requisition and Issue Slip (RIS)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className="relative flex flex-col w-full h-full items-start justify-start gap-2 bg-[#2B313C] rounded-lg overflow-hidden" id="map-container">
+            </div>
         </div>
     );
 }

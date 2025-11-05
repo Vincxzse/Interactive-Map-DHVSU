@@ -175,14 +175,14 @@ function attachFacultyEntrance2Overlap(scene) {
 }
 
 function attachFacultyDoormat1Overlap(scene) {
-    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyRoomDoormat1, () => {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMFacultyDoormat1, () => {
         scene.loadMRM(scene.worldWidth - 75, 95)
         scene.refreshDebug()
     })
 }
 
 function attachFacultyDoormat2Overlap(scene) {
-    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.facultyRoomDoormat2, () => {
+    scene.currentOverlap = scene.physics.add.overlap(scene.player, scene.MRMFacultyDoormat2, () => {
         scene.loadMRM(scene.worldWidth - 75, 345)
         scene.refreshDebug()
     })

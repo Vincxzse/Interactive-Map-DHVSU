@@ -61,11 +61,11 @@ function LoginForm(props) {
     return (
         <Fragment>
             <form onSubmit={handleLogin} className='flex flex-col gap-5 w-90 my-10'>
-                <div className='flex flex-row border-1 justify-center h-8 w-full py-1 px-2 border-transparent border-b-red-600 bg-[#C5C3C3]'>
+                <div className='flex flex-row border justify-center h-8 w-full py-1 px-2 border-transparent border-b-red-600 bg-[#C5C3C3]'>
                     <img src={ userIcon } className='h-full'/>
                     <input type='email' className='focus:outline-none w-full px-2' placeholder={ props.emailPlaceholder } onChange={ e => setEmail(e.target.value) } />
                 </div>
-                <div className='flex flex-row border-1 justify-center h-8 w-full py-1 px-2 border-transparent border-b-red-600 bg-[#C5C3C3]'>
+                <div className='flex flex-row border justify-center h-8 w-full py-1 px-2 border-transparent border-b-red-600 bg-[#C5C3C3]'>
                     <img src={ keyIcon } className='h-full'/>
                     <input type='password' className='focus:outline-none w-full px-2' placeholder={ props.passwordPlaceholder } onChange={ e => setPassword(e.target.value) } />
                 </div>
