@@ -28,6 +28,9 @@ import {
 
 function MapPage() {
     const [showTable, setShowTable] = useState(false);
+    const [showTargetMenu, setShowTargetMenu] = useState(false);
+    const [currentTarget, setCurrentTarget] = useState('admin');
+
     const speedDown = 10;
     const sizes = { width: 1520, height: 610 };
 
@@ -104,6 +107,8 @@ function MapPage() {
                 ['educ','/map-assets/educ-head.png'],
                 ['psych','/map-assets/psych-head.png'],
                 ['eng','/map-assets/eng.png'],
+                ['gps','/map-assets/gps.png'],
+                ['compassBg','/map-assets/compassBG.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
@@ -131,6 +136,16 @@ function MapPage() {
             this.dialogueActive = false;
             this.choiceTexts = [];
             this.choiceIndex = 0;
+
+            this.availableTargets = {
+                admin: this.adminEntrance1,
+                mrm: this.MRMEntrance1,
+                arm: this.entrance1,
+                canteen: this.canteen,
+                court: this.court,
+                erm: this.erm
+            };
+            this.currentTargetKey = 'admin';
         }
 
         showDialogue() {
@@ -258,124 +273,35 @@ function MapPage() {
         }
 
         refreshDebug() {
-            // this.physics.world.drawDebug = true;
-            // this.physics.world.debugGraphic = this.add.graphics();
-            // this.physics.world.createDebugGraphic();
+            this.physics.world.drawDebug = true;
+            this.physics.world.debugGraphic = this.add.graphics();
+            this.physics.world.createDebugGraphic();
         }
 
         // ---------------- UPDATE ----------------
         update() {
-            // Keyboard and dialogues controls
-            if (this.dialogueActive) {
-                this.player.setVelocity(0);
-            } else {
-                const { left, right, up, down } = this.cursor;
-                const { up: w, down: s, left: a, right: d } = this.keys;
-                let velocityX = 0;
-                let velocityY = 0;
+           
+            const { left, right, up, down } = this.cursor;
+            const { up: w, down: s, left: a, right: d } = this.keys;
+            let velocityX = 0;
+            let velocityY = 0;
+            if (left.isDown || a.isDown) velocityX = -this.playerSpeed;
+            else if (right.isDown || d.isDown) velocityX = this.playerSpeed;
+            if (up.isDown || w.isDown) velocityY = -this.playerSpeed;
+            else if (down.isDown || s.isDown) velocityY = this.playerSpeed;
+            this.player.setVelocity(velocityX, velocityY);
 
-                if (left.isDown || a.isDown) velocityX = -this.playerSpeed;
-                else if (right.isDown || d.isDown) velocityX = this.playerSpeed;
+            // Compass update
+            if (this.player && this.compass && this.currentTargetKey) {
+                const target = this.availableTargets[this.currentTargetKey]
 
-                if (up.isDown || w.isDown) velocityY = -this.playerSpeed;
-                else if (down.isDown || s.isDown) velocityY = this.playerSpeed;
-
-                this.player.setVelocity(velocityX, velocityY);
-            }
-
-
-            // Example: adjust depth for shed
-            if (this.currentMap === "outside" && this.shed && this.player) {
-                if (this.player.y > this.shed.y + this.shed.height - 40) {
-                    this.shed.setDepth(0);
-                    this.player.setDepth(1);
-                } else {
-                    this.shed.setDepth(2);
-                    this.player.setDepth(1);
+                if (target) {
+                    const dx = target.x - this.player.x
+                    const dy = target.y - this.player.y
+                    const angle = Math.atan2(dy, dx) + Math.PI/2
+                    this.compass.setRotation(angle)
                 }
             }
-
-            if (this.prof1 && this.profQuestion) {
-                const distance = Phaser.Math.Distance.Between(
-                    this.player.x, this.player.y,
-                    this.prof1.x, this.prof1.y
-                );
-
-                if (distance < 120) {
-                    this.profQuestion.setVisible(true);
-                } else {
-                    this.profQuestion.setVisible(false);
-                }
-            }
-
-            if (this.guard1 && this.guard1Question) {
-                const distance = Phaser.Math.Distance.Between(
-                    this.player.x, this.player.y,
-                    this.guard1.x, this.guard1.y
-                );
-
-                if (distance < 120) {
-                    this.guard1Question.setVisible(true);
-                } else {
-                    this.guard1Question.setVisible(false);
-
-                    // --- Close guard dialogue when walking away ---
-                    if (this.guard1DialogueActive) {
-                        this.guard1DialogueActive = false;
-                        this.guard1ChoiceTexts.forEach(c => c.destroy());
-                        this.guard1ChoiceTexts = [];
-                    }
-                }
-            }
-
-
-            // Dialogue controls
-            if (this.dialogueActive) {
-                if (Phaser.Input.Keyboard.JustDown(this.upKey)) {
-                    this.choiceIndex = (this.choiceIndex - 1 + this.choiceTexts.length) % this.choiceTexts.length;
-                    this.updateChoiceHighlight();
-                }
-                if (Phaser.Input.Keyboard.JustDown(this.downKey)) {
-                    this.choiceIndex = (this.choiceIndex + 1) % this.choiceTexts.length;
-                    this.updateChoiceHighlight();
-                }
-                if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-                    this.handleChoice();
-                }
-            } else {
-                // Open dialogue if near prof1
-                if (this.prof1 && Phaser.Math.Distance.Between(this.player.x, this.player.y, this.prof1.x, this.prof1.y) < 100) {
-                    if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-                        this.showDialogue();
-                    }
-                }
-            }
-
-            // --- Guard1 Dialogue Controls ---
-            if (this.guard1DialogueActive) {
-                if (Phaser.Input.Keyboard.JustDown(this.upKey)) {
-                    this.guard1ChoiceIndex = (this.guard1ChoiceIndex - 1 + this.guard1ChoiceTexts.length) % this.guard1ChoiceTexts.length;
-                    this.updateGuard1ChoiceHighlight();
-                }
-                if (Phaser.Input.Keyboard.JustDown(this.downKey)) {
-                    this.guard1ChoiceIndex = (this.guard1ChoiceIndex + 1) % this.guard1ChoiceTexts.length;
-                    this.updateGuard1ChoiceHighlight();
-                }
-                if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-                    this.handleGuard1Choice();
-                }
-            } else {
-                // Open guard1 dialogue if near
-                if (
-                    this.guard1 &&
-                    Phaser.Math.Distance.Between(this.player.x, this.player.y, this.guard1.x, this.guard1.y) < 100
-                ) {
-                    if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-                        this.showGuard1Dialogue();
-                    }
-                }
-            }
-
         }
     }
 
@@ -400,30 +326,87 @@ function MapPage() {
 
     useEffect(() => {
         const game = new Phaser.Game(config);
+        window.phaserGame = game;
         return () => game.destroy(true);
     }, []);
 
     return (
         <div className="relative w-full h-full">
             {/* Toggle Button */}
-            <button
-                onClick={() => setShowTable(!showTable)}
-                className="absolute top-4 right-4 z-50 bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-full shadow-lg transition-colors flex items-center justify-center"
-                title={showTable ? 'Hide Services' : 'Show Services'}
-            >
-                {showTable ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                ) : (
+            <div className="absolute top-4 right-4 z-50 flex flex-col gap-5">
+                <button
+                    onClick={() => setShowTable(!showTable)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-full shadow-lg transition-colors flex items-center justify-center"
+                    title={showTable ? 'Hide Services' : 'Show Services'}
+                >
+                    {showTable ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    )}
+                </button>
+
+                <button
+                    onClick={() => setShowTargetMenu(!showTargetMenu)}
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold p-3 rounded-full shadow-lg transition-colors flex items-center justify-center"
+                    title="Select Compass Target"
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
                     </svg>
-                )}
-            </button>
+                </button>
+            </div>
+
+            {showTargetMenu && (
+                <div className="absolute top-40 right-4 z-50 bg-white rounded-lg shadow-xl p-4 w-64">
+                    <h3 className="text-lg font-bold mb-3">Select Compass Target</h3>
+                    <div className="space-y-2">
+                        {[
+                            { key: 'admin', label: 'Admin Building', color: 'bg-blue-500' },
+                            { key: 'mrm', label: 'MRM Building', color: 'bg-purple-500' },
+                            { key: 'arm', label: 'ARM Building', color: 'bg-indigo-500' },
+                            { key: 'canteen', label: 'Canteen', color: 'bg-orange-500' },
+                            { key: 'court', label: 'Court', color: 'bg-red-500' },
+                            { key: 'erm', label: 'ERM Building', color: 'bg-teal-500' }
+                        ].map(target => (
+                            <button
+                                key={target.key}
+                                onClick={() => {
+                                    setCurrentTarget(target.key);
+                                    setShowTargetMenu(false);
+                                    // Update the game scene's target
+                                    const game = window.phaserGame;
+                                    if (game && game.scene.scenes[0]) {
+                                        game.scene.scenes[0].currentTargetKey = target.key;
+                                    }
+                                }}
+                                className={`w-full text-left px-4 py-2 rounded transition-colors ${
+                                    currentTarget === target.key 
+                                        ? `${target.color} text-white` 
+                                        : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
+                                }`}
+                            >
+                                <div className="flex items-center justify-between">
+                                    <span>{target.label}</span>
+                                    {currentTarget === target.key && (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    )}
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Services Table Modal */}
             {showTable && (

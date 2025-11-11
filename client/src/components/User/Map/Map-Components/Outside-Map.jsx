@@ -3,6 +3,19 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     const centerX = worldWidth;
     const centerY = worldHeight;
 
+    // COMPASS SETUP (bottom-left of screen)
+    scene.compass = scene.add.image(80, scene.scale.height - 80, 'gps')
+        .setOrigin(0.5)
+        .setScrollFactor(0) // stays fixed on screen
+        .setDepth(1000)
+        .setScale(0.8)
+    // scene.compassBg = scene.add.image(80, scene.scale.height - 80, 'compassBg')
+    //     .setOrigin(0.5)
+    //     .setScrollFactor(0)
+    //     .setDepth(999)
+    //     .setScale(1)
+    scene.compass.setDepth(1000)
+
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'bg1').setOrigin(0, 0);
     scene.bg2 = scene.add.tileSprite(0, 550, 510, worldHeight, 'sand').setOrigin(0, 0);
 
@@ -92,25 +105,19 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.MRMEntrance4 = scene.hitboxes.create(scene.mrm.width * 1.62, scene.mrm.height + 1240, null).setSize(100, 10).setVisible(false);
     
     // Admin Entrance
-    scene.adminEntrance1 = scene.hitboxes.create(worldWidth / 1.56, worldHeight - 690, null).setSize(100, 10).setVisible(false);
+    scene.adminEntrance1 = scene.hitboxes.create((worldWidth / 1.56) + 5, worldHeight - 700, null).setSize(50, 10).setVisible(true);
+    scene.adminGuidingTarget = scene.adminEntrance1
 
-    // Admin Entrance Target
-    const adminTarget = scene.adminEntrance1
+    scene.availableTargets = {
+        admin: scene.adminEntrance1,
+        mrm: scene.MRMEntrance1,
+        arm: scene.entrance1,
+        canteen: scene.canteen,
+        court: scene.court,
+        erm: scene.erm
+    };
 
-    scene.adminArrow = scene.add.text(
-        adminTarget.x + 5,
-        adminTarget.y - 100,
-        "⬇",
-        { font: "40px Arial", fill: "#ff0000" }
-    ).setOrigin(0.5).setDepth(10)
-
-    scene.tweens.add({
-        targets: scene.adminArrow,
-        y: scene.adminArrow.y - 10,
-        duration: 400,
-        yoyo: true,
-        repeat: -1
-    })
+    
 
     // Canteen
     scene.canteen = scene.physics.add.staticImage(1290, 850, 'canteen').setDepth(3);
@@ -192,72 +199,156 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.guard1 = scene.physics.add.staticImage(580, worldHeight - 150, 'guard').setDisplaySize(60, 60).setDepth(1);
     scene.guard1.body.setOffset(0, 0);
     scene.guard1.refreshBody();
-    scene.guard1Question = scene.add.text(scene.guard1.x, scene.guard1.y - 80, "What can I help you with?", {
-        font: "20px Arial",
-        fill: "#ffffff",
-        backgroundColor: "#000000",
-        padding: { x: 10, y: 5 },
-        align: "center",
-    })
-    .setOrigin(0.5)
-    .setDepth(5)
-    .setVisible(false);
 
-    scene.guard1DialogueActive = false;
+    scene.guard1Name = scene.add.text(scene.guard1.x, scene.guard1.y - 40, "Guard", {
+        fontSize: "14px",
+        fill: "#fff",
+        fontStyle: "bold",
+        backgroundColor: "rgba(0,0,0,1)",
+        padding: { x: 4, y: 2 }
+    }).setOrigin(0.5).setDepth(5);
 
-// --- Dialogue UI for guard1 ---
-    scene.guard1DialogueBox = scene.add.rectangle(
-        worldWidth / 2, worldHeight - 150, 500, 150, 0x000000, 0.8
-    ).setDepth(10).setVisible(false);
+    function createDialogueSystem(npcX, npcY) {
+        const boxX = npcX - 280;
+        const boxY = npcY - 40;
+        const boxWidth = 500;
+        
+        const box = scene.add.graphics()
+            .setDepth(10)
+            .setVisible(false);
 
-    scene.guard1DialogueText = scene.add.text(
-        worldWidth / 2 - 220, worldHeight - 200,
-        "", { font: "18px Arial", fill: "#ffffff", wordWrap: { width: 460 } }
-    ).setDepth(11).setVisible(false);
+        const text = scene.add.text(boxX + 20, boxY + 20, "", {
+            fontSize: "14px",
+            fill: "#222222",
+            wordWrap: { width: 460 },
+            lineSpacing: 4
+        }).setDepth(11).setVisible(false);
 
-    scene.guard1ChoiceTexts = [];
-    const guardChoices = ["Where can I see the IT Instructor?", "Where can I pass my documents?"];
-    guardChoices.forEach((choice, i) => {
-        const txt = scene.add.text(
-            worldWidth / 2 - 220, worldHeight - 160 + i * 30,
-            choice, { font: "16px Arial", fill: "#00ff00" }
-        ).setDepth(11).setVisible(false);
-        scene.guard1ChoiceTexts.push(txt);
-    });
+        const choiceTexts = [];
+        let typewriterEvent = null;
+        let isTyping = false;
 
-    scene.guard1ChoiceIndex = 0;
+        return { box, text, choiceTexts, typewriterEvent, isTyping, boxX, boxY, boxWidth };
+    }
 
-    // --- Functions for guard1 ---
-    scene.showGuard1Dialogue = () => {
-        scene.guard1DialogueActive = true;
-        scene.guard1DialogueBox.setVisible(true);
-        scene.guard1DialogueText.setVisible(true).setText("Hello! Do you need something?");
-        scene.guard1ChoiceTexts.forEach(txt => txt.setVisible(true));
-        scene.updateGuard1ChoiceHighlight();
-    };
+    const guardDialogue = createDialogueSystem(scene.guard1.x, scene.guard1.y);
 
-    scene.hideGuard1Dialogue = () => {
-        scene.guard1DialogueActive = false;
-        scene.guard1DialogueBox.setVisible(false);
-        scene.guard1DialogueText.setVisible(false);
-        scene.guard1ChoiceTexts.forEach(txt => txt.setVisible(false));
-    };
-
-    scene.updateGuard1ChoiceHighlight = () => {
-        scene.guard1ChoiceTexts.forEach((txt, i) => {
-            txt.setStyle({ fill: i === scene.guard1ChoiceIndex ? "#ffff00" : "#00ff00" });
-        });
-    };
-
-    scene.handleGuard1Choice = () => {
-        const selected = scene.guard1ChoiceIndex;
-        if (selected === 0) {
-            scene.guard1DialogueText.setText("Go to ARM Building and up to the second floor, go to the computer lab 2.");
-        } else {
-            scene.guard1DialogueText.setText("You can pass your documents at the Admin Office.");
+    function showDialogue(d, text, choices = []) {
+        // Clear any existing typewriter event
+        if (d.typewriterEvent) {
+            d.typewriterEvent.remove();
+            d.typewriterEvent = null;
         }
-        scene.guard1ChoiceTexts.forEach(txt => txt.setVisible(false));
-    };
+
+        // Clear old choices
+        d.choiceTexts.forEach(c => c.destroy());
+        d.choiceTexts.length = 0;
+
+        // Estimate initial box height (will be redrawn later with exact size)
+        const estimatedHeight = 150;
+        d.box.clear();
+        d.box.fillStyle(0xffffff, 0.95);
+        d.box.fillRoundedRect(d.boxX, d.boxY, d.boxWidth, estimatedHeight, 12);
+        d.box.lineStyle(3, 0x333333, 1);
+        d.box.strokeRoundedRect(d.boxX, d.boxY, d.boxWidth, estimatedHeight, 12);
+        d.box.setVisible(true);
+
+        d.text.setVisible(true).setText("");
+        d.isTyping = true;
+
+        // Typewriter effect
+        let charIndex = 0;
+        d.typewriterEvent = scene.time.addEvent({
+            delay: 30,
+            callback: () => {
+                if (charIndex < text.length) {
+                    d.text.setText(text.substring(0, charIndex + 1));
+                    charIndex++;
+                } else {
+                    d.isTyping = false;
+                    d.typewriterEvent.remove();
+                    d.typewriterEvent = null;
+                    
+                    // Calculate total height needed
+                    const textBounds = d.text.getBounds();
+                    const choiceStartY = textBounds.bottom + 10;
+                    const totalChoicesHeight = choices.length * 20;
+                    const boxHeight = (textBounds.bottom - d.boxY) + totalChoicesHeight + 30;
+                    
+                    // Redraw box with proper height
+                    d.box.clear();
+                    d.box.fillStyle(0xffffff, 0.95);
+                    d.box.fillRoundedRect(d.boxX, d.boxY, d.boxWidth, boxHeight, 12);
+                    d.box.lineStyle(3, 0x333333, 1);
+                    d.box.strokeRoundedRect(d.boxX, d.boxY, d.boxWidth, boxHeight, 12);
+                    d.box.setVisible(true);
+                    
+                    // Show choices after typing is complete
+                    choices.forEach((choice, i) => {
+                        const choiceText = scene.add.text(d.boxX + 20, choiceStartY + i * 20, choice.label, {
+                            fontSize: "13px",
+                            fill: "#0066cc",
+                            fontStyle: "bold"
+                        }).setInteractive().setDepth(11).setVisible(true);
+                        
+                        choiceText.on("pointerover", () => {
+                            choiceText.setStyle({ fill: "#0099ff" });
+                        });
+                        choiceText.on("pointerout", () => {
+                            choiceText.setStyle({ fill: "#0066cc" });
+                        });
+                        choiceText.on("pointerdown", () => choice.action());
+                        d.choiceTexts.push(choiceText);
+                    });
+                }
+            },
+            loop: true
+        });
+    }
+
+    function hideDialogue(d) {
+        if (d.typewriterEvent) {
+            d.typewriterEvent.remove();
+            d.typewriterEvent = null;
+        }
+        d.box.setVisible(false);
+        d.text.setVisible(false);
+        d.choiceTexts.forEach(c => c.destroy());
+        d.choiceTexts.length = 0;
+        d.isTyping = false;
+    }
+    
+    function startGuard() {
+        showDialogue(guardDialogue, "Good day! How can I help you?", [
+            { label: "Where can I find the Head of BSIT?", action: () => guardAnswer("She is located in the Comlab 1 on the second floor of the MRM Building.") },
+            { label: "Where can I find the Head of BEED?", action: () => guardAnswer("He is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "Where can I find the Head of BSTM?", action: () => guardAnswer("She is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "Where can I find the Head of BS MKTG?", action: () => guardAnswer("She is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "Where can I find the Head of BS ENTREP?", action: () => guardAnswer("He is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "Where can I find the Head of BS PSYCH?", action: () => guardAnswer("She is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "Where can I find the Head of BSCE?", action: () => guardAnswer("He is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "Where can I find the Admin Office?", action: () => guardAnswer("Located on the first floor.") },
+            { label: "Where can I find the HR Office?", action: () => guardAnswer("Located on the first floor.") },
+            { label: "Where can I find the Library?", action: () => guardAnswer("Located on the first floor.") },
+            { label: "Where can I find the Storage Room?", action: () => guardAnswer("Located on the first floor.") },
+            { label: "Where can I find the Guidance Office?", action: () => guardAnswer("Located on the first floor of the MRM Building.") },
+            { label: "Where can I find the Clinic?", action: () => guardAnswer("Located on the first floor of the MRM Building.") },
+            { label: "Where can I find Comlab 1?", action: () => guardAnswer("Located on the second floor of the MRM Building.") },
+            { label: "Where can I find Comlab 2?", action: () => guardAnswer("Located on the second floor of the ARM Building.") },
+            { label: "Where can I find the Admin Building?", action: () => guardAnswer("Located in the first building.") },
+            { label: "Where can I find the MRM Building?", action: () => guardAnswer("Located in the second building after the Admin Building.") },
+            { label: "Where can I find the ARM Building?", action: () => guardAnswer("Located in the third building after the MRM Building.") },
+            { label: "Reset", action: startGuard }
+        ]);
+    }
+
+    function guardAnswer(answerText) {
+        showDialogue(guardDialogue, answerText, [
+            { label: "THANK YOU.", action: () => hideDialogue(guardDialogue) },
+            { label: "DO YOU HAVE ANOTHER QUESTION?", action: startGuard }
+        ]);
+    }
+
 
     // Shed
     scene.road = scene.add.tileSprite(510, 900, 80, 2450, 'road').setOrigin(0, 0);
@@ -267,7 +358,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.shed.body.setOffset(scene.shed.width, scene.shed.height - 1190);
 
     // Player and colliders
-    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(3);
+    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(1);
     scene.player.body.setSize(250, 400);
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.shed);
@@ -283,31 +374,20 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.physics.add.collider(scene.player, scene.canteen);
     scene.physics.add.collider(scene.player, scene.court);
 
-    scene.adminGuidingArrow = scene.add.triangle(
-        scene.player.x, scene.player.y - 50,
-        0, 40, 20, -20, -20, -20,
-        0xffff00
-    ).setOrigin(0.5).setDepth(10).setVisible(false)
-    scene.adminGuidingArrowActive = false
-    scene.adminGuidingTarget = scene.adminEntrance1
-
-    if (scene.adminGuidingArrowActive && scene.adminGuidingArrow && scene.adminGuidingTarget) {
-        const dx = scene.adminGuidingTarget.x - scene.player.x
-        const dy = scene.adminGuidingTarget.y -scene.player.y
-        const angle = Phaser.Math.Angle.Between(scene.player.x, scene.player.y, scene.adminGuidingTarget.x, scene.adminGuidingTarget.y)
-        scene.adminGuidingArrow.setPosition(scene.player.x, scene.player.y - 50)
-        scene.adminGuidingArrow.setRotation(angle + Math.PI / 2)
-    }
-
-    scene.input.keyboard.on('keydown-G', () => {
-        scene.adminGuidingArrowActive = !scene.adminGuidingArrowActive
-        scene.adminGuidingArrow.setVisible(scene.adminGuidingArrowActive)
-    })
-
     scene.cameras.main.startFollow(scene.player, true, 1, 1);
     
     scene.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
     scene.physics.world.setBounds(0, 0, worldWidth, worldHeight);
+
+    scene.events.on('update', () => {
+        const distGuard = Phaser.Math.Distance.Between(scene.player.x, scene.player.y, scene.guard1.x, scene.guard1.y);
+        if (distGuard < 120) {
+            if (!guardDialogue.box.visible) startGuard();
+        } else if (guardDialogue.box.visible && distGuard >= 150) {
+            hideDialogue(guardDialogue);
+        }
+    });
+
     
     // Keyboard movements
     scene.cursor = scene.input.keyboard.createCursorKeys();
