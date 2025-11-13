@@ -148,10 +148,10 @@ export function createARM(scene, worldWidth, worldHeight, playerPositionX, playe
 
     scene.availableTargets = {
         psychLab: scene.facultyEntrance1,
-        arm101: scene.MRMEntrance1,
-        arm102: scene.entrance1,
-        engLab1: scene.canteen,
-        engLab2: scene.court,
+        arm101: scene.guidanceClinicDoor1,
+        arm102: scene.arm102Entrance1,
+        engLab1: scene.arm1Room1Entrance2,
+        engLab2: scene.room3Door2,
     };
 
     notifyLocationChange('ARM 1st floor', [
@@ -172,11 +172,10 @@ export function createARM(scene, worldWidth, worldHeight, playerPositionX, playe
     // End of gutter ------------------------------------
 
     // Player and colliders
-    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar')
-        .setOrigin(0.5, 0.5)
-        .setDisplaySize(60, 60)
-        .setDepth(3);
-    scene.player.body.setSize(250, 400);
+    // scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar').setOrigin(0.5, 0.5).setDisplaySize(60, 60).setDepth(3);
+    scene.player = scene.physics.add.sprite(playerPositionX, playerPositionY, 'avatar-sheet', 0).setOrigin(0, 0).setDisplaySize(60, 60).setDepth(1);
+    scene.player.body.setSize(14, 14);
+    scene.player.body.setOffset(23, 46);
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.room1);
     scene.physics.add.collider(scene.player, scene.room2);

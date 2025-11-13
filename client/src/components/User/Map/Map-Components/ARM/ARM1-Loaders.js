@@ -185,7 +185,7 @@ function loadARM203(scene, playerPositionX, playerPositionY) {
 
 function loadARM204(scene, playerPositionX, playerPositionY) {
     scene.clearMap();
-    createARM204(scene, scene.worldWidth / 2, scene.worldHeight / 3, playerPositionX, playerPositionY);
+    createARM204(scene, scene.worldWidth / 2, scene.worldHeight / 5, playerPositionX, playerPositionY);
     scene.refreshDebug();
     scene.currentMap = "arm-204";
     attachARM204Doormat1Overlap(scene);

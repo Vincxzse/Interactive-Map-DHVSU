@@ -108,16 +108,109 @@ function MapPage() {
                 ['educ','/map-assets/educ-head.png'],
                 ['psych','/map-assets/psych-head.png'],
                 ['eng','/map-assets/eng.png'],
+                ['bsit','/map-assets/it-head.png'],
                 ['gps','/map-assets/gps.png'],
                 ['compassBg','/map-assets/compassBG.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
+            
+            // Load spritesheet for animations
+            // Image size: 378x394, Grid: 4 columns x 4 rows
+            // Frame size: approximately 94x98 pixels per frame
+            this.load.spritesheet('avatar-sheet', '/map-assets/avatar-spritesheet.png', {
+                frameWidth: 94,
+                frameHeight: 98
+            });
+            
+            this.load.on('loaderror', (file) => {
+                console.error('Error loading file:', file.src);
+            });
+            
+            this.load.on('complete', () => {
+                console.log('All assets loaded');
+                console.log('Avatar sheet texture exists:', this.textures.exists('avatar-sheet'));
+            });
         }
+
+        createAnimations() {            
+            // Walking down (front)
+            this.anims.create({
+                key: 'walk-down',
+                frames: this.anims.generateFrameNumbers('avatar-sheet', { 
+                    start: 0, 
+                    end: 3 
+                }),
+                frameRate: 10,
+                repeat: -1
+            });
+            
+            // Walking up (back)
+            this.anims.create({
+                key: 'walk-up',
+                frames: this.anims.generateFrameNumbers('avatar-sheet', { 
+                    start: 4, 
+                    end: 7 
+                }),
+                frameRate: 10,
+                repeat: -1
+            });
+            
+            // Walking left
+            this.anims.create({
+                key: 'walk-left',
+                frames: this.anims.generateFrameNumbers('avatar-sheet', { 
+                    start: 8, 
+                    end: 11 
+                }),
+                frameRate: 10,
+                repeat: -1
+            });
+            
+            // Walking right
+            this.anims.create({
+                key: 'walk-right',
+                frames: this.anims.generateFrameNumbers('avatar-sheet', { 
+                    start: 12, 
+                    end: 15 
+                }),
+                frameRate: 10,
+                repeat: -1
+            });
+            
+            // Idle animations
+            this.anims.create({
+                key: 'idle-down',
+                frames: [{ key: 'avatar-sheet', frame: 0 }],
+                frameRate: 1
+            });
+            
+            this.anims.create({
+                key: 'idle-up',
+                frames: [{ key: 'avatar-sheet', frame: 4 }],
+                frameRate: 1
+            });
+            
+            this.anims.create({
+                key: 'idle-left',
+                frames: [{ key: 'avatar-sheet', frame: 8 }],
+                frameRate: 1
+            });
+            
+            this.anims.create({
+                key: 'idle-right',
+                frames: [{ key: 'avatar-sheet', frame: 12 }],
+                frameRate: 1
+            });
+        }
+
 
         create() {
             this.worldWidth = 2000;
             this.worldHeight = 3500;
+
+            this.createAnimations();
+            this.lastDirection = 'down';
 
             this.cursor = this.input.keyboard.createCursorKeys();
             this.keys = this.input.keyboard.addKeys({
@@ -149,7 +242,7 @@ function MapPage() {
                 court: this.court,
                 erm: this.erm
             };
-            this.currentTargetKey = '';
+            this.currentTargetKey = 'admin';
         }
 
         showDialogue() {
@@ -235,30 +328,46 @@ function MapPage() {
         }
 
         attachOutsideOverlap() {
+            let canTrigger = true;
             this.currentOverlap = this.physics.add.overlap(this.player, this.entrance1, () => {
+                if (!canTrigger) return;
+                canTrigger = false;
                 this.loadARM1(this.worldWidth / 2, 250);
                 this.refreshDebug();
+                this.time.delayedCall(1000, () => { canTrigger = true; });
             });
         }
 
         attachOutsideOverlap2() {
+            let canTrigger = true;
             this.currentOverlap = this.physics.add.overlap(this.player, this.entrance2, () => {
+                if (!canTrigger) return;
+                canTrigger = false;
                 this.loadARM1(this.worldWidth / 2, 50);
                 this.refreshDebug();
+                this.time.delayedCall(1000, () => { canTrigger = true; });
             });
         }
 
         attachOutsideOverlap3() {
+            let canTrigger = true;
             this.currentOverlap = this.physics.add.overlap(this.player, this.entrance3, () => {
+                if (!canTrigger) return;
+                canTrigger = false;
                 this.loadARM1(200, 600);
                 this.refreshDebug();
+                this.time.delayedCall(1000, () => { canTrigger = true; });
             });
         }
 
         attachOutsideOverlap4() {
+            let canTrigger = true;
             this.currentOverlap = this.physics.add.overlap(this.player, this.entrance4, () => {
+                if (!canTrigger) return;
+                canTrigger = false;
                 this.loadARM1(this.worldWidth - 150, 600);
                 this.refreshDebug();
+                this.time.delayedCall(1000, () => { canTrigger = true; });
             });
         }
 
@@ -277,13 +386,18 @@ function MapPage() {
         }
 
         refreshDebug() {
-            this.physics.world.drawDebug = true;
-            this.physics.world.debugGraphic = this.add.graphics();
-            this.physics.world.createDebugGraphic();
+            // this.physics.world.drawDebug = true;
+            // this.physics.world.debugGraphic = this.add.graphics();
+            // this.physics.world.createDebugGraphic();
         }
 
         // ---------------- UPDATE ----------------
         update() {
+            // Safety check - make sure player exists with physics body
+            if (!this.player || !this.player.body) {
+                console.warn('Player or player body not initialized');
+                return;
+            }
            
             const { left, right, up, down } = this.cursor;
             const { up: w, down: s, left: a, right: d } = this.keys;
@@ -303,6 +417,37 @@ function MapPage() {
             }
             
             this.player.setVelocity(velocityX, velocityY);
+
+            const isMoving = velocityX !== 0 || velocityY !== 0;
+
+            // Only play animations if anims exist
+            if (this.player.anims) {
+                if (isMoving) {
+                    // Determine direction and play appropriate animation
+                    if (Math.abs(velocityX) > Math.abs(velocityY)) {
+                        // Horizontal movement is dominant
+                        if (velocityX > 0) {
+                            this.player.anims.play('walk-right', true);
+                            this.lastDirection = 'right';
+                        } else {
+                            this.player.anims.play('walk-left', true);
+                            this.lastDirection = 'left';
+                        }
+                    } else {
+                        // Vertical movement is dominant
+                        if (velocityY > 0) {
+                            this.player.anims.play('walk-down', true);
+                            this.lastDirection = 'down';
+                        } else {
+                            this.player.anims.play('walk-up', true);
+                            this.lastDirection = 'up';
+                        }
+                    }
+                } else {
+                    // Not moving - play idle animation based on last direction
+                    this.player.anims.play(`idle-${this.lastDirection}`, true);
+                }
+            }
 
             // Compass update
             if (this.player && this.compass && this.currentTargetKey) {
@@ -458,61 +603,6 @@ function MapPage() {
                         <div className="p-6 space-y-6">
                             <section>
                                 <h3 className="text-xl font-bold mb-3 text-blue-600">ACADEMIC SERVICES</h3>
-                                <table className="w-full border-collapse border border-gray-300 text-sm">
-                                    <thead className="bg-gray-100">
-                                        <tr>
-                                            <th className="border border-gray-300 p-2 text-left">Service</th>
-                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
-                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className="border border-gray-300 p-2">Enrollment Procedure</td>
-                                            <td className="border border-gray-300 p-2">1 Day, 12 Minutes</td>
-                                            <td className="border border-gray-300 p-2">Clearance, Academic Evaluation, Pre-registration Form</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border border-gray-300 p-2">Adding/Dropping/Changing Forms</td>
-                                            <td className="border border-gray-300 p-2">40 Minutes</td>
-                                            <td className="border border-gray-300 p-2">Certificate of Registration, Academic Evaluation</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border border-gray-300 p-2">Transferring Procedure</td>
-                                            <td className="border border-gray-300 p-2">55 Minutes</td>
-                                            <td className="border border-gray-300 p-2">Transfer of Credentials, Copy of Grades, Good Moral, Birth Certificate</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </section>
-
-                            <section>
-                                <h3 className="text-xl font-bold mb-3 text-blue-600">STUDENT AFFAIRS</h3>
-                                <table className="w-full border-collapse border border-gray-300 text-sm">
-                                    <thead className="bg-gray-100">
-                                        <tr>
-                                            <th className="border border-gray-300 p-2 text-left">Service</th>
-                                            <th className="border border-gray-300 p-2 text-left">Processing Time</th>
-                                            <th className="border border-gray-300 p-2 text-left">Requirements</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className="border border-gray-300 p-2">ID Validation</td>
-                                            <td className="border border-gray-300 p-2">2 Minutes, 30 Seconds</td>
-                                            <td className="border border-gray-300 p-2">Certificate of Registration, Official ID</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="border border-gray-300 p-2">Lost and Found Services</td>
-                                            <td className="border border-gray-300 p-2">6 Minutes, 50 Seconds</td>
-                                            <td className="border border-gray-300 p-2">Incident Report, Claim Form</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </section>
-
-                            <section>
-                                <h3 className="text-xl font-bold mb-3 text-blue-600">UNIVERSITY CLINIC</h3>
                                 <table className="w-full border-collapse border border-gray-300 text-sm">
                                     <thead className="bg-gray-100">
                                         <tr>

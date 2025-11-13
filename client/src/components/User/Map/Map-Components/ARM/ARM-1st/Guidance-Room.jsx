@@ -35,11 +35,9 @@ export function createGuidance(scene, worldWidth, worldHeight, playerPositionX, 
     scene.guidanceDoormat1.setAngle(90);
 
     // Player and colliders
-    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar')
-        .setOrigin(0.5, 0.5)
-        .setDisplaySize(60, 60)
-        .setDepth(3);
-    scene.player.body.setSize(250, 400);
+    scene.player = scene.physics.add.sprite(playerPositionX, playerPositionY, 'avatar-sheet', 0).setOrigin(0, 0).setDisplaySize(60, 60).setDepth(1);
+    scene.player.body.setSize(14, 14);
+    scene.player.body.setOffset(23, 46);
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.wall1);
     scene.physics.add.collider(scene.player, scene.wall2);

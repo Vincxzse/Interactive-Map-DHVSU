@@ -1,7 +1,20 @@
 
+function notifyLocationChange(location, targets) {
+    window.dispatchEvent(new CustomEvent('locationChanged', {
+        detail: { location, targets }
+    }));
+}
+
 export function createARM2nd(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
     const centerX = worldWidth;
     const centerY = worldHeight;
+
+    scene.compass = scene.add.image(80, scene.scale.height - 80, 'gps')
+        .setOrigin(0.5)
+        .setScrollFactor(0)
+        .setDepth(1000)
+        .setScale(0.8)
+    scene.compass.setDepth(1000)
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'mrm-floor').setOrigin(0, 0).setDepth(-1);
 
@@ -150,12 +163,30 @@ export function createARM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     });
     // End of gutter ------------------------------------
 
+    scene.availableTargets = {
+        arm201: scene.facultyDoor5,
+        comLab2: scene.CL2Entrance1,
+        arm202: scene.room5Door2,
+        arm203: scene.room4Door2,
+        arm204: scene.room3Door2,
+        arm205: scene.ARM206Entrance1,
+        beedLab: scene.door1,
+    };
+
+    notifyLocationChange('ARM 2nd floor', [
+        { key: 'arm201', label: 'ARM 201', color: 'bg-blue-500' },
+        { key: 'comLab2', label: 'Computer Lab 2', color: 'bg-purple-500' },
+        { key: 'arm202', label: 'ARM 202', color: 'bg-indigo-500' },
+        { key: 'arm203', label: 'ARM 203', color: 'bg-orange-500' },
+        { key: 'arm204', label: 'ARM 204', color: 'bg-red-500' },
+        { key: 'arm205', label: 'ARM 205', color: 'bg-teal-500' },
+        { key: 'beedLab', label: 'BEED Lab', color: 'bg-teal-500' },
+    ]);
+
     // Player and colliders
-    scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar')
-        .setOrigin(0.5, 0.5)
-        .setDisplaySize(60, 60)
-        .setDepth(3);
-    scene.player.body.setSize(250, 400);
+    scene.player = scene.physics.add.sprite(playerPositionX, playerPositionY, 'avatar-sheet', 0).setOrigin(0, 0).setDisplaySize(60, 60).setDepth(1);
+    scene.player.body.setSize(14, 14);
+    scene.player.body.setOffset(23, 46);
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.gutterY1);
     scene.physics.add.collider(scene.player, scene.gutterY2);
