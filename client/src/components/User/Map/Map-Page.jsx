@@ -30,6 +30,9 @@ function MapPage() {
     const [showTable, setShowTable] = useState(false);
     const [showTargetMenu, setShowTargetMenu] = useState(false);
     const [currentTarget, setCurrentTarget] = useState('admin');
+    const [currentLocation, setCurrentLocation] = useState('outside');
+    const [availableTargets, setAvailableTargets] = useState([]);
+    const [joystickActive, setJoystickActive] = useState(false);
 
     const speedDown = 10;
     const sizes = { width: 1520, height: 610 };
@@ -39,8 +42,6 @@ function MapPage() {
             super("scene-game");
             this.player;
             this.playerSpeed = speedDown + 500;
-
-            // Track overlaps
             this.currentOverlap = null;
         }
 
@@ -126,6 +127,9 @@ function MapPage() {
                 right: Phaser.Input.Keyboard.KeyCodes.D,
             });
 
+            // Mobile touch controls
+            this.touchMovement = { x: 0, y: 0 };
+
             // Start with outside map
             this.loadOutside();
             this.refreshDebug();
@@ -145,7 +149,7 @@ function MapPage() {
                 court: this.court,
                 erm: this.erm
             };
-            this.currentTargetKey = 'admin';
+            this.currentTargetKey = '';
         }
 
         showDialogue() {
@@ -285,10 +289,19 @@ function MapPage() {
             const { up: w, down: s, left: a, right: d } = this.keys;
             let velocityX = 0;
             let velocityY = 0;
+            
+            // Keyboard controls
             if (left.isDown || a.isDown) velocityX = -this.playerSpeed;
             else if (right.isDown || d.isDown) velocityX = this.playerSpeed;
             if (up.isDown || w.isDown) velocityY = -this.playerSpeed;
             else if (down.isDown || s.isDown) velocityY = this.playerSpeed;
+            
+            // Mobile touch controls - override keyboard if active
+            if (this.touchMovement.x !== 0 || this.touchMovement.y !== 0) {
+                velocityX = this.touchMovement.x * this.playerSpeed;
+                velocityY = this.touchMovement.y * this.playerSpeed;
+            }
+            
             this.player.setVelocity(velocityX, velocityY);
 
             // Compass update
@@ -327,7 +340,29 @@ function MapPage() {
     useEffect(() => {
         const game = new Phaser.Game(config);
         window.phaserGame = game;
-        return () => game.destroy(true);
+        
+        // Listen for location changes from Phaser
+        window.addEventListener('locationChanged', (e) => {
+            setCurrentLocation(e.detail.location);
+            setAvailableTargets(e.detail.targets);
+        });
+
+        // Handle mobile joystick movement
+        const handleJoystickMove = (e) => {
+            const scene = game.scene.scenes[0];
+            if (scene && scene.touchMovement) {
+                scene.touchMovement.x = e.detail.x;
+                scene.touchMovement.y = e.detail.y;
+            }
+        };
+
+        window.addEventListener('joystickMove', handleJoystickMove);
+        
+        return () => {
+            window.removeEventListener('locationChanged', () => {});
+            window.removeEventListener('joystickMove', handleJoystickMove);
+            game.destroy(true);
+        };
     }, []);
 
     return (
@@ -366,44 +401,42 @@ function MapPage() {
             </div>
 
             {showTargetMenu && (
-                <div className="absolute top-40 right-4 z-50 bg-white rounded-lg shadow-xl p-4 w-64">
+                <div className="absolute top-40 right-4 z-50 bg-white rounded-lg shadow-xl p-4 w-64 max-h-110 overflow-y-scroll">
                     <h3 className="text-lg font-bold mb-3">Select Compass Target</h3>
+                    <p className="text-xs text-gray-500 mb-2">Location: {currentLocation}</p>
                     <div className="space-y-2">
-                        {[
-                            { key: 'admin', label: 'Admin Building', color: 'bg-blue-500' },
-                            { key: 'mrm', label: 'MRM Building', color: 'bg-purple-500' },
-                            { key: 'arm', label: 'ARM Building', color: 'bg-indigo-500' },
-                            { key: 'canteen', label: 'Canteen', color: 'bg-orange-500' },
-                            { key: 'court', label: 'Court', color: 'bg-red-500' },
-                            { key: 'erm', label: 'ERM Building', color: 'bg-teal-500' }
-                        ].map(target => (
-                            <button
-                                key={target.key}
-                                onClick={() => {
-                                    setCurrentTarget(target.key);
-                                    setShowTargetMenu(false);
-                                    // Update the game scene's target
-                                    const game = window.phaserGame;
-                                    if (game && game.scene.scenes[0]) {
-                                        game.scene.scenes[0].currentTargetKey = target.key;
-                                    }
-                                }}
-                                className={`w-full text-left px-4 py-2 rounded transition-colors ${
-                                    currentTarget === target.key 
-                                        ? `${target.color} text-white` 
-                                        : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
-                                }`}
-                            >
-                                <div className="flex items-center justify-between">
-                                    <span>{target.label}</span>
-                                    {currentTarget === target.key && (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    )}
-                                </div>
-                            </button>
-                        ))}
+                        {availableTargets.length === 0 ? (
+                            <p className="text-gray-500 text-sm">No navigation targets available in this location.</p>
+                        ) : (
+                            availableTargets.map(target => (
+                                <button
+                                    key={target.key}
+                                    onClick={() => {
+                                        setCurrentTarget(target.key);
+                                        setShowTargetMenu(false);
+                                        // Update the game scene's target
+                                        const game = window.phaserGame;
+                                        if (game && game.scene.scenes[0]) {
+                                            game.scene.scenes[0].currentTargetKey = target.key;
+                                        }
+                                    }}
+                                    className={`w-full text-left px-4 py-2 rounded transition-colors ${
+                                        currentTarget === target.key 
+                                            ? `${target.color} text-white` 
+                                            : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <span>{target.label}</span>
+                                        {currentTarget === target.key && (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                        )}
+                                    </div>
+                                </button>
+                            ))
+                        )}
                     </div>
                 </div>
             )}
@@ -633,6 +666,107 @@ function MapPage() {
             )}
 
             <div className="relative flex flex-col w-full h-full items-start justify-start gap-2 bg-[#2B313C] rounded-lg overflow-hidden" id="map-container">
+            </div>
+
+            {/* Mobile Virtual Joystick */}
+            <MobileJoystick onMove={setJoystickActive} />
+        </div>
+    );
+}
+
+// Mobile Joystick Component
+function MobileJoystick({ onMove }) {
+    const joystickRef = React.useRef(null);
+    const knobRef = React.useRef(null);
+    const [isDragging, setIsDragging] = React.useState(false);
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        // Check if device is mobile
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const handleStart = (e) => {
+        setIsDragging(true);
+        onMove(true);
+    };
+
+    const handleMove = (e) => {
+        if (!isDragging) return;
+        
+        const touch = e.touches ? e.touches[0] : e;
+        const joystick = joystickRef.current.getBoundingClientRect();
+        const centerX = joystick.left + joystick.width / 2;
+        const centerY = joystick.top + joystick.height / 2;
+        
+        let deltaX = touch.clientX - centerX;
+        let deltaY = touch.clientY - centerY;
+        
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const maxDistance = 40; // Maximum distance from center
+        
+        if (distance > maxDistance) {
+            deltaX = (deltaX / distance) * maxDistance;
+            deltaY = (deltaY / distance) * maxDistance;
+        }
+        
+        // Update knob position
+        if (knobRef.current) {
+            knobRef.current.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        }
+        
+        // Normalize values between -1 and 1
+        const normalizedX = deltaX / maxDistance;
+        const normalizedY = deltaY / maxDistance;
+        
+        // Dispatch event to Phaser
+        window.dispatchEvent(new CustomEvent('joystickMove', {
+            detail: { x: normalizedX, y: normalizedY }
+        }));
+    };
+
+    const handleEnd = () => {
+        setIsDragging(false);
+        onMove(false);
+        
+        // Reset knob position
+        if (knobRef.current) {
+            knobRef.current.style.transform = 'translate(0, 0)';
+        }
+        
+        // Stop movement
+        window.dispatchEvent(new CustomEvent('joystickMove', {
+            detail: { x: 0, y: 0 }
+        }));
+    };
+
+    if (!isMobile) return null;
+
+    return (
+        <div
+            ref={joystickRef}
+            onTouchStart={handleStart}
+            onTouchMove={handleMove}
+            onTouchEnd={handleEnd}
+            onMouseDown={handleStart}
+            onMouseMove={handleMove}
+            onMouseUp={handleEnd}
+            onMouseLeave={handleEnd}
+            className="fixed bottom-20 left-8 w-32 h-32 bg-gray-800 opacity-50 rounded-full flex items-center justify-center z-50 touch-none"
+            style={{ touchAction: 'none' }}
+        >
+            <div className="w-24 h-24 bg-gray-700 bg-opacity-30 rounded-full flex items-center justify-center">
+                <div
+                    ref={knobRef}
+                    className="w-12 h-12 bg-blue-500 bg-opacity-70 rounded-full shadow-lg transition-transform"
+                    style={{ transform: 'translate(0, 0)' }}
+                />
             </div>
         </div>
     );

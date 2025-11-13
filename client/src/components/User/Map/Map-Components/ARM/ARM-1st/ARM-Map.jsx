@@ -1,5 +1,18 @@
 
+function notifyLocationChange(location, targets) {
+    window.dispatchEvent(new CustomEvent('locationChanged', {
+        detail: { location, targets }
+    }));
+}
+
 export function createARM(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
+
+    scene.compass = scene.add.image(80, scene.scale.height - 80, 'gps')
+        .setOrigin(0.5)
+        .setScrollFactor(0)
+        .setDepth(1000)
+        .setScale(0.8)
+    scene.compass.setDepth(1000)
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'mrm-floor').setOrigin(0, 0).setDepth(-1);
 
@@ -132,6 +145,22 @@ export function createARM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.stair1.refreshBody();
     scene.hitboxes = scene.physics.add.staticGroup();
     scene.exit1 = scene.hitboxes.create(1025, 500, null).setSize(500, 10).setVisible(false);
+
+    scene.availableTargets = {
+        psychLab: scene.facultyEntrance1,
+        arm101: scene.MRMEntrance1,
+        arm102: scene.entrance1,
+        engLab1: scene.canteen,
+        engLab2: scene.court,
+    };
+
+    notifyLocationChange('ARM 1st floor', [
+        { key: 'psychLab', label: 'Psychology Lab', color: 'bg-blue-500' },
+        { key: 'arm101', label: 'ARM 101', color: 'bg-purple-500' },
+        { key: 'arm102', label: 'ARM 102', color: 'bg-indigo-500' },
+        { key: 'engLab1', label: 'Engineering Lab 1', color: 'bg-orange-500' },
+        { key: 'engLab2', label: 'Engineering Lab 2', color: 'bg-red-500' },
+    ]);
 
     scene.physics.add.overlap(scene.player, scene.exit1, () => {
         Object.values(scene.children.list).forEach(obj => obj.destroy());

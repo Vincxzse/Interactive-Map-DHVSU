@@ -1,11 +1,31 @@
 
+// Helper function to notify React of location changes
+function notifyLocationChange(location, targets) {
+    window.dispatchEvent(new CustomEvent('locationChanged', {
+        detail: { location, targets }
+    }));
+}
+
 export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
 
-    scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'mrm-floor').setOrigin(0, 0).setDepth(-1);
+    notifyLocationChange('mrm', [
+        { key: 'mrm101', label: 'MRM 101', color: 'bg-purple-500' },
+        { key: 'mrm102', label: 'MRM 102', color: 'bg-purple-600' },
+        { key: 'mrm103', label: 'MRM 103', color: 'bg-purple-700' },
+        { key: 'gc1', label: 'Guidance Office 1', color: 'bg-green-500' },
+        { key: 'gc2', label: 'Guidance Office 2', color: 'bg-green-600' },
+        { key: 'faculty', label: 'Faculty Room', color: 'bg-blue-500' },
+        { key: 'exit', label: 'Exit Building', color: 'bg-red-500' }
+    ]);
 
-    // scene.armExit2 = scene.hitboxes.create((worldWidth / 2) + 30, 0, null).setSize(500, 10).setVisible(false);
-    // scene.armExit3 = scene.hitboxes.create(170, worldHeight, null).setSize(300, 10).setVisible(false);
-    // scene.armExit4 = scene.hitboxes.create(worldWidth - 170, worldHeight, null).setSize(300, 10).setVisible(false);
+    scene.compass = scene.add.image(80, scene.scale.height - 80, 'gps')
+        .setOrigin(0.5)
+        .setScrollFactor(0)
+        .setDepth(1000)
+        .setScale(0.8)
+    scene.compass.setDepth(1000)
+
+    scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'mrm-floor').setOrigin(0, 0).setDepth(-1);
 
     // Rooms Right -------------------------------------------
 
@@ -138,6 +158,16 @@ export function createMRM(scene, worldWidth, worldHeight, playerPositionX, playe
     scene.MRMExit2 = scene.hitboxes.create(1025, worldHeight, null).setSize(500, 10).setVisible(false);
     scene.MRMExit3 = scene.hitboxes.create(175, 0, null).setSize(300, 10).setVisible(false);
     scene.MRMExit4 = scene.hitboxes.create(worldWidth - 170, 0, null).setSize(300, 10).setVisible(false);
+
+    scene.availableTargets = {
+        mrm101: scene.mrm101Entrance1,
+        mrm102: scene.mrm102Entrance1,
+        mrm103: scene.mrm103Entrance1,
+        gc1: scene.GCEntrance1,
+        gc2: scene.GCEntrance2,
+        faculty: scene.facultyEntrance1,
+        exit: scene.MRMExit1
+    };
 
     scene.physics.add.overlap(scene.player, scene.exit1, () => {
         Object.values(scene.children.list).forEach(obj => obj.destroy());

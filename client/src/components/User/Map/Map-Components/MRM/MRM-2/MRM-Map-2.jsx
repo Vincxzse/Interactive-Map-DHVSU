@@ -1,5 +1,30 @@
 
+function notifyLocationChange(location, targets) {
+    window.dispatchEvent(new CustomEvent('locationChanged', {
+        detail: { location, targets }
+    }));
+}
+
 export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
+
+    notifyLocationChange('MRM 2nd Floor', [
+        { key: 'comlab1', label: 'Computer Lab 1', color: 'bg-purple-500' },
+        { key: 'oldLibrary', label: 'Old Library', color: 'bg-purple-500' },
+        { key: 'mrm201', label: 'MRM 201', color: 'bg-purple-600' },
+        { key: 'mrm202', label: 'MRM 202', color: 'bg-purple-700' },
+        { key: 'mrm203', label: 'MRM 203', color: 'bg-green-500' },
+        { key: 'mrm204', label: 'MRM 204', color: 'bg-green-600' },
+        { key: 'mrm205', label: 'MRM 205', color: 'bg-blue-500' },
+        { key: 'stairDown1', label: 'Down Stairs 1', color: 'bg-red-500' },
+        { key: 'stairDown2', label: 'Down Stairs 2', color: 'bg-red-500' },
+    ]);
+
+    scene.compass = scene.add.image(80, scene.scale.height - 80, 'gps')
+        .setOrigin(0.5)
+        .setScrollFactor(0)
+        .setDepth(1000)
+        .setScale(0.8)
+    scene.compass.setDepth(1000)
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'mrm-floor').setOrigin(0, 0).setDepth(-1);
 
@@ -30,7 +55,6 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.wall6 = scene.physics.add.staticImage(worldWidth - 11, - 10, 'wall').setDisplaySize(30, 100).setDepth(2);
     scene.wall6.body.setOffset(0,0)
     scene.wall6.refreshBody()
-    // scene.mrm1Room1Entrance2 = scene.hitboxes.create(worldWidth - 25, 345, null).setSize(10, 50).setVisible(false);
 
     // old library
     scene.room10 = scene.physics.add.staticImage(-150, 670, 'room').setDisplaySize(350, 550).setDepth(2).setFlipX(true);
@@ -142,7 +166,17 @@ export function createMRM2nd(scene, worldWidth, worldHeight, playerPositionX, pl
     scene.oldLibraryEntrance1 = scene.hitboxes.create(25, 547, null).setSize(10, 50).setVisible(false);
     // End of rooms left
     
-    
+    scene.availableTargets = {
+        comlab1: scene.comLab1Entrance1,
+        oldLibrary: scene.oldLibraryEntrance1,
+        mrm201: scene.mrm201Entrance1,
+        mrm103: scene.MRM203Entrance1,
+        mrm204: scene.MRM204Entrance1,
+        mrm205: scene.MRM205Entrance1,
+        stairDown1: scene.mrm2stair2,
+        stairDown2: scene.mrm2stair1,
+    };
+
     // Gutter -------------------------------------------
     scene.gutterY1 = scene.physics.add.staticImage(worldWidth - 300, 100, 'gutterY').setDisplaySize(50, 400).setDepth(3)
     scene.gutterY1.body.setOffset(0, 0);

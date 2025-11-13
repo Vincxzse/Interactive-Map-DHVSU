@@ -1,19 +1,21 @@
 
+// Helper function to notify React of location changes
+function notifyLocationChange(location, targets) {
+    window.dispatchEvent(new CustomEvent('locationChanged', {
+        detail: { location, targets }
+    }));
+}
+
 export function createOutside(scene, worldWidth, worldHeight, playerPositionX, playerPositionY) {
     const centerX = worldWidth;
     const centerY = worldHeight;
 
-    // COMPASS SETUP (bottom-left of screen)
+    // COMPASS SETUP
     scene.compass = scene.add.image(80, scene.scale.height - 80, 'gps')
         .setOrigin(0.5)
-        .setScrollFactor(0) // stays fixed on screen
+        .setScrollFactor(0)
         .setDepth(1000)
         .setScale(0.8)
-    // scene.compassBg = scene.add.image(80, scene.scale.height - 80, 'compassBg')
-    //     .setOrigin(0.5)
-    //     .setScrollFactor(0)
-    //     .setDepth(999)
-    //     .setScale(1)
     scene.compass.setDepth(1000)
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'bg1').setOrigin(0, 0);
@@ -117,7 +119,14 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
         erm: scene.erm
     };
 
-    
+    notifyLocationChange('Outside', [
+        { key: 'admin', label: 'Admin Building', color: 'bg-blue-500' },
+        { key: 'mrm', label: 'MRM Building', color: 'bg-purple-500' },
+        { key: 'arm', label: 'ARM Building', color: 'bg-indigo-500' },
+        { key: 'canteen', label: 'Canteen', color: 'bg-orange-500' },
+        { key: 'court', label: 'Court', color: 'bg-red-500' },
+        { key: 'erm', label: 'ERM Building', color: 'bg-teal-500' }
+    ]);
 
     // Canteen
     scene.canteen = scene.physics.add.staticImage(1290, 850, 'canteen').setDepth(3);
@@ -170,7 +179,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.curbFSV = scene.physics.add.image(1785, 3274, 'curb');
     scene.curbFSV.setAngle(90)
     scene.curbFSV.setCrop(0, 0, 420, 100);
-    scene.nationalFlag = scene.physics.add.image(1340, 3070, 'flag');
+    scene.nationalFlag = scene.physics.add.image(1340, 3070, 'flag').setDepth(3);
     scene.hitboxNF = scene.hitboxes.create(1295, 3175, null).setSize(scene.nationalFlag.width / 3 + 15, scene.nationalFlag.height / 8 - 5).setVisible(false);
 
     // Randoms
