@@ -72,7 +72,12 @@ function LoginForm(props) {
                 <input type='submit' value='Login' className='bg-[#7A0101] h-8 text-[#D5C000] text-lg font-extrabold hover:bg-[#990303] transition-[.1s] cursor-pointer hover:text-amber-300' />
                 <div className='flex flex-row items-center justify-center gap-2'>
                     <p>Forgot password?</p>
-                    <a className='text-blue-400 hover:text-blue-600'>Click here</a>
+                    <a 
+                        className='text-blue-400 hover:text-blue-600 cursor-pointer'
+                        onClick={() => navigate('/forgot-password')}
+                    >
+                        Click here
+                    </a>
                 </div>
                 <a className='flex items-center justify-center w-full text-center h-8 border-2 border-[#7A0101] hover:bg-amber-300 transition-[.1s] font-extrabold cursor-pointer' onClick={jumpToRegistration}>Register New Account</a>
             </form>
