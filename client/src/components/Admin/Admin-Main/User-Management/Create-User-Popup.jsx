@@ -60,7 +60,7 @@ function CreateUserPopUp(props) {
     return (
         <>
             {/* Backdrop */}
-            <div className="flex items-center justify-center h-screen w-screen fixed inset-0 z-50 bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
+            <div className="flex items-center justify-center h-screen w-screen fixed inset-0 z-120 bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
                 {/* Modal Container */}
                 <div className="relative flex flex-col items-center justify-start w-full max-w-[95%] sm:max-w-md md:max-w-lg bg-[#2B313C] shadow-2xl rounded-2xl p-5 sm:p-8 md:p-10 my-4 animate-scale-in">
                     <CloseBtn onSendData={props.onSendData} />
