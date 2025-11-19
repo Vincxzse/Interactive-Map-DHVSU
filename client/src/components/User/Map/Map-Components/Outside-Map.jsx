@@ -1,4 +1,3 @@
-
 // Helper function to notify React of location changes
 function notifyLocationChange(location, targets) {
     window.dispatchEvent(new CustomEvent('locationChanged', {
@@ -15,8 +14,8 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
         .setOrigin(0.5)
         .setScrollFactor(0)
         .setDepth(1000)
-        .setScale(0.8)
-    scene.compass.setDepth(1000)
+        .setScale(0.8);
+    scene.compass.setDepth(1000);
 
     scene.bg1 = scene.add.tileSprite(0, 0, worldWidth, worldHeight, 'bg1').setOrigin(0, 0);
     scene.bg2 = scene.add.tileSprite(0, 550, 510, worldHeight, 'sand').setOrigin(0, 0);
@@ -41,13 +40,14 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.adminShed1 = scene.physics.add.image(scene.admin.width - 130, scene.admin.height + 2285, 'shedSV').setDepth(2);
     scene.adminShed2 = scene.physics.add.image(scene.admin.width + 830, scene.admin.height + 2285, 'shedSV').setDepth(2);
 
-    
     // MRM Building
     scene.mrm = scene.add.image(770, 1700, 'mrm').setOrigin(0, 0).setDepth(0);
     scene.mrm.setScale(1, 1);
+    
     // ARM Building
     scene.arm = scene.add.image(770, 1710, 'mrm').setOrigin(0, 0).setDepth(0);
     scene.arm.setScale(1, -1);
+    
     // Sheds MRM & ARM
     scene.mrmShed = scene.add.image(scene.mrm.width - 50, scene.mrm.height + 1730, 'shedSH').setDepth(2);
     scene.mrmShed = scene.add.image(scene.mrm.width + 115, scene.mrm.height + 1730, 'shedSH').setDepth(2);
@@ -69,6 +69,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.mrmShed = scene.add.image(scene.mrm.width - 165, scene.mrm.height + 1000, 'shedSV').setDisplaySize(100, 200).setDepth(4);
     scene.mrmShed = scene.add.image(scene.mrm.width - 165, scene.mrm.height + 875, 'shedSV').setDisplaySize(100, 200).setDepth(3);
     scene.mrmShed = scene.add.image(scene.mrm.width - 165, scene.mrm.height + 745, 'shedSV').setDisplaySize(100, 200).setDepth(2);
+    
     // Curbs MRM & ARM
     scene.curb = scene.add.image(scene.mrm.width + 150, scene.mrm.height + 1760, 'curb');
     scene.curb = scene.add.image(scene.mrm.width + 480, scene.mrm.height + 1760, 'curb');
@@ -85,10 +86,12 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     
     // Invisible Hitboxes
     scene.hitboxes = scene.physics.add.staticGroup();
+    
     // MRM Hitboxes
     scene.hitbox1 = scene.hitboxes.create(scene.mrm.width, scene.mrm.height + 1470, null).setSize(280, scene.mrm.height - 70).setVisible(false);
     scene.hitbox2 = scene.hitboxes.create(scene.mrm.width + 630, scene.mrm.height + 1470, null).setSize(280, scene.mrm.height - 70).setVisible(false);
     scene.hitbox3 = scene.hitboxes.create(scene.mrm.width + 315, scene.mrm.height + 1590, null).setSize(scene.mrm.width - 70, 220).setVisible(false);
+    
     // ARM Hitboxes
     scene.hitbox4 = scene.hitboxes.create(scene.arm.width, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
     scene.hitbox5 = scene.hitboxes.create(scene.arm.width + 630, scene.arm.height + 885, null).setSize(280, scene.arm.height - 70).setVisible(false);
@@ -107,8 +110,8 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.MRMEntrance4 = scene.hitboxes.create(scene.mrm.width * 1.62, scene.mrm.height + 1240, null).setSize(100, 10).setVisible(false);
     
     // Admin Entrance
-    scene.adminEntrance1 = scene.hitboxes.create((worldWidth / 1.56) + 5, worldHeight - 700, null).setSize(50, 10).setVisible(true);
-    scene.adminGuidingTarget = scene.adminEntrance1
+    scene.adminEntrance1 = scene.hitboxes.create((worldWidth / 1.56) + 5, worldHeight - 700, null).setSize(50, 10).setVisible(false);
+    scene.adminGuidingTarget = scene.adminEntrance1;
 
     scene.availableTargets = {
         admin: scene.adminEntrance1,
@@ -174,10 +177,10 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.curbFSH = scene.physics.add.image(1101, 3360, 'curb');
     scene.curbFSH = scene.physics.add.image(1453, 3360, 'curb');
     scene.curbFSV = scene.physics.add.image(770, 3274, 'curb');
-    scene.curbFSV.setAngle(90)
-    scene.curbFSV.setCrop(0, 0, 420, 100)
+    scene.curbFSV.setAngle(90);
+    scene.curbFSV.setCrop(0, 0, 420, 100);
     scene.curbFSV = scene.physics.add.image(1785, 3274, 'curb');
-    scene.curbFSV.setAngle(90)
+    scene.curbFSV.setAngle(90);
     scene.curbFSV.setCrop(0, 0, 420, 100);
     scene.nationalFlag = scene.physics.add.image(1340, 3070, 'flag').setDepth(3);
     scene.hitboxNF = scene.hitboxes.create(1295, 3175, null).setSize(scene.nationalFlag.width / 3 + 15, scene.nationalFlag.height / 8 - 5).setVisible(false);
@@ -205,7 +208,8 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.curbLV = scene.physics.add.image(850, 3360, 'curb');
     scene.curbLV.setCrop(0, 0, 102, 100);
 
-    scene.guard1 = scene.physics.add.staticImage(580, worldHeight - 150, 'guard').setDisplaySize(60, 60).setDepth(1);
+    // Guard NPC
+    scene.guard1 = scene.physics.add.staticImage(750, worldHeight - 450, 'guard').setDisplaySize(60, 60).setDepth(1);
     scene.guard1.body.setOffset(0, 0);
     scene.guard1.refreshBody();
 
@@ -213,62 +217,72 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
         fontSize: "14px",
         fill: "#fff",
         fontStyle: "bold",
-        backgroundColor: "rgba(0,0,0,1)",
-        padding: { x: 4, y: 2 }
+        backgroundColor: "rgba(0,0,0,0.8)",
+        padding: { x: 6, y: 3 }
     }).setOrigin(0.5).setDepth(5);
 
-    function createDialogueSystem(npcX, npcY) {
+    // ==============================
+    // 💬 Modern Dialogue System
+    // ==============================
+    function createDialogueSystem(npcX, npcY, maxHeight = 400) {
         const boxX = npcX - 280;
         const boxY = npcY - 40;
-        const boxWidth = 500;
+        const boxWidth = 560;
         
         const box = scene.add.graphics()
             .setDepth(10)
             .setVisible(false);
 
         const text = scene.add.text(boxX + 20, boxY + 20, "", {
-            fontSize: "14px",
-            fill: "#222222",
-            wordWrap: { width: 460 },
-            lineSpacing: 4
+            fontSize: "15px",
+            fill: "#1a1a1a",
+            wordWrap: { width: 520 },
+            lineSpacing: 6
         }).setDepth(11).setVisible(false);
 
         const choiceTexts = [];
         let typewriterEvent = null;
         let isTyping = false;
+        let currentScrollOffset = 0;
 
-        return { box, text, choiceTexts, typewriterEvent, isTyping, boxX, boxY, boxWidth };
+        return { box, text, choiceTexts, typewriterEvent, isTyping, boxX, boxY, boxWidth, maxHeight, currentScrollOffset };
     }
 
-    const guardDialogue = createDialogueSystem(scene.guard1.x, scene.guard1.y);
+    const guardDialogue = createDialogueSystem(scene.guard1.x, scene.guard1.y, 400);
 
     function showDialogue(d, text, choices = []) {
-        // Clear any existing typewriter event
         if (d.typewriterEvent) {
             d.typewriterEvent.remove();
             d.typewriterEvent = null;
         }
 
-        // Clear old choices
         d.choiceTexts.forEach(c => c.destroy());
         d.choiceTexts.length = 0;
+        d.currentScrollOffset = 0;
 
-        // Estimate initial box height (will be redrawn later with exact size)
-        const estimatedHeight = 150;
+        const estimatedHeight = Math.min(200, d.maxHeight);
         d.box.clear();
-        d.box.fillStyle(0xffffff, 0.95);
-        d.box.fillRoundedRect(d.boxX, d.boxY, d.boxWidth, estimatedHeight, 12);
-        d.box.lineStyle(3, 0x333333, 1);
-        d.box.strokeRoundedRect(d.boxX, d.boxY, d.boxWidth, estimatedHeight, 12);
+        
+        d.box.fillStyle(0xffffff, 1);
+        d.box.fillRoundedRect(d.boxX, d.boxY, d.boxWidth, estimatedHeight, 16);
+        d.box.lineStyle(3, 0x2563eb, 1);
+        d.box.strokeRoundedRect(d.boxX, d.boxY, d.boxWidth, estimatedHeight, 16);
+        d.box.lineStyle(1, 0xe5e7eb, 0.8);
+        d.box.strokeRoundedRect(d.boxX + 2, d.boxY + 2, d.boxWidth - 4, estimatedHeight - 4, 14);
         d.box.setVisible(true);
 
-        d.text.setVisible(true).setText("");
+        d.text.setVisible(true).setText("").setStyle({
+            fontSize: "15px",
+            fill: "#1a1a1a",
+            wordWrap: { width: 520 },
+            lineSpacing: 6,
+            fontFamily: "Arial, sans-serif"
+        });
         d.isTyping = true;
 
-        // Typewriter effect
         let charIndex = 0;
         d.typewriterEvent = scene.time.addEvent({
-            delay: 30,
+            delay: 20,
             callback: () => {
                 if (charIndex < text.length) {
                     d.text.setText(text.substring(0, charIndex + 1));
@@ -278,34 +292,72 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
                     d.typewriterEvent.remove();
                     d.typewriterEvent = null;
                     
-                    // Calculate total height needed
                     const textBounds = d.text.getBounds();
-                    const choiceStartY = textBounds.bottom + 10;
-                    const totalChoicesHeight = choices.length * 20;
-                    const boxHeight = (textBounds.bottom - d.boxY) + totalChoicesHeight + 30;
+                    const choiceStartY = textBounds.bottom + 15;
+                    const choiceHeight = 32;
+                    const choiceSpacing = 8;
+                    const totalChoicesHeight = choices.length > 0 ? (choices.length * choiceHeight) + ((choices.length - 1) * choiceSpacing) : 0;
+                    let boxHeight = (textBounds.bottom - d.boxY) + totalChoicesHeight + 40;
                     
-                    // Redraw box with proper height
+                    const needsScroll = boxHeight > d.maxHeight;
+                    if (needsScroll) {
+                        boxHeight = d.maxHeight;
+                    }
+                    
                     d.box.clear();
-                    d.box.fillStyle(0xffffff, 0.95);
-                    d.box.fillRoundedRect(d.boxX, d.boxY, d.boxWidth, boxHeight, 12);
-                    d.box.lineStyle(3, 0x333333, 1);
-                    d.box.strokeRoundedRect(d.boxX, d.boxY, d.boxWidth, boxHeight, 12);
+                    d.box.fillStyle(0xffffff, 1);
+                    d.box.fillRoundedRect(d.boxX, d.boxY, d.boxWidth, boxHeight, 16);
+                    d.box.lineStyle(3, 0x2563eb, 1);
+                    d.box.strokeRoundedRect(d.boxX, d.boxY, d.boxWidth, boxHeight, 16);
+                    d.box.lineStyle(1, 0xe5e7eb, 0.8);
+                    d.box.strokeRoundedRect(d.boxX + 2, d.boxY + 2, d.boxWidth - 4, boxHeight - 4, 14);
                     d.box.setVisible(true);
                     
-                    // Show choices after typing is complete
-                    choices.forEach((choice, i) => {
-                        const choiceText = scene.add.text(d.boxX + 20, choiceStartY + i * 20, choice.label, {
-                            fontSize: "13px",
-                            fill: "#0066cc",
+                    if (needsScroll) {
+                        const scrollText = scene.add.text(d.boxX + d.boxWidth - 30, d.boxY + boxHeight - 25, "⬇", {
+                            fontSize: "18px",
+                            fill: "#2563eb",
                             fontStyle: "bold"
+                        }).setDepth(11).setVisible(true);
+                        d.choiceTexts.push(scrollText);
+                    }
+                    
+                    choices.forEach((choice, i) => {
+                        const yPos = choiceStartY + i * (choiceHeight + choiceSpacing);
+                        
+                        const choiceBg = scene.add.graphics().setDepth(10);
+                        choiceBg.fillStyle(0xeff6ff, 1);
+                        choiceBg.fillRoundedRect(d.boxX + 15, yPos - 5, d.boxWidth - 30, choiceHeight, 8);
+                        choiceBg.lineStyle(2, 0x93c5fd, 1);
+                        choiceBg.strokeRoundedRect(d.boxX + 15, yPos - 5, d.boxWidth - 30, choiceHeight, 8);
+                        choiceBg.setVisible(true);
+                        d.choiceTexts.push(choiceBg);
+                        
+                        const choiceText = scene.add.text(d.boxX + 25, yPos + 3, choice.label, {
+                            fontSize: "14px",
+                            fill: "#1e40af",
+                            fontStyle: "bold",
+                            fontFamily: "Arial, sans-serif"
                         }).setInteractive().setDepth(11).setVisible(true);
                         
                         choiceText.on("pointerover", () => {
-                            choiceText.setStyle({ fill: "#0099ff" });
+                            choiceText.setStyle({ fill: "#2563eb" });
+                            choiceBg.clear();
+                            choiceBg.fillStyle(0xdbeafe, 1);
+                            choiceBg.fillRoundedRect(d.boxX + 15, yPos - 5, d.boxWidth - 30, choiceHeight, 8);
+                            choiceBg.lineStyle(2, 0x3b82f6, 1);
+                            choiceBg.strokeRoundedRect(d.boxX + 15, yPos - 5, d.boxWidth - 30, choiceHeight, 8);
                         });
+                        
                         choiceText.on("pointerout", () => {
-                            choiceText.setStyle({ fill: "#0066cc" });
+                            choiceText.setStyle({ fill: "#1e40af" });
+                            choiceBg.clear();
+                            choiceBg.fillStyle(0xeff6ff, 1);
+                            choiceBg.fillRoundedRect(d.boxX + 15, yPos - 5, d.boxWidth - 30, choiceHeight, 8);
+                            choiceBg.lineStyle(2, 0x93c5fd, 1);
+                            choiceBg.strokeRoundedRect(d.boxX + 15, yPos - 5, d.boxWidth - 30, choiceHeight, 8);
                         });
+                        
                         choiceText.on("pointerdown", () => choice.action());
                         d.choiceTexts.push(choiceText);
                     });
@@ -325,39 +377,39 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
         d.choiceTexts.forEach(c => c.destroy());
         d.choiceTexts.length = 0;
         d.isTyping = false;
+        d.currentScrollOffset = 0;
     }
     
+    // ==============================
+    // 💬 Guard Dialogue Tree
+    // ==============================
     function startGuard() {
         showDialogue(guardDialogue, "Good day! How can I help you?", [
-            { label: "Where can I find the Head of BSIT?", action: () => guardAnswer("She is located in the Comlab 1 on the second floor of the MRM Building.") },
-            { label: "Where can I find the Head of BEED?", action: () => guardAnswer("He is located in the Faculty Office on the first floor of the MRM Building.") },
-            { label: "Where can I find the Head of BSTM?", action: () => guardAnswer("She is located in the Faculty Office on the first floor of the MRM Building.") },
-            { label: "Where can I find the Head of BS MKTG?", action: () => guardAnswer("She is located in the Faculty Office on the first floor of the MRM Building.") },
-            { label: "Where can I find the Head of BS ENTREP?", action: () => guardAnswer("He is located in the Faculty Office on the first floor of the MRM Building.") },
-            { label: "Where can I find the Head of BS PSYCH?", action: () => guardAnswer("She is located in the Faculty Office on the first floor of the MRM Building.") },
-            { label: "Where can I find the Head of BSCE?", action: () => guardAnswer("He is located in the Faculty Office on the first floor of the MRM Building.") },
-            { label: "Where can I find the Admin Office?", action: () => guardAnswer("Located on the first floor.") },
-            { label: "Where can I find the HR Office?", action: () => guardAnswer("Located on the first floor.") },
-            { label: "Where can I find the Library?", action: () => guardAnswer("Located on the first floor.") },
-            { label: "Where can I find the Storage Room?", action: () => guardAnswer("Located on the first floor.") },
-            { label: "Where can I find the Guidance Office?", action: () => guardAnswer("Located on the first floor of the MRM Building.") },
-            { label: "Where can I find the Clinic?", action: () => guardAnswer("Located on the first floor of the MRM Building.") },
-            { label: "Where can I find Comlab 1?", action: () => guardAnswer("Located on the second floor of the MRM Building.") },
-            { label: "Where can I find Comlab 2?", action: () => guardAnswer("Located on the second floor of the ARM Building.") },
-            { label: "Where can I find the Admin Building?", action: () => guardAnswer("Located in the first building.") },
-            { label: "Where can I find the MRM Building?", action: () => guardAnswer("Located in the second building after the Admin Building.") },
-            { label: "Where can I find the ARM Building?", action: () => guardAnswer("Located in the third building after the MRM Building.") },
-            { label: "Reset", action: startGuard }
+            { label: "🏢 Head of BSIT", action: () => guardAnswer("The Head of BSIT is located in Comlab 1 on the second floor of the MRM Building.") },
+            { label: "📚 Head of BEED", action: () => guardAnswer("The Head of BEED is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "✈️ Head of BSTM", action: () => guardAnswer("The Head of BSTM is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "📊 Head of BS MKTG", action: () => guardAnswer("The Head of BS MKTG is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "💼 Head of BS ENTREP", action: () => guardAnswer("The Head of BS ENTREP is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "🧠 Head of BS PSYCH", action: () => guardAnswer("The Head of BS PSYCH is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "🏗️ Head of BSCE", action: () => guardAnswer("The Head of BSCE is located in the Faculty Office on the first floor of the MRM Building.") },
+            { label: "🏛️ Admin Office", action: () => guardAnswer("The Admin Office is located on the first floor of the Admin Building.") },
+            { label: "👥 HR Office", action: () => guardAnswer("The HR Office is located on the first floor of the Admin Building.") },
+            { label: "📖 Library", action: () => guardAnswer("The Library is located on the first floor of the Admin Building.") },
+            { label: "📦 Storage Room", action: () => guardAnswer("The Storage Room is located on the first floor of the Admin Building.") },
+            { label: "🧭 Guidance Office", action: () => guardAnswer("The Guidance Office is located on the first floor of the MRM Building.") },
+            { label: "🏥 Clinic", action: () => guardAnswer("The Clinic is located on the first floor of the MRM Building.") },
+            { label: "💻 Comlab 1", action: () => guardAnswer("Comlab 1 is located on the second floor of the MRM Building.") },
+            { label: "🖥️ Comlab 2", action: () => guardAnswer("Comlab 2 is located on the second floor of the ARM Building.") },
+            { label: "🔄 Reset", action: startGuard }
         ]);
     }
 
     function guardAnswer(answerText) {
         showDialogue(guardDialogue, answerText, [
-            { label: "THANK YOU.", action: () => hideDialogue(guardDialogue) },
-            { label: "DO YOU HAVE ANOTHER QUESTION?", action: startGuard }
+            { label: "✅ THANK YOU.", action: () => hideDialogue(guardDialogue) },
+            { label: "❓ ANOTHER QUESTION?", action: startGuard }
         ]);
     }
-
 
     // Shed
     scene.road = scene.add.tileSprite(510, 900, 80, 2450, 'road').setOrigin(0, 0);
@@ -367,11 +419,9 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.shed.body.setOffset(scene.shed.width, scene.shed.height - 1190);
 
     // Player and colliders
-    // scene.player = scene.physics.add.image(playerPositionX, playerPositionY, 'avatar').setOrigin(0, 0).setDisplaySize(60, 60).setDepth(1);
     scene.player = scene.physics.add.sprite(playerPositionX, playerPositionY, 'avatar-sheet', 0).setOrigin(0, 0).setDisplaySize(60, 60).setDepth(1);
     scene.player.body.setSize(14, 14);
     scene.player.body.setOffset(23, 46);
-    scene.player.body.allowGravity = false;
     scene.player.body.allowGravity = false;
     scene.physics.add.collider(scene.player, scene.shed);
     scene.physics.add.collider(scene.player, scene.admin);
@@ -391,6 +441,7 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     scene.cameras.main.setBounds(0, 0, worldWidth, worldHeight);
     scene.physics.world.setBounds(0, 0, worldWidth, worldHeight);
 
+    // Guard proximity detection
     scene.events.on('update', () => {
         const distGuard = Phaser.Math.Distance.Between(scene.player.x, scene.player.y, scene.guard1.x, scene.guard1.y);
         if (distGuard < 120) {
@@ -400,7 +451,6 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
         }
     });
 
-    
     // Keyboard movements
     scene.cursor = scene.input.keyboard.createCursorKeys();
     scene.keys = scene.input.keyboard.addKeys({
@@ -411,10 +461,10 @@ export function createOutside(scene, worldWidth, worldHeight, playerPositionX, p
     });
     scene.player.setCollideWorldBounds(true);
 
-    // Zoom-in zoom-out functionality
+    // Zoom functionality
     scene.input.on('wheel', (pointer, GameObjects, deltaX, deltaY) => {
         let cam = scene.cameras.main;
-        let zoomChange = deltaY > 0 ? - 0.05 : 0.05;
+        let zoomChange = deltaY > 0 ? -0.05 : 0.05;
         let newZoom = Phaser.Math.Clamp(cam.zoom + zoomChange, 1, 2);
         cam.zoomTo(newZoom, 10);
     });

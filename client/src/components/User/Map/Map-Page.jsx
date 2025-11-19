@@ -111,6 +111,7 @@ function MapPage() {
                 ['bsit','/map-assets/it-head.png'],
                 ['gps','/map-assets/gps.png'],
                 ['compassBg','/map-assets/compassBG.png'],
+                ['registrar','/map-assets/registrar.png'],
             ];
 
             assets.forEach(([key, url]) => this.load.image(key, url));
